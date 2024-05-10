@@ -32,6 +32,10 @@ We welcome comments (positive or negative!), as well as suggestions or correctio
 
 The source code of the book (and the book itself) is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International License** (CC BY-SA 4.0). Briefly, you are allowed to share and adapt the source code of this book, provided you give appropriate credit and indicate any changes; moreover, material derived from this book must carry the same license (or one compatible with it). See [here](https://creativecommons.org/licenses/by-sa/4.0/) for more on this license.
 
+## Compiling
+
+We provide a Makefile to compile the book. We use `LuaTeX` with `biber` as the bibliography backend.
+
 ## Citation
 
 You can cite this book using the following template:
