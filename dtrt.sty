@@ -1,0 +1,670 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% NOTE: Preparing a camera-ready version? Passing the [camera] option to this package
+% will turn off the effects you're worried about (see below).
+%
+% This package will Do The Right Thing:
+%
+% Author and margin notes:
+% + Define a \dtnote[author]{text} command for nicely formatted author notes
+%   with margin marks (author name is optional), and similarly 
+%   \dtcolornote[author]{color}{text}.
+% + Define a \later macro that, when preceding a \dtnote, marks it as a "note for later".
+%   These can be turned off by option "[later=false]".
+% + Define a \done macro that, when preceding a \dtnote, marks it as a "note for done"
+%   These can be turned off by option "[done=false]".
+% + Define \XXX[text], which is similar to \dtnote{text} but aborts compilation
+%   if notes are disabled.
+% + Define \ignore[comment]{text} which ignores the text but (in draft mode) adds
+%   a mark and an optional comment in the margin.
+% + Defines a \sidenote{text} command which creates a margin note that work
+%   reasonably even inside footnotes, tabulars, titles and (sometimes) math,
+%   and can be disabled using "sidenotes=false".
+%
+% Page formatting:
+% - Designate drafts as such, including time of compilation ("[draft]" option).
+% + Enables page numbering on all pages except first.
+% - Add a head at the top of every page with either the current chapter and section
+%   or current the section and subsection ("[head=...]" option).
+% - Set page geometry as fraction of page width and height, in a 
+%   package-independent way ("[width=...]" and "[height=...]" options).
+%
+% Local formatting:
+% + Define a \parhead{text} command for paragraph-level headings (well-formatted
+%   bold text at beginning of paragraph) that always work. Periods are appended
+%   unless the header text already ends with a punctuation mark.
+% + Define a "\footnotesymb{symbol}{text}" command for footnote with explicitly
+%   given symbol (possibly empty).
+% + Define a "\nestedbar" environment for indenting text and marking it with a vertical
+%   bar on the left.
+% - Remove space after comma when used as decimal separator in math mode (option "[smartcomma]").
+% - Add a horizontal line above figure captions (option "[captionrule]").
+%
+% Hyperlinks, references and TOC:
+% + Define an "\emailref{user@host}" command for creating hyperlinked email addresses,
+%   and "\httpref{user@host}" command for creating hyperlinked URLs without rendering
+%   the "mailto://" or "http://".
+% + Generate TOC entries and PDF bookmarks for "\section*", "\subsection*" etc.
+%   (including References), and also for the abstract.
+% + Apply nice formatting to PDF bookmarks.
+% + Allow footnotes in section titles without strange effects in TOC.
+% + Define a "\dtbookmark{level}{text}" command for creating custom PDF bookmarks.
+% + Automatic margin marks and highlights for broken references
+% + Patch HyperRef's \autoref so that if \sectionautorefname etc. are redefined to
+%   a section mark ("\S") then they won't be followed by a space.
+%
+% Misc:
+% + Patch LLNCS: fix TOC, PDF bookmarks, and the ", and" in the author list.
+% - For LLNCS: add a \date{} feature to title block, similar to the article class.
+% - For LLNCS: add a QED square at the end of llncs proof environments
+% - For LLNCS: put subsubsection captions on dedicated lines, and number them
+% - When asked to generate a standard-compliant submission, disable all relevant
+%   effects ("[camera]" option).
+%
+% (Above, featured marked by "+" are enabled by default, "-" require explicit activation.)
+%
+% Package options (use as follows: " \usepackage[foo,bar=baz]{dtrt} "):
+%   camera            -- Disable most effects of this package (for camera-ready
+%                        versions). Formatting tweaks and LLNCS overrides are disabled,
+%                        and explicitly-invoked macros are still defined but have the least
+%                        possible effect (e.g., \parhead works, \dtnote is ignored).
+%   draft             -- Write "DRAFT" and time of compilation at page bottoms.
+%   notes=false       -- Disable display of \dtnote{...} author notes, \XXX and \ignore marks.
+%   notes=xxx         -- Disable display of \dtnote{...} author notes and \ignore marks. Keep \XXX.
+%   later=false       -- Disable display of \later\dtnote{...} notes (but still leave a 
+%                        mark in the margin, unless also notes=false).
+%   done=false        -- Disable display of \done\dtnote{...} notes (but still leave a mark, ditto)
+%   showignore=false  -- Don't show \ignore marks even if notes=true
+%   sidenotes=false   -- Discard all \sidenote{}s.
+%
+%   geometry          -- Alter page geometry.
+%   width=0.75        -- Specify width of text relative to physical page.
+%   height=0.70       -- Specify height of text relative to physical page.
+%   blankpages=true   -- Add blank even or odd pages to align Sections, Parts etc.
+%   blankpages=false  -- Don't use color in \dtnote, \XXX and draft marks.
+%   bindshift=1cm     -- Prepare for two-sided printing and shift pages away from
+%                        spine by the given distance.
+%   head=...          -- Add a head at the top of every page, containing either the
+%                        current chapter and section ("head=chaptersection") or the
+%                        current section and subsection ("head=sectionsubsection").
+%   llncsdate         -- add a \date{} feature to title block for the LLNCS class,
+%                        similar to that of the 'article' class.
+%   llncsqed          -- add a QED square at the end of LLNCS proof environments.
+%   llncssubsub       -- make LLNCS subsubsection caption be be numbered and followed by a linebreak
+%   smartcomma        -- Remove spaces after commas used as decimal separators.
+%   captionrule       -- Add a horizontal line ("rule") above figure's caption
+%
+% Written by Eran Tromer <eran@tromer.org> except where noted otherwise.
+% Distributed under the LaTeX Project Public License v1.3a or later; see 
+% http://www.latex-project.org/lppl.txt for details and (lack of) warranty.
+% NOTE: If you make corrections or improvements, please share them with the author.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{dtrt}[2015/04/30 v0.95004]
+\usepackage{amssymb}
+\usepackage{keyval}
+\usepackage{ifpdf}
+\usepackage{url}
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\usepackage{xpatch}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package options (documented above):
+
+\newcommand{\dt@width}{0.7}
+\newcommand{\dt@height}{0.75}
+\newcommand{\dt@paper}{letterpaper}  % must be a name supported by the 'geometry' package
+\newcommand{\dt@head}{} % must be one of '', 'chaptersection' or 'sectionsubsection'
+\newcommand{\dt@firstpagestyle}{empty} % must be a valid page style such as 'empty' or 'plain'
+\@ifundefined{dt@linkcolor}{
+  \definecolor{dt@linkcolor}{rgb}{0.8 0.8 1}
+}{}
+\newif\ifdt@camera \dt@camerafalse
+\newif\ifdt@smartcomma \dt@smartcommafalse
+\newif\ifdt@notes \dt@notestrue
+\newif\ifdt@later \dt@latertrue
+\newif\ifdt@done \dt@donetrue
+\newif\ifdt@showignore \dt@showignoretrue
+\newif\ifdt@sidenotes \dt@sidenotestrue
+\newif\ifdt@draft\dt@draftfalse
+\newif\ifdt@geometry\dt@geometryfalse
+\newif\ifdt@blankpages \dt@blankpagesfalse
+\newif\ifdt@colornotes \dt@colornotestrue
+\newif\ifdt@llncsdate \dt@llncsdatefalse
+\newif\ifdt@llncsqed \dt@llncsqedfalse
+\newif\ifdt@llncssubsub \dt@llncssubsubfalse
+\newif\ifdt@llncs \@ifclassloaded{llncs}{\dt@llncstrue}{\dt@llncsfalse}
+\newif\ifdt@marginpars \dt@marginparstrue
+\newif\ifdt@captionrule \dt@captionrulefalse
+\newif\ifdt@xxxanyway \dt@xxxanywayfalse   % show \XXX even if notes=false
+\newcommand{\dt@notesxxx}{\dt@notesfalse\dt@xxxanywaytrue}
+\newcommand{\dt@notesXXX}{\dt@notesfalse\dt@xxxanywaytrue}
+
+% Some classes don't work well with marginpar
+\@ifclassloaded{sig-alternate}{\dt@marginparsfalse}{}
+\@ifclassloaded{(acm_proc_article-sp}{\dt@marginparsfalse}{}
+
+\define@key{dt@KV}{smartcomma}[true]{\csname dt@smartcomma#1\endcsname}
+\define@key{dt@KV}{notes}[true]{\csname dt@notes#1\endcsname}
+\define@key{dt@KV}{later}[true]{\csname dt@later#1\endcsname}
+\define@key{dt@KV}{done}[true]{\csname dt@done#1\endcsname}
+\define@key{dt@KV}{geometry}[true]{\csname dt@geometry#1\endcsname}
+\define@key{dt@KV}{draft}[true]{\csname dt@draft#1\endcsname}
+\define@key{dt@KV}{showignore}[true]{\csname dt@showignore#1\endcsname}
+\define@key{dt@KV}{sidenotes}[true]{\csname dt@sidenotes#1\endcsname}
+\define@key{dt@KV}{width}{\def\dt@width{#1}\dt@geometrytrue}
+\define@key{dt@KV}{height}{\def\dt@height{#1}\dt@geometrytrue}
+% \define@key{dt@KV}{linkcolor}{\def\dt@linkcolor{#1}} 
+%   Broken -- can't pass {r g b} via keyval.
+%   Use \newcommand{\dt@linkcolor}{{0.6 0.6 1.0}} before \usepackage{dtrt} instead.
+\define@key{dt@KV}{bindshift}{\def\dt@bindshift{#1}}
+\define@key{dt@KV}{blankpages}[true]{\csname dt@blankpages#1\endcsname}
+\define@key{dt@KV}{firstpagestyle}{\renewcommand{\dt@firstpagestyle}{#1}}
+\define@key{dt@KV}{colornotes}[true]{\csname dt@colornotes#1\endcsname}
+\define@key{dt@KV}{marginpar}[true]{\csname dt@marginpars#1\endcsname}
+\define@key{dt@KV}{llncsdate}[true]{\csname dt@llncsdate#1\endcsname}
+\define@key{dt@KV}{llncsqed}[true]{\csname dt@llncsqed#1\endcsname}
+\define@key{dt@KV}{llncssubsub}[true]{\csname dt@llncssubsub#1\endcsname}
+\define@key{dt@KV}{captionrule}[true]{\csname dt@captionrule#1\endcsname}
+\define@key{dt@KV}{head}{\renewcommand{\dt@head}{#1}}
+\define@key{dt@KV}{camera}[true]{\csname dt@camera#1\endcsname 
+                                 \ifdt@camera
+                                    \dt@notesfalse
+                                    \dt@draftfalse
+                                    \dt@geometryfalse
+                                 \fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Process package options (code copied from Walter Schmidt's "helvet.sty",
+% http://www.tug.org/tex-archive/help/Catalogue/entries/psnfss.html).
+
+\def\ProcessOptionsWithKV#1{%
+  \let\@tempc\relax
+  \let\dt@tempa\@empty
+  \@for\CurrentOption:=\@classoptionslist\do{%
+    \@ifundefined{KV@#1@\CurrentOption}%
+    {}%
+    {\edef\dt@tempa{\dt@tempa,\CurrentOption,}}%
+  }%
+  \edef\dt@tempa{%
+    \noexpand\setkeys{#1}{%
+      \dt@tempa\@ptionlist{\@currname.\@currext}%
+    }%
+  }%
+  \dt@tempa
+}
+\ProcessOptionsWithKV{dt@KV}
+\AtEndOfPackage{\let\@unprocessedoptions\relax}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Functionality that's available only if camera=false:
+
+\ifdt@camera
+  % Got "camera" option, so just define some empty macros and do sanity checks
+
+  \newcommand{\dtbookmark}[2]{}
+
+\else%dt@camera
+  % Not camera-ready, tweak stuff freely:
+
+  % Configure PDF bookmarks and links:
+  \ifpdf
+    % Configure PDF with colored links and nice bookmarks:
+    % Color the letters (but also in printout):
+    %  \usepackage{color}
+    %  \definecolor{LinkBlue}{rgb}{0,0,0.8}
+    %  \usepackage[pdfpagemode=UseOutlines,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,pdfstartview=FitH,colorlinks,linkcolor=LinkBlue,citecolor=LinkBlue,urlcolor=LinkBlue,pagecolor=LinkBlue]{hyperref}
+    % Color the border (doesn't show in printout):
+    % Marks broken citations
+    \newcommand{\dt@brokenrefmark}[1]{%
+      % \smash{\rlap{\dt@colorize\LARGE$\bigcirc$}}%    % hard to place this right, since \G@refundefinedtrue is invoked after the "?"
+      \marginnote[\dt@colorize\normalfont\smash{\large$\not\curvearrowleft $}\newline\baselineskip=0.5\baselineskip{\tiny{#1}}]
+                 {\dt@colorize\normalfont\smash{\large$\not\curvearrowright$}\newline\baselineskip=0.5\baselineskip{\tiny{#1}}}%
+        % force a \marginnote, even though \sidenote renders nicer, because many broken citations with \sidenote can cause `"Too many unprocessed floats" errors.
+    }
+
+    \newbool{dt@markundef} \booltrue{dt@markundef}
+    \xpretocmd{\G@refundefinedtrue}{\ifbool{dt@markundef}{\dt@brokenrefmark{\@ifundefined{@citeb}{}{\@citeb}}}{}}{}{}
+
+    \let\dt@old@setref=\@setref
+    \renewcommand{\@setref}[3]{%
+      \ifx#1\relax \dt@brokenrefmark{#3}\fi%
+      \dt@markundeffalse%
+      \dt@old@setref{#1}{#2}{#3}%
+      \dt@markundeftrue%
+    }
+
+    %Rewrote above but maybe broken because parameters:
+    %\xpretocmd{\@setref}{\ifx#1\relax \dt@brokenrefmark{#3}\fi   \boolfalse{dt@markundef}}
+    %\xapptocmd{\@setref}{\booltrue{dt@markundef}}
+
+    % \let\dt@old@pagesetref=\@pagesetref
+    % \renewcommand{\@pagesetref}[3]{%  \ifx#1\relax%
+    %     \sidenote{\dt@colorize\centering\reset@font\LARGE$\not\curvearrowright$}%
+    %   \fi\dt@old@pagesetref{#1}{#2}{#3}}
+
+  \else%pdf
+    %\usepackage[hyperindex=true]{hyperref}
+    \usepackage{hyperref}
+    \hypersetup{hyperindex=false}
+  \fi%pdf
+
+  % Some LLNCS-specific fixes:
+  \ifdt@llncs
+    % Fix the spurious comma in the default authors list: "Joe, John, and Jill".
+    % (Overrides LLNCS's \lastandauthor at the last moment since babel may restore it.)
+    \let\dt@oldauthor=\author
+    \renewcommand{\author}{%
+      \def\lastandname{ and}%
+      \dt@oldauthor%
+    }
+    % Avoid llncs's author and title bookmarks:
+    \let\dt@@oldaddcontentsline=\addcontentsline
+    \renewcommand{\addcontentsline}[3]{% {table}{type}{text}
+      \ifthenelse{\equal{#2}{title}}{}{% don't use \or, it's buggy
+        \ifthenelse{\equal{#2}{author}}{}{%
+          \dt@@oldaddcontentsline{#1}{#2}{#3}%
+        }%
+      }%
+    }
+  \fi%dt@llncs
+
+\fi%dt@camera
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \sidenote{text}: a margin note that works even in footnotes, tabulars, etc.
+% We use \marginpar by default, since it provides better layout. But in many
+% contexts (foonotes, tabulars, floats, etc.) we have to use the \marginnote instead.
+%
+% Like \marginnote and \marginpar, you can optionally specify text to use if the note
+% ends up on the left margin:
+% \sidenote[left-text]{right-text}
+
+\ifdt@sidenotes
+  \usepackage[quiet]{marginnote}
+  \usepackage{morefloats} % our side notes are floats that eat up some of TeX's capacity
+
+  % The following handles various environments that don't support marginpar.
+  % We keep a flag for each of them, and whenever any of the flags 
+  % is set, \sidenote uses \marginnote instead of \marginpar.
+  
+  % Are we in a footnote?
+  \newbool{dt@infootnote}\boolfalse{dt@infootnote}
+  \let\dt@old@footnote=\footnote
+  \renewcommand{\footnote}[1]{{\booltrue{dt@infootnote}\dt@old@footnote{#1}\boolfalse{dt@infootnote}}}
+
+  % Are we in a tabular?
+  \newbool{dt@intabular}\boolfalse{dt@intabular}
+  \BeforeBeginEnvironment{tabular}{\booltrue{dt@intabular}}
+  \AfterEndEnvironment{tabular}{\boolfalse{dt@intabular}}
+
+  % Are we in a minipage?
+  \newbool{dt@inminipage}\boolfalse{dt@inminipage}
+  \BeforeBeginEnvironment{minipage}{\booltrue{dt@inminipage}}
+  \AfterEndEnvironment{minipage}{\boolfalse{dt@inminipage}}
+
+  % Are we in a @float or @dblfloat environment? (This usually includes figure and table environments, but we keep them explicitly below, in case they're redefined to not use @float/@dblfloat)
+  \newbool{dt@in@float}\boolfalse{dt@in@float}
+  %\BeforeBeginEnvironment{@float}{\booltrue{dt@in@float}}
+  %\BeforeBeginEnvironment{@xfloat}{\booltrue{dt@in@float}}
+  %\AfterEndEnvironment{@float}{\boolfalse{dt@in@float}}
+  \xpretocmd{\@xfloat}{\booltrue{dt@in@float}}{}{}
+  \xapptocmd{\end@float}{\boolfalse{dt@in@float}}{}{}
+
+  \newbool{dt@in@dblfloat}\boolfalse{dt@in@dblfloat}
+  %\BeforeBeginEnvironment{@dblfloat}{\booltrue{dt@in@dblfloat}}
+  %\AfterEndEnvironment{@dblfloat}{\boolfalse{dt@in@dblfloat}}
+
+  % Are we in a figure or figure*?
+  \newbool{dt@infigure}\boolfalse{dt@infigure}
+  %\BeforeBeginEnvironment{figure}{\booltrue{dt@infigure}}
+  %\AfterEndEnvironment{figure}{\boolfalse{dt@infigure}}
+  %\BeforeBeginEnvironment{figure*}{\booltrue{dt@infigure}}
+  %\AfterEndEnvironment{figure*}{\boolfalse{dt@infigure}}
+
+
+  % Are we in a table?
+  \newbool{dt@intable}\boolfalse{dt@intable}
+  %\BeforeBeginEnvironment{table}{\booltrue{dt@intable}}
+  %\AfterEndEnvironment{table}{\boolfalse{dt@intable}}
+
+  % Are we in a \maketitle{}?
+  \newbool{dt@inmaketitle}\boolfalse{dt@inmaketitle}
+  \xpretocmd{\maketitle}{\booltrue{dt@inmaketitle}}{}{}
+  \xapptocmd{\maketitle}{\boolfalse{dt@inmaketitle}}{}{}
+
+  % Are we in a top float or a bottom float? (Based on code from fancyhdr)
+  \let\dt@old@makecol\@makecol
+  \def\@makecol{\let\dt@topfloat\@toplist\let\dt@botfloat\@botlist\dt@old@makecol}
+  \def\ifdt@intopfloat#1#2{\ifx\dt@topfloat\empty #2\else #1\fi}
+  \def\ifdt@inbotfloat#1#2{\ifx\dt@botfloat\empty #2\else #1\fi}
+  
+  % Are we in a 'framed' environment of the 'framed' package?
+  \newbool{dt@inframed}\boolfalse{dt@inframed}
+  \AtBeginDocument{%
+    \xpretocmd{\MakeFramed}{\booltrue{dt@inframed}}{}{}%
+    \xapptocmd{\endMakeFramed}{\boolfalse{dt@inframed}}{}{}%
+  }
+
+  \newcommand{\sidenote}{%
+    % Convert top/bottom float detection to regular "if" so it will work reliably in the following.
+    \newif\ifdt@xinbotfloat \ifdt@inbotfloat\dt@xinbotfloatfalse\dt@xinbotfloattrue%
+    \newif\ifdt@xintopfloat \ifdt@intopfloat\dt@xintopfloatfalse\dt@xintopfloattrue%
+    %
+    % Create either a \marginpar if it will work, otherwise a \marginnote
+    \ifthenelse{\boolean{mmode} \OR \boolean{inner} \OR \boolean{dt@infootnote} \OR \boolean{dt@intabular} \OR \boolean{dt@in@float} \OR \boolean{dt@in@dblfloat} \OR \boolean{dt@infigure} \OR \boolean{dt@intable} \OR \boolean{dt@inmaketitle} \OR \boolean{dt@inminipage} \OR \boolean{dt@xintopfloat} \OR \boolean{dt@xinbotfloat} \OR \boolean{dt@inframed} \OR \not{\boolean{dt@marginpars}}}%
+      {\marginnote}% \marginnote will then consume the [left-text]{right-text} arguments that follow \sidenote
+      {\marginpar}%  \marginpar  will then consume the [left-text]{right-text} arguments that follow \sidenote
+  }
+\else%dt@sidenotes
+  \newcommand{\sidenote}[2][]{}
+\fi%dt@sidenotes
+
+% Define the \dt@colorize command:
+% \dt@colorize{text} colors in dt@color (only if dt@colornotes is true)
+% \dt@colorize[magenta]{text} colors in magenta (only if dt@colornotes is true)
+\ifdt@colornotes
+  \usepackage{xcolor}
+  \definecolor{dt@notecolor}{rgb}{0.7,0,0}
+  \newcommand{\dt@colorize}[1][dt@notecolor]{\color{#1}}
+\else
+  \newcommand{\dt@colorize}[1][]{}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define:
+% \dtnote[author][color]{text} command for nicely formatted author notes (can be disabled by notes=false)..
+% \dtcolornote[author]{color}{text} is similar but also lets you set the color.
+% Also define \XXX[text], which yields an error if notes are disabled.
+
+\usepackage{amssymb}
+\usepackage{pifont}  % for \ding{51}
+\usepackage{relsize}
+\newcommand{\dt@rendernote}[2]{% \dt@rendernote{color}{text} -- render inline note in designated style
+  { \dt@colorize[#1]\smaller\sffamily\bfseries\boldmath[#2] }%
+}
+
+\ifdt@notes
+  \newbool{dt@nextnoteislater} % Is the next \dtcolornote preceded by a \later?
+  \boolfalse{dt@nextnoteislater}
+  \newcommand{\later}{\booltrue{dt@nextnoteislater}\ignorespaces}
+
+  \newbool{dt@nextnoteisdone} % Is the next \dtcolornote preceded by a \done?
+  \boolfalse{dt@nextnoteisdone}
+  \newcommand{\done}{\booltrue{dt@nextnoteisdone}\ignorespaces}
+
+  \newbool{dt@inlinenote}
+  \newcommand{\dtcolornote}[3][]{% \dtcolornote[authorname]{color}{text} -- add an inline note with mark at margin
+%   \noindent%
+    \ifthenelse{ \( \boolean{dt@later} \OR \NOT \boolean{dt@nextnoteislater} \) \AND \( \boolean{dt@done} \OR \NOT \boolean{dt@nextnoteisdone} \) }{\booltrue{dt@inlinenote}}{\boolfalse{dt@inlinenote}}%
+    \ifbool{dt@inlinenote}{ \mbox{} }{}%
+    \sidenote{\dt@colorize[#2]\centering\normalfont\footnotesize%
+      \ifthenelse{\boolean{dt@nextnoteislater}}{$\diamondsuit$}{%  diamondsuit in margin for later
+      \ifthenelse{\boolean{dt@nextnoteisdone}} {\ding{51}}{%       vee checkmark for done 
+                                               $\bigstar$}}}%      star for regular notes
+    \ifbool{dt@inlinenote}{%
+      \ifmmode\expandafter\mbox\fi{%
+        \ifthenelse{\equal{#1}{}}{%
+          \dt@rendernote{#2}{\ignorespaces #3}% anonymous author comment
+        }{%
+          \dt@rendernote{#2}{\ignorespaces #3{\mdseries\itshape~---\ignorespaces#1}}% named author comment
+        }%
+      }%
+    }{}%
+    \boolfalse{dt@nextnoteislater}%
+    \boolfalse{dt@nextnoteisdone}%
+    \ifbool{dt@inlinenote}{}{\ignorespaces}%
+  }
+
+  \newcommand{\dtnote}[2][]{%  \dtnote[authorname]{text}   (color is fixed)
+    \dtcolornote[#1]{dt@notecolor}{#2}%
+  }
+\else
+  % Define empty versions of note commands.
+  % We use \ignorespaces to avoid extended spaces in "before \dtcolornote{red}{note} after" rendered as "before  after"
+  \newcommand{\dtcolornote}[3][]{\ignorespaces}
+  \newcommand{\dtnote}[2][]{\ignorespaces}
+  \newcommand{\later}{\ignorespaces}
+  \newcommand{\done}{\ignorespaces}
+\fi%dt@notes
+
+\ifthenelse{\boolean{dt@notes} \OR \boolean{dt@xxxanyway}}{
+  \newcommand{\XXX}[1][XXX]{% \XXX or \XXX[text] -- a note that cannot be ignored by setting notes=false
+    \sidenote[\mbox{\dt@colorize\centering\normalfont\Large$\rhd$\hskip-0.6em$\blacktriangleright$}]% triangle in margin
+             {\mbox{\dt@colorize\centering\normalfont\Large$\lhd$\hskip-0.6em$\blacktriangleleft $}}%
+    \ifmmode%
+      \;\mbox{\dt@rendernote{dt@notecolor}{#1}}\;%
+    \else
+      \mbox{}{\dt@rendernote{dt@notecolor}{#1}}%
+    \fi
+  }
+}{
+  % Don't let \XXX be silently turned off.
+  \newcommand{\XXX}[1][XXX]{%
+    \@latex@error{You have an "\\XXX" command but you said "notes=false" to dtrt. This won't end well, aborting. Use "notes=xxx" instead to override.}\@ehd%
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Write "DRAFT" and time of compilation at page bottoms (larger on first page):
+% To include the username (optional), run:
+%   latex "\def\OSUserName{`whoami`}\input MYFILE.tex"
+\ifdt@draft
+  \usepackage{scrtime}
+  \usepackage{prelim2e}
+  \newcommand{\dt@datetime}{\the\year-\ifthenelse{\the\month < 10}{0}{}\the\month-\ifthenelse{\the\day < 10}{0}{}\the\day{} \thistime}
+  \renewcommand{\PrelimText}{%
+    \dt@colorize\normalfont\sffamily \ifthenelse{\equal{\thepage}{1}}{\bfseries}{\tiny}%
+    [DRAFT --- compiled at \dt@datetime \@ifundefined{OSUserName}{}{ by \texttt{\OSUserName}}; not for distribution]%
+  }
+\fi%dt@draft
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define \ignore which puts an "ignored" mark and optional comment in margin (unless already defined):
+
+\ifdt@notes%
+  \ifdt@showignore%
+    \newcommand{\dtignore}[2][]{%  first argument is optional
+      \sidenote[\dt@colorize\centering{\normalfont\Large\boldmath \mbox{}\lower1ex\hbox{$\looparrowright$}}\\ \scriptsize\textsc{#1}]
+               {\dt@colorize\centering{\normalfont\Large\boldmath \mbox{}\lower1ex\hbox{$\looparrowleft $}}\\ \scriptsize\textsc{#1}}%
+    }
+  \else%
+    \newcommand{\dtignore}[2][]{\ignorespaces}%
+  \fi
+\else%
+  \newcommand{\dtignore}[2][]{\ignorespaces}%
+\fi%
+
+% if \ignore not defined by anyone, make it an alias to \dtignore
+\AtBeginDocument{%
+  \@ifundefined{ignore}{\let\ignore=\dtignore}{}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Teach llncs about dates.
+% The following code is copied from llncs, except the the strongly indented lines.
+\ifdt@llncsdate
+  \ifdt@llncs
+
+\def\@maketitle{\newpage
+ \markboth{}{}%
+ \def\lastand{\ifnum\value{@inst}=2\relax
+                 \unskip{} \andname\
+              \else
+                 \unskip \lastandname\
+              \fi}%
+ \def\and{\stepcounter{@auth}\relax
+          \ifnum\value{@auth}=\value{@inst}%
+             \lastand
+          \else
+             \unskip,
+          \fi}%
+ \begin{center}%
+ \let\newline\\
+ {\Large \bfseries\boldmath
+  \pretolerance=10000
+  \@title \par}\vskip .8cm
+\if!\@subtitle!\else {\large \bfseries\boldmath
+  \vskip -.65cm
+  \pretolerance=10000
+  \@subtitle \par}\vskip .8cm\fi
+ \setbox0=\vbox{\setcounter{@auth}{1}\def\and{\stepcounter{@auth}}%
+ \def\thanks##1{}\@author}%
+ \global\value{@inst}=\value{@auth}%
+ \global\value{auco}=\value{@auth}%
+ \setcounter{@auth}{1}%
+{\lineskip .5em
+\noindent\ignorespaces
+\@author\vskip.35cm}%
+ {\small\institutename}
+                   {\ifthenelse{\equal{\@date}{}}{}{\vskip 2em\large%
+                    \vskip -.65cm%
+                    \pretolerance=10000%
+                    \normalsize \@date \par}\vskip 1em}%
+ \end{center}%
+ }
+
+  \fi%dt@llncs
+\fi%dt@llncsdate
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For the LLNCS class, add a QED square at the end of llncs proof environments.
+\ifdt@llncsqed
+  \ifdt@llncs
+    \let\oldendproof=\endproof
+    \renewcommand{\endproof}{\qed\oldendproof}
+  \fi%dt@llncs
+\fi%dt@llncsqed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For the LLNCS class, make \subsubsection generate captions with subsubsection
+% numbers and followed by linebreaks. (Default is similar to our \parhead.)
+\ifdt@llncssubsub
+  \ifdt@llncs
+    \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                          {-4\p@ \@plus -2\p@ \@minus -2\p@}%
+                          {3\p@ \@plus 1\p@ \@minus 1\p@}%
+                          {\normalfont\normalsize\bfseries\boldmath
+                            \rightskip=\z@ \@plus 8em\pretolerance=10000 }}
+    \setcounter{secnumdepth}{3}
+  \fi%dt@llncs
+\fi%dt@llncssubsub
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add a horizontal line ("rule") above figure captions.
+% Tested with llncs, should work with most classes.
+\@ifclassloaded{sigplanconf}{\dt@captionrulefalse}{}  % sigplanconf already has caption rules
+\ifdt@captionrule
+  \xpretocmd{\@makecaption}{
+    \hrule width \hsize height .33pt
+    \vspace{4pt}
+    \@ifundefined{abovecaptionskip}{}{%
+      \setlength\abovecaptionskip{0pt}%
+    }
+  }{}{}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defines the \nestedbar environment, which indents the text and puts
+% a vertical bar to its left (with little corners at top and bottom).
+% Useful for nested theorem/proof environments..
+% This is a subtler version of the 'leftbar'/'oframed' environment from package 'framed'.
+% Copies some code from 'framed', to add a degree of freedom.
+% http://www.ctan.org/pkg/framed
+
+\usepackage{framed}
+
+% \dt@CustomFBox tweaks the \CustomFBox of 'framed' by adding
+% parameter: length of the top/bottom rules, and space between
+% left rule and text.
+% Parameter #1 is inserted (in vmode) right after the top rule 
+% (useful for a title or assignments), and #2 is similar, but
+% inserted right above the bottom rule.
+% The thicknesses of the top, bottom, left, and right rules are
+% given as parameters #3,#4,#5,#6 respectively.  They should be
+% \fboxrule or \z@ (or some other thickness).
+% Argument #7 is the length of the bottom and right rules.
+% is the width 
+% The text argument is #8.
+% An instance of this can be used for the frame of \fcolorbox by
+% locally defining \fbox before \fcolorbox; e.g.,
+% \def\fbox{\CustomFBox{}{}\z@\z@\fboxrule\fboxrule}\fcolorbox
+
+\long\def\dt@CustomFBox#1#2#3#4#5#6#7#8#9{%
+  \leavevmode\begingroup
+  \setbox\@tempboxa\hbox{%
+    \color@begingroup
+      \kern\fboxsep{#9}\kern\fboxsep
+    \color@endgroup}%
+  \hbox{%
+    % Here we calculate and shift for the depth.  Done in
+    % a group because one of the arguments might be \@tempdima
+    % (we could use \dimexpr instead without grouping).
+    \begingroup
+      \@tempdima#4\relax
+      \advance\@tempdima\fboxsep
+      \advance\@tempdima\dp\@tempboxa
+    \expandafter\endgroup\expandafter
+    \lower\the\@tempdima\hbox{%
+      \vbox{%
+        \hrule\@height#3\@width#7\relax
+        #1%
+        \hbox{%
+          \vrule\@width#5\relax
+          \hspace{#8}
+          \vbox{%
+            \vskip\fboxsep % maybe these should be parameters too
+            \copy\@tempboxa
+            \vskip\fboxsep}%
+          \vrule\@width#6\relax}%
+        #2%
+        \hrule\@height#4\@width#7\relax}%
+    }%
+  }%
+  \endgroup
+}
+
+\newcommand{\dt@nestedbar@hrule@length}{1em}
+\newcommand{\dt@nestedbar@ident@from@vrule}{0.4em}
+\def\dt@OpenFBox#1#2{\fboxsep=\FrameSep
+   \dt@CustomFBox{}{}{#1}{#2}\FrameRule\z@\dt@nestedbar@hrule@length\dt@nestedbar@ident@from@vrule}
+
+\newenvironment{nestedbar}[1][\hsize]{ 
+%   \def\FrameCommand{%
+%     {\color{black}\vrule width 0.4pt}%
+%     \hspace{1.4em}\fboxsep=\FrameSep%
+%    }%
+  \@ifundefined{OuterFrameSep}{%
+      \@latex@error{To use nestedbar, update framed.sty to a recent version.}\@ehd}{}%
+  \def\FrameCommand{\dt@OpenFBox\FrameRule\FrameRule}%
+  \def\FirstFrameCommand{\dt@OpenFBox\FrameRule\z@}%
+  \def\MidFrameCommand{\dt@OpenFBox\z@\z@}%
+  \def\LastFrameCommand{\dt@OpenFBox\z@\FrameRule}%
+  \OuterFrameSep=1ex%  if you get an "Undefined control sequence" error here, upgrade your framed.sty
+  \FrameSep=0pt%
+  \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
+}{
+  \endMakeFramed
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Misc useful macros
+
+%\newcommand{\Nth}{\hspace{0.1em}\textsuperscript{th}}
+%\newcommand{\Nnd}{\hspace{0.1em}\textsuperscript{nd}}
+%\newcommand{\Nrd}{\hspace{0.1em}\textsuperscript{rd}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%TODO: The [DRAFT ...] text is not centered on text but on text+marginnotes.
+%TODO: something like \def\nobreakpar[1]{\bigskip\begin{minipage}{\textwidth}\bigskip}{#1}\end{minipage} (use \par?)
+%TODO: Add optional ``table of comments'', sorted by \XXX, \later, \done flags.
+
+\endinput
