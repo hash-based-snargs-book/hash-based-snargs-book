@@ -1,12 +1,33 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{snargs-book}[2024/05/09 LuaTeX Snargs Book Class]
 
+\RequirePackage{ifthen}
+
+\newif\ifdt@later
+\newif\ifdt@done
+
 \newcommand*{\twoside}{true}
+\newcommand*{\notesoption}{false}
+\newcommand*{\lateroption}{false}
+\newcommand*{\doneoption}{false}
 
 \DeclareOption{bookview}{}
 \DeclareOption{singlepageview}{%
     \renewcommand*{\twoside}{false}%
 }
+\DeclareOption{notes}{
+    \renewcommand*{\notesoption}{true}%
+}
+\makeatletter
+\DeclareOption{later}{%
+    \renewcommand*{\lateroption}{true}%
+    \dt@latertrue%
+}
+\DeclareOption{done}{%
+    \renewcommand*{\doneoption}{true}%
+    \dt@donetrue%
+}
+\makeatother
 \ProcessOptions\relax
 
 \LoadClass[
@@ -21,11 +42,6 @@
 
 \RequirePackage[a4paper,scale=0.75,marginratio={1:1,4:3},head=76.5pt,twoside=\twoside]{geometry}
 \RequirePackage{babel}
-\RequirePackage[later=false,notes=false]{dtrt}
-  % https://github.com/leisec/dtrt/blob/master/dtrt.sty
-  \newcommand{\ale}[1]{\dtcolornote[Ale]{blue}{#1}}
-  \newcommand{\eylon}[1]{\dtcolornote[Eylon]{orange}{#1}}
-  \newcommand{\parhead}[1]{\paragraph{#1}}
 \RequirePackage{caption}
 \RequirePackage{subcaption}
 \RequirePackage{array}
@@ -68,7 +84,6 @@
 \setcounter{secnumdepth}{3}
 \RequirePackage{chngcntr}
 \RequirePackage{epigraph}
-\RequirePackage{ifthen}
 \RequirePackage{etoc}
 \RequirePackage{fontspec}
 \RequirePackage[backend=biber,style=alphabetic,maxnames=99,maxalphanames=99,sorting=anyt,backref=true,url=true]{biblatex}
@@ -77,6 +92,13 @@
   \tcbuselibrary{theorems}
   \tcbuselibrary{breakable}
 \RequirePackage{scrlayer-scrpage}
+\RequirePackage{ifpdf}
+\RequirePackage{url}
+\RequirePackage{etoolbox}
+\RequirePackage{pifont}
+\RequirePackage{relsize}
+\RequirePackage[quiet]{marginnote}
+\RequirePackage{morefloats}
 
 \setlength\epigraphwidth{.6\textwidth}
 
@@ -919,3 +941,163 @@
         \end{tcolorbox}%
     }%
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\true{true}
+
+\makeatletter
+
+\definecolor{dt@notecolor}{rgb}{0.7,0,0}
+\newcommand{\dt@colorize}[1][dt@notecolor]{\color{#1}}
+
+% Are we in a footnote?
+\newbool{dt@infootnote}\boolfalse{dt@infootnote}
+\let\dt@old@footnote=\footnote
+\renewcommand{\footnote}[1]{{\booltrue{dt@infootnote}\dt@old@footnote{#1}\boolfalse{dt@infootnote}}}
+
+% Are we in a tabular?
+\newbool{dt@intabular}\boolfalse{dt@intabular}
+\BeforeBeginEnvironment{tabular}{\booltrue{dt@intabular}}
+\AfterEndEnvironment{tabular}{\boolfalse{dt@intabular}}
+
+% Are we in a minipage?
+\newbool{dt@inminipage}\boolfalse{dt@inminipage}
+\BeforeBeginEnvironment{minipage}{\booltrue{dt@inminipage}}
+\AfterEndEnvironment{minipage}{\boolfalse{dt@inminipage}}
+
+% Are we in a @float or @dblfloat environment? (This usually includes figure and table environments, but we keep them explicitly below, in case they're redefined to not use @float/@dblfloat)
+\newbool{dt@in@float}\boolfalse{dt@in@float}
+\xpretocmd{\@xfloat}{\booltrue{dt@in@float}}{}{}
+\xapptocmd{\end@float}{\boolfalse{dt@in@float}}{}{}
+
+\newbool{dt@in@dblfloat}\boolfalse{dt@in@dblfloat}
+
+% Are we in a figure or figure*?
+\newbool{dt@infigure}\boolfalse{dt@infigure}
+
+
+% Are we in a table?
+\newbool{dt@intable}\boolfalse{dt@intable}
+
+% Are we in a \maketitle{}?
+\newbool{dt@inmaketitle}\boolfalse{dt@inmaketitle}
+\xpretocmd{\maketitle}{\booltrue{dt@inmaketitle}}{}{}
+\xapptocmd{\maketitle}{\boolfalse{dt@inmaketitle}}{}{}
+
+% Are we in a top float or a bottom float? (Based on code from fancyhdr)
+\let\dt@old@makecol\@makecol
+\def\@makecol{\let\dt@topfloat\@toplist\let\dt@botfloat\@botlist\dt@old@makecol}
+\def\ifdt@intopfloat#1#2{\ifx\dt@topfloat\empty #2\else #1\fi}
+\def\ifdt@inbotfloat#1#2{\ifx\dt@botfloat\empty #2\else #1\fi}
+
+% Are we in a 'framed' environment of the 'framed' package?
+\newbool{dt@inframed}\boolfalse{dt@inframed}
+\AtBeginDocument{%
+\xpretocmd{\MakeFramed}{\booltrue{dt@inframed}}{}{}%
+\xapptocmd{\endMakeFramed}{\boolfalse{dt@inframed}}{}{}%
+}
+
+\newcommand{\sidenote}{%
+% Convert top/bottom float detection to regular "if" so it will work reliably in the following.
+\newif\ifdt@xinbotfloat \ifdt@inbotfloat\dt@xinbotfloatfalse\dt@xinbotfloattrue%
+\newif\ifdt@xintopfloat \ifdt@intopfloat\dt@xintopfloatfalse\dt@xintopfloattrue%
+%
+% Create either a \marginpar if it will work, otherwise a \marginnote
+\ifthenelse{\boolean{mmode} \OR \boolean{inner} \OR \boolean{dt@infootnote} \OR \boolean{dt@intabular} \OR \boolean{dt@in@float} \OR \boolean{dt@in@dblfloat} \OR \boolean{dt@infigure} \OR \boolean{dt@intable} \OR \boolean{dt@inmaketitle} \OR \boolean{dt@inminipage} \OR \boolean{dt@xintopfloat} \OR \boolean{dt@xinbotfloat} \OR \boolean{dt@inframed}}%
+    {\marginnote}% \marginnote will then consume the [left-text]{right-text} arguments that follow \sidenote
+    {\marginpar}%  \marginpar  will then consume the [left-text]{right-text} arguments that follow \sidenote
+}
+
+\newcommand{\dt@brokenrefmark}[1]{%
+% \smash{\rlap{\dt@colorize\LARGE$\bigcirc$}}%    % hard to place this right, since \G@refundefinedtrue is invoked after the "?"
+\marginnote[\dt@colorize\normalfont\smash{\large$\not\curvearrowleft $}\newline\baselineskip=0.5\baselineskip{\tiny{#1}}]
+           {\dt@colorize\normalfont\smash{\large$\not\curvearrowright$}\newline\baselineskip=0.5\baselineskip{\tiny{#1}}}%
+  % force a \marginnote, even though \sidenote renders nicer, because many broken citations with \sidenote can cause `"Too many unprocessed floats" errors.
+}
+
+\newbool{dt@markundef} \booltrue{dt@markundef}
+\xpretocmd{\G@refundefinedtrue}{\ifbool{dt@markundef}{\dt@brokenrefmark{\@ifundefined{@citeb}{}{\@citeb}}}{}}{}{}
+
+\let\dt@old@setref=\@setref
+\renewcommand{\@setref}[3]{%
+\ifx#1\relax \dt@brokenrefmark{#3}\fi%
+\dt@markundeffalse%
+\dt@old@setref{#1}{#2}{#3}%
+\dt@markundeftrue%
+}
+
+\newcommand{\dt@rendernote}[2]{% \dt@rendernote{color}{text} -- render inline note in designated style
+  { \dt@colorize[#1]\smaller\sffamily\bfseries\boldmath[#2] }%
+}
+
+\ifx\true\notesoption
+  \newbool{dt@nextnoteislater} % Is the next \dtcolornote preceded by a \later?
+  \boolfalse{dt@nextnoteislater}
+  \newcommand{\later}{\booltrue{dt@nextnoteislater}\ignorespaces}
+
+  \newbool{dt@nextnoteisdone} % Is the next \dtcolornote preceded by a \done?
+  \boolfalse{dt@nextnoteisdone}
+  \newcommand{\done}{\booltrue{dt@nextnoteisdone}\ignorespaces}
+
+  \newbool{dt@inlinenote}
+  \newcommand{\dtcolornote}[3][]{% \dtcolornote[authorname]{color}{text} -- add an inline note with mark at margin
+%   \noindent%
+    \ifthenelse{ \( \boolean{dt@later} \OR \NOT \boolean{dt@nextnoteislater} \) \AND \( \boolean{dt@done} \OR \NOT \boolean{dt@nextnoteisdone} \) }{\booltrue{dt@inlinenote}}{\boolfalse{dt@inlinenote}}%
+    \ifbool{dt@inlinenote}{ \mbox{} }{}%
+    \sidenote{\dt@colorize[#2]\centering\normalfont\footnotesize%
+      \ifthenelse{\boolean{dt@nextnoteislater}}{$\diamondsuit$}{%  diamondsuit in margin for later
+      \ifthenelse{\boolean{dt@nextnoteisdone}} {\ding{51}}{%       vee checkmark for done 
+                                               $\bigstar$}}}%      star for regular notes
+    \ifbool{dt@inlinenote}{%
+      \ifmmode\expandafter\mbox\fi{%
+        \ifthenelse{\equal{#1}{}}{%
+          \dt@rendernote{#2}{\ignorespaces #3}% anonymous author comment
+        }{%
+          \dt@rendernote{#2}{\ignorespaces #3{\mdseries\itshape~---\ignorespaces#1}}% named author comment
+        }%
+      }%
+    }{}%
+    \boolfalse{dt@nextnoteislater}%
+    \boolfalse{dt@nextnoteisdone}%
+    \ifbool{dt@inlinenote}{}{\ignorespaces}%
+  }
+
+  \newcommand{\dtnote}[2][]{%  \dtnote[authorname]{text}   (color is fixed)
+    \dtcolornote[#1]{dt@notecolor}{#2}%
+  }
+\else
+  % Define empty versions of note commands.
+  % We use \ignorespaces to avoid extended spaces in "before \dtcolornote{red}{note} after" rendered as "before  after"
+  \newcommand{\dtcolornote}[3][]{\ignorespaces}
+  \newcommand{\dtnote}[2][]{\ignorespaces}
+  \newcommand{\later}{\ignorespaces}
+  \newcommand{\done}{\ignorespaces}
+\fi%dt@notes
+
+\ifx\true\notesoption
+  \newcommand{\XXX}[1][XXX]{% \XXX or \XXX[text] -- a note that cannot be ignored by setting notes=false
+    \sidenote[\mbox{\dt@colorize\centering\normalfont\Large$\rhd$\hskip-0.6em$\blacktriangleright$}]% triangle in margin
+             {\mbox{\dt@colorize\centering\normalfont\Large$\lhd$\hskip-0.6em$\blacktriangleleft $}}%
+    \ifmmode%
+      \;\mbox{\dt@rendernote{dt@notecolor}{#1}}\;%
+    \else
+      \mbox{}{\dt@rendernote{dt@notecolor}{#1}}%
+    \fi
+  }
+\else
+  % Don't let \XXX be silently turned off.
+  \newcommand{\XXX}[1][XXX]{%
+    \@latex@error{You have an "\\XXX" command but you said "notes=false" to dtrt. This won't end well, aborting. Use "notes=xxx" instead to override.}\@ehd%
+  }
+\fi
+
+\newcommand{\ale}[1]{\dtcolornote[Ale]{blue}{#1}}
+\newcommand{\eylon}[1]{\dtcolornote[Eylon]{orange}{#1}}
+\newcommand{\parhead}[1]{\paragraph{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
