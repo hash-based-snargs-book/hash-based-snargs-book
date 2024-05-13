@@ -916,6 +916,25 @@
 
 
 
+\renewcommand*{\partlineswithprefixformat}[3]{%
+    \begin{tcolorbox}[%
+        headingstyle,%
+        bottom=-7.5mm,%
+    ]%
+        \sffamily%
+        \bfseries%
+        \huge%
+        \centering
+        #2%
+        \par%
+        \Huge%
+        \addvspace{.65\baselineskip}%
+        #3%
+        \descrule[overviewbg]%
+    \end{tcolorbox}%
+}
+
+\begin{comment}
 \renewcommand*{\part}[1]{%
     \stepcounter{part}%
     \cleardoubleoddpage%
@@ -941,6 +960,7 @@
         \end{tcolorbox}%
     }%
 }
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1051,7 +1071,7 @@
     \ifbool{dt@inlinenote}{ \mbox{} }{}%
     \sidenote{\dt@colorize[#2]\centering\normalfont\footnotesize%
       \ifthenelse{\boolean{dt@nextnoteislater}}{$\diamondsuit$}{%  diamondsuit in margin for later
-      \ifthenelse{\boolean{dt@nextnoteisdone}} {\ding{51}}{%       vee checkmark for done 
+      \ifthenelse{\boolean{dt@nextnoteisdone}} {\ding{51}}{%       vee checkmark for done
                                                $\bigstar$}}}%      star for regular notes
     \ifbool{dt@inlinenote}{%
       \ifmmode\expandafter\mbox\fi{%
