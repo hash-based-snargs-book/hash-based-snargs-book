@@ -3,6 +3,8 @@
 
 \RequirePackage{ifthen}
 
+% processing of options
+
 \newif\ifdt@later
 \newif\ifdt@done
 
@@ -38,7 +40,7 @@
     numbers=noenddot,%
     headings=optiontotoc,%
     toc=nonumberline,%
-]{scrbook}
+]{scrbook} % KOMA-Script book class
 
 \RequirePackage[a4paper,scale=0.75,marginratio={1:1,4:3},head=76.5pt,twoside=\twoside]{geometry}
 \RequirePackage{babel}
@@ -102,7 +104,7 @@
 
 \setlength\epigraphwidth{.6\textwidth}
 
-\hypersetup{%
+\hypersetup{% setup for pdf bookmarks
     pdflang=en-US,%
     unicode=true,%
 	pdfborder={0 0 0},%
@@ -117,6 +119,7 @@
 \vfuzz=100pt
 \hfuzz=10pt
 
+% "descending" rule for consistent line depth in colored boxes
 \newcommand*{\descrule}[1][extralightgrey]{%
     {\color{#1}\rule[-.2\baselineskip]{.1pt}{.9\baselineskip}}%
 }
@@ -127,28 +130,13 @@
 %%%%% COLORS
 
 \definecolor{darkgrey}{HTML}{333333}
-\definecolor{lightdarkgrey}{HTML}{666666}
-\definecolor{midgrey}{HTML}{888888}
 \definecolor{lightmidgrey}{HTML}{aaaaaa}
-\definecolor{grey}{HTML}{cccccc}
-\definecolor{extragrey}{HTML}{d4d4d4}
-\definecolor{lightgrey}{HTML}{dddddd}
 \definecolor{extralightgrey}{HTML}{eeeeee}
-\definecolor{almostwhite}{HTML}{f8f8f8}
-\definecolor{white}{HTML}{ffffff}
-\definecolor{anthrazite}{HTML}{5f5961}
 
 \definecolor{darkblue}{rgb}{0, 0, 0.8}
-%\definecolor{partcolor}{HTML}{ccebcc}
-\definecolor{partcolor}{HTML}{ffffff}
 \definecolor{overviewbg}{HTML}{dfefdf}
-\definecolor{definitionbg}{HTML}{c5d3c5}
-\definecolor{definitionframe}{HTML}{4a5a4a}
-\definecolor{theorembg}{HTML}{e0f1e0}
-\definecolor{theoremframe}{HTML}{5a785a}
-\definecolor{constructionbg}{HTML}{ccebcc}
-\definecolor{constructionframe}{HTML}{407440}
 
+% "Important" environments
 \definecolor{specialgreen}{HTML}{4b764b}
 \newcommand*{\opacitybg}{0.15}
 \newcommand*{\opacitytitle}{0.55}
@@ -165,8 +153,10 @@
 \setmainfont[%
     Path=./fonts/,%
     ItalicFont = lmroman10-italic.otf,%
+    SmallCapsFont = lmromancaps10-regular,%
     BoldFont = lmroman10-bold.otf,%
     BoldItalicFont = lmroman10-bolditalic.otf,%
+    Ligatures = {Common, Discretionary, TeX}
 ]{lmroman10-regular.otf}
 
 \setsansfont[%
@@ -174,6 +164,7 @@
     ItalicFont = lmsans10-oblique.otf,%
     BoldFont = lmsans10-bold.otf,%
     BoldItalicFont = lmsans10-boldoblique.otf,%
+    Ligatures = {Common, Discretionary, TeX}
 ]{lmsans10-regular.otf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,46 +176,22 @@
 
 \makeatletter
 \providecommand\@xxxpt{29.86}
-\providecommand\@xxxvipt{35.83}
 \providecommand\@xi{10.95}
-\providecommand\@xiii{13.15}
 \providecommand\@xixpt{18.93}
-\providecommand\@xxpt{19.81}
-\def\scriptsmall{%
-    \@setfontsize%
-    \scriptsmall%
-    \@vipt%
-    \@viipt%
-}
 \def\HUGE{%
     \@setfontsize%
     \HUGE%
     \@xxxpt{36}%
-}
-\def\superhuge{%
-    \@setfontsize%
-    \superhuge%
-    \@xxxvipt{43}%
 }
 \def\supernormalsize{%
     \@setfontsize%
     \supernormalsize%
     \@xi{13}%
 }
-\def\superlarge{%
-    \@setfontsize%
-    \superlarge%
-    \@xiii{16}%
-}
 \def\superLARGE{%
     \@setfontsize%
     \superLARGE%
     \@xixpt{23}%
-}
-\def\hugesmall{%
-    \@setfontsize%
-    \hugesmall%
-    \@xxpt{24}%
 }
 \makeatother
 
@@ -289,7 +256,6 @@
         {\LARGE Eylon Yogev}\par%
         \vfill%
         {\Large \today}%
-        \newpagecolor{partcolor}\afterpage{\restorepagecolor}%
     \end{titlepage}%
     \bookmark[page=1]{Cover Page}%
 }
@@ -301,26 +267,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% PART PAGES
 
-% color for part page
-\newcommand{\PartColor}{\thispagestyle{empty}\newpagecolor{partcolor}\afterpage{\restorepagecolor}}
+\renewcommand*{\partpagestyle}{empty} % No page number and running head on part pages
 
-\renewcommand*{\partformat}{%
-    \PartColor%
-    \partname%
-    \space%
-    \thepart%
+% part page style with green box
+\renewcommand*{\partlineswithprefixformat}[3]{%
+    \begin{tcolorbox}[%
+        headingstyle,%
+        bottom=-7.5mm,%
+    ]%
+        \sffamily%
+        \bfseries%
+        \huge%
+        \centering
+        #2%
+        \par%
+        \Huge%
+        \addvspace{.65\baselineskip}%
+        #3%
+        \descrule[overviewbg]%
+    \end{tcolorbox}%
 }
 
-\renewcommand*{\partpagestyle}{empty}
+\renewcommand*{\partheademptypage}{} % remove empty page after part title page (book view)
 
+% Part "overview" pages
 \newcommand{\PartAbstract}[1]{
     \clearpage%
+    \thispagestyle{empty} % No page number and running head on "overview" pages
     \setcounter{tocdepth}{1} % section-level toc
-    \setlength{\tnwchapter}{1.85em}
-    \setlength{\tnwsection}{\tnwchapter}
+    \setlength{\tnwchapter}{1.85em} % toc num width for chapter level entries
+    \setlength{\tnwsection}{\tnwchapter} % toc num width for section level entries
     \addtolength{\tnwsection}{.65em}
-    \setlength{\tichapter}{0mm}
-    \setlength{\tisection}{\tnwchapter}
+    \setlength{\tichapter}{0mm} % toc indent for chapter level entries
+    \setlength{\tisection}{\tnwchapter} % toc indent for section level entries
     \RedeclareSectionCommand[%
         tocentryformat=\normalfont\normalsize\sffamily\bfseries,%
         tocpagenumberformat=\normalfont\normalsize\sffamily\bfseries,%
@@ -340,13 +319,12 @@
         tocbeforeskip=.1\baselineskip,%
     ]%
     {section}
-    \newgeometry{
+    \newgeometry{% different page margins on "overview page"
         twoside=false,%
         hscale=0.675,%
         vscale=0.85,%
         marginratio={1:1,1:1},%
     }%
-    \PartColor
     \vspace*{2\baselineskip minus 2\baselineskip}
     \begin{tcolorbox}[%
         title=Overview,%
@@ -411,6 +389,7 @@
 \crefname{ImportantDefinition}{definition}{definitions}
 \crefname{ImportantConstruction}{construction}{constructions}
 
+% general "Important" theorem style
 \tcbset{
     theostyle/.style={%
         enhanced jigsaw,%
@@ -432,18 +411,17 @@
         after title=\descrule[specialgreen],%
         opacityback=\opacitybg,%
         opacityframe=\opacitytitle,%
-        %opacitybacktitle=0.5,%
     }%
 }
 
 \NewTcbTheorem[number within=section,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
     theostyle,%
-    fontupper=\itshape,%
+    fontupper=\itshape,% italics in definition env
 }{definition}
 
 \NewTcbTheorem[number within=section,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
     theostyle,%
-    fontupper=\itshape,%
+    fontupper=\itshape,% italics in theorem env
 }{theorem}
 
 \NewTcbTheorem[number within=section,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
@@ -460,6 +438,7 @@
 \newcommand{\GlossarySeparator}{\;\;\;}
 \newcommand{\GlossaryEntry}[2]{#1{\GlossarySeparator}#2}
 
+% reduced after skip for glossary entries
 \RedeclareSectionCommand[%
     afterskip=1ex plus .2ex%
 ]%
@@ -540,19 +519,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% HEADER %%%%%
 
-\automark[chapter]{chapter}
-\automark*[section]{}
+\automark[chapter]{chapter} % in single page layout show chapter title on all pages
+\automark*[section]{} % in book view layout show section title on odd pages
 
 \tcbset{
-    headerstyle/.style={%
+    headerstyle/.style={% styles for all header color boxes
         boxsep=0mm,%
         sharp corners,%
     },%
-    allplainandframe/.style={%
+    allplainandframe/.style={% all frame boxes and those for "plain" page style (no running head)
         height=12.5mm,%
         boxrule=.1mm,%
     },%
-    upperlower/.style={%
+    upperlower/.style={% boxes within the frame box
         enhanced,%
         height=12mm,%
         width=20mm,%
@@ -561,24 +540,24 @@
         valign=center,%
         colback=extralightgrey,%
     },%
-    plainframe/.style={%
+    plainframe/.style={% frame boxes on "plain" page style pages
         skin=bicolor,%
         colframe=white,%
         top=0mm,%
         bottom=0mm,%
         valign=center,%
     },%
-    frameandplainupper/.style={%
+    frameandplainupper/.style={% frame boxes and left box on "plain" page style pages
         colframe=lightmidgrey,%
         valign=center,%
         colback=extralightgrey,%
         fuzzy shadow={0mm}{-.5mm}{.1mm}{.2mm}{black!50!white},%
     },%
-    plainupper/.style={%
+    plainupper/.style={% left box on "plain" page style pages
         enhanced,%
         width=45mm,%
     },%
-    frame/.style={%
+    frame/.style={% frame boxes
         skin=enhanced,%
         colbacklower=extralightgrey,%
         left*=0mm,%
@@ -596,6 +575,8 @@
         halign lower=right,%
     },%
 }
+
+% boxes on the left side on even pages
 
 \newtcolorbox{leplainframe}{%
     headerstyle,%
@@ -638,6 +619,8 @@
     right*=0mm,%
 }
 
+% boxes on the right side on odd pages
+
 \newtcolorbox{roplainframe}{%
     headerstyle,%
     allplainandframe,%
@@ -679,6 +662,8 @@
     right*=0mm,%
 }
 
+% left side of the header on even pages
+
 \lehead[%
     \begin{leplainframe}%
         \leplainupper{%
@@ -687,7 +672,7 @@
             \upshape%
             \sffamily%
             \addfontfeature{Scale=1}%
-            \thepage%
+            \thepage% page number
         }%
     \end{leplainframe}%
 ]{%
@@ -698,7 +683,7 @@
         \upshape%
         \sffamily%
         \addfontfeature{Scale=1}%
-        \thepage%
+        \thepage% page number
     }%
     \tcblower%
     \lelower{%
@@ -708,15 +693,17 @@
         \upshape%
         \sffamily%
         \addfontfeature{Scale=.95}%
-        \headmark%
+        \headmark% running head
     }%
 \end{leframe}%
 }
 
-\cehead*{}
-\rehead*{}
-\lohead*{}
-\cohead*{}
+\cehead*{} % center of the header on even pages
+\rehead*{} % right side of the header on even pages
+\lohead*{} % left side of the header on odd pages
+\cohead*{} % center of the header on odd pages
+
+% right side of the header on odd pages
 
 \rohead[%
     \begin{roplainframe}%
@@ -726,7 +713,7 @@
             \upshape%
             \sffamily%
             \addfontfeature{Scale=1}%
-            \thepage%
+            \thepage% page number
         }%
     \end{roplainframe}
 ]{%
@@ -738,7 +725,7 @@
         \upshape%
         \sffamily%
         \addfontfeature{Scale=.95}%
-        \headmark%
+        \headmark% running head
     }%
     \tcblower%
     \rolower{%
@@ -747,19 +734,19 @@
         \upshape%
         \sffamily%
         \addfontfeature{Scale=1}%
-        \thepage%
+        \thepage% page number
     }%
 \end{roframe}%
 }
 
-\setlength{\headsep}{16pt}% 54
+\setlength{\headsep}{16pt}% vertical white space between header and textarea
 
-\lefoot*{}
-\cefoot*{}
-\refoot*{}
-\lofoot*{}
-\cofoot*{}
-\rofoot*{}
+\lefoot*{} % left side of the footer on even pages
+\cefoot*{} % center of the footer on even pages
+\refoot*{} % right side of the footer on even pages
+\lofoot*{} % left side of the footer on odd pages
+\cofoot*{} % center of the footer on odd pages
+\rofoot*{} % right side of the footer on odd pages
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -768,57 +755,45 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% TOC %%%%%
 
-\addto\captionsamerican{%
+\addto\captionsamerican{% change headings to lowercase "figures" and "tables" lettering
     \renewcommand{\listfigurename}{List of figures}
     \renewcommand{\listtablename}{List of tables}
 }
 
-\AfterTOCHead[toc]{%
+\AfterTOCHead[toc]{% additional vertical white space after toc heading
     \vspace*{1\baselineskip plus \baselineskip minus \baselineskip}%
 }
 
-\newlength{\tnwpart}
-\newlength{\tnwchapter}
-\newlength{\tnwsection}
-\newlength{\tipart}
-\newlength{\tichapter}
-\newlength{\tisection}
+\newlength{\tnwpart} % toc num width of part entries
+\newlength{\tnwchapter} % toc num width of chapter entries
+\newlength{\tnwsection} % toc num width of section entries
+\newlength{\tipart} % toc indent of part entries
+\newlength{\tichapter} % toc indent of chapter entries
+\newlength{\tisection} % toc indent of section entries
 
 \setlength{\tnwpart}{1.85em}
-\setlength{\tnwchapter}{1.85em}
+\setlength{\tnwchapter}{\tnwpart}
 \setlength{\tnwsection}{\tnwchapter}
 \addtolength{\tnwsection}{1em}
 
-\setlength{\tipart}{\dimexpr-1.85em + 5mm\relax}
-\setlength{\tichapter}{\dimexpr5mm + 1.85em\relax}
+\setlength{\tipart}{\dimexpr-1.85em + 5mm\relax} % adjustment to colored boxes
+\setlength{\tichapter}{\dimexpr5mm + 1.85em\relax} % adjustment to colored boxes
 \setlength{\tisection}{5em}
 
 \RedeclareSectionCommands[%
-    tocraggedentrytext=true,%
+    tocraggedentrytext=true,% no hyphenation in toc entries
     tocpagenumberwidth+=.08em,%
     tocpagenumberformat=\normalfont\normalsize%
 ]%
 {chapter,section,subsection,subsubsection}
 
-\DeclareTOCStyleEntry[linefill]{tocline}{chapter}
-
-\renewcommand*{\addchaptertocentry}[2]{%
-    \IfArgIsEmpty{#1}{%
-        \addtocentrydefault{chapter}{}{%
-            #2%
-        }%
-    }{%
-        \addtocentrydefault{chapter}{}{%
-            \texorpdfstring{\makebox[\tnwchapter][l]}{}{#1}\texorpdfstring{}{ }#2%
-        }%
-    }%
-}
+\DeclareTOCStyleEntry[linefill]{tocline}{chapter}% dotted lines for chapter level entries
 
 \newcommand*{\specialparttocentryformat}[1]{%
     \supernormalsize%
     \bfseries%
     \sffamily%
-    \tcbox[%
+    \tcbox[% part entries in green boxes
         boxrule=0mm,%
         colframe=overviewbg,%
         colback=overviewbg,%
@@ -837,13 +812,12 @@
 \makeatletter
 \RedeclareSectionCommand[%
     tocentryformat=\specialparttocentryformat,%
-    tocpagenumberbox=\@gobble,%
+    tocpagenumberbox=\@gobble,% remove page number
     tocpagenumberwidth=0pt,%
     toclevel=-1,%
     tocbeforeskip=-.05\baselineskip,%
     tocnumwidth=\tnwpart,%
     tocindent=\tipart,%
-    tocpagenumberwidth+=1em%
 ]%
 {part}
 \makeatother
@@ -859,10 +833,11 @@
 ]%
 {chapter}
 
+% list of figures and list of tables
 \DeclareTOCStyleEntries[%
     entryformat=\normalfont\normalsize\sffamily,%
     pagenumberformat=\normalfont\normalsize\sffamily,%
-    raggedentrytext=true,%
+    raggedentrytext=true,% no hyphenation
     pagenumberwidth+=.08em,%
     indent=\tichapter,%
     numwidth=\tnwsection,%
@@ -875,98 +850,19 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% LANDSCAPE PAGES %%%%%
-
-\newcommand*{\landscapestart}{%
-    \clearpage%
-    \KOMAoptions{paper=landscape,pagesize}%
-    \recalctypearea%
-    \newgeometry{
-        layoutsize={297mm,210mm},%
-        marginratio={1:1,4:3},%
-        twoside=\twoside,%
-        head=76.5pt,%
-        top=37.125mm,%
-        bottom=26.25mm,%
-        left=26.25mm,%
-        right=26.25mm,%
-    }%
-}
-
-\newcommand*{\landscapestop}{
-    \clearpage%
-    \KOMAoptions{paper=portrait,pagesize}%
-    \recalctypearea%
-    \restoregeometry%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% FLOATS %%%%%
 
 \addtokomafont{caption}{\normalfont\sffamily}
 \addtokomafont{captionlabel}{\normalfont\sffamily\bfseries}
 
-%\setlength{\floatsep}{20.0pt plus 2.0pt minus 4.0pt}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\renewcommand*{\partlineswithprefixformat}[3]{%
-    \begin{tcolorbox}[%
-        headingstyle,%
-        bottom=-7.5mm,%
-    ]%
-        \sffamily%
-        \bfseries%
-        \huge%
-        \centering
-        #2%
-        \par%
-        \Huge%
-        \addvspace{.65\baselineskip}%
-        #3%
-        \descrule[overviewbg]%
-    \end{tcolorbox}%
-}
-
-\begin{comment}
-\renewcommand*{\part}[1]{%
-    \stepcounter{part}%
-    \cleardoubleoddpage%
-    \phantomsection%
-    \addcontentsline{toc}{part}{\protect\numberline{\thepart}#1}%
-    %\vspace*{13.1\baselineskip}%
-    \vspace*{11.1\baselineskip}%
-    {%
-        \begin{tcolorbox}[%
-            headingstyle,%
-        ]%
-            \sffamily%
-            \bfseries%
-            \huge%
-            \centering
-            \partformat%
-            \par%
-            \Huge%
-            \addvspace{.65\baselineskip}%
-            #1%
-            \descrule[overviewbg]%
-            \par%
-        \end{tcolorbox}%
-    }%
-}
-\end{comment}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% AUTHOR NOTES AND MARKING OF BROKEN REFERENCES %%%%%
+
+% Code snippets taken from "dtrt.sty" (https://github.com/leisec/dtrt), written by Eran Tromer <eran@tromer.org> except where noted otherwise. Distributed under the LaTeX Project Public License v1.3a or later; see http://www.latex-project.org/lppl.txt for details and (lack of) warranty.
 
 \def\true{true}
 
