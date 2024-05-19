@@ -1,6 +1,6 @@
 <h1 align="center">Building Cryptographic Proofs from Hash Functions</h1>
 
-A book by [Alessandro Chiesa](https://ic-people.epfl.ch/~achiesa/) and [Eylon Yogev](https://www.eylonyogev.com/about).
+A book by [Alessandro Chiesa](https://ic-people.epfl.ch/~achiesa/) and [Eylon Yogev](https://eylonyogev.github.io/).
 
 ## Content
 
