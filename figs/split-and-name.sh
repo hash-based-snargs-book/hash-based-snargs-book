@@ -35,6 +35,12 @@ d_array=(
 "inclusive-exclusive-diagram"
 "fork-of-transcripts-diagram"
 "tree-of-transcripts-diagram"
+"error-bounds-linear-growth"
+"error-bounds-quadratic-growth"
+"error-bounds-curve-1"
+"error-bounds-curve-2"
+"error-bounds-worst-case"
+"error-bounds-average-case"
 )
 
 mkdir -p low-res

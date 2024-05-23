@@ -2,15 +2,9 @@
 
 \synctex=1
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% FLAGS
-
-\newif\ifdesign
-\designtrue
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \documentclass[american,singlepageview]{snargs-book}
 %%%%% option "bookview" for 2-page layout, "singlepageview" for 1-page layout
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% MACROS
@@ -973,14 +967,14 @@ We summarize the dependencies between parts in \Cref{figure:part-dependency-diag
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.6\textwidth]{\FigureFolder/part-dependency-diagram}
+\includegraphics[width=0.7\textwidth]{\FigureFolder/part-dependency-diagram}
 \caption[Parts of this book.]{Dependencies between the different parts of this book. (NARG stands for \emph{non-interactive argument}, and SNARG stands for \emph{succinct non-interactive argument}.)}
 \label{figure:part-dependency-diagram}
 \end{figure}
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.6\textwidth]{\FigureFolder/transformations-summary-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/transformations-summary-diagram}
 \caption[Transformations in this book.]{All constructions of cryptographic proofs in this book are transformations applied to some type of probabilistic proof (SP, IP, PCP, or IOP). This diagram lists the transformations that we study, showing which ones construct an interactive argument (IARG) and which ones construct a non-interactive argument (NARG).}
 \label{figure:transformations-summary-diagram}
 \end{figure}
@@ -1214,7 +1208,7 @@ Moreover, since $\Pr[\Event_{1} \land \Event_{2} \land \Event_{3}] \leq \Pr[\Eve
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.2\textwidth]{\FigureFolder/inclusive-exclusive-diagram}
+\includegraphics[width=0.3\textwidth]{\FigureFolder/inclusive-exclusive-diagram}
 \caption[Pairwise and three-wise interaction of $3$ events.]{Diagram of the pairwise and three-wise intersections of events $\Event_{1},\Event_{2},\Event_{3}$.}
 \label{figure:inclusive-exclusive-diagram}
 \end{figure}
@@ -5568,7 +5562,7 @@ Let $\SPSymbol=\SPSystem$ be an SP. Consider the non-interactive argument $\NARG
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.5\textwidth]{\FigureFolder/warmup-fs-sp-diagram}
+\includegraphics[width=0.65\textwidth]{\FigureFolder/warmup-fs-sp-diagram}
 \caption{Diagram of \Cref{construction:warmup-narg-from-sp}.}
 \label{figure:warmup-narg-from-sp}
 \end{figure}
@@ -8355,7 +8349,7 @@ We define $\NARGSymbol \DefineEqual \FSonIPTransformation{\IPSymbol}{\SecurityPa
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.8\textwidth]{\FigureFolder/slow-fs-ip-diagram}
+\includegraphics[width=0.85\textwidth]{\FigureFolder/slow-fs-ip-diagram}
 \caption[Diagram of the FS transformation for public-coin IPs]{Diagram of the \FSonIPText ($\FSonIPSymbol$ in \Cref{construction:slow-fs-for-public-coin-ip}).}
 \label{figure:slow-fs-for-ip-diagram}
 \end{figure}
@@ -8856,7 +8850,7 @@ Nevertheless this multiplicative cost is noticeable, and it is desirable to avoi
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.7\textwidth]{\FigureFolder/fast-fs-ip-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/fast-fs-ip-diagram}
 \caption[Diagram of the fast FS transformation for public-coin IPs]{Diagram of the \FastFSonIPText ($\FastFSonIPSymbol$ in \Cref{construction:fast-fs-for-public-coin-ip}).}
 \label{figure:fast-fs-for-ip-diagram}
 \end{figure}
@@ -10854,8 +10848,8 @@ For every $\MTMessageIndex \in [\MTMessageLength]$, $\MTPathIndex{\MTMessageInde
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.6\textwidth]{\FigureFolder/tree-diagram}
-\caption[The binary tree graph $\MTGraph_{8}$.]{Diagram of the binary tree graph $\MTGraph_{8}$. The vertices highlighted in yellow are $\MTPath(6) = \big( (3,6),(2,3),(1,2),(0,1) \big)$ and the vertices highlighted in green are $\MTCoPath(6) = \big( (3,5),(2,4),(1,1) \big)$. For example, $\MTPathIndex{6}{1}=(1,2)$ and $\MTPathCoIndex{6}{1}=(1,1)$.}
+\includegraphics[width=0.75\textwidth]{\FigureFolder/tree-diagram}
+\caption[The binary tree graph $\MTGraph_{8}$.]{Diagram of the binary tree graph $\MTGraph_{8}$. The vertices highlighted in yellow are $\MTPath(6) = \big( (3,6),(2,3),(1,2),(0,1) \big)$ and the vertices highlighted in blue are $\MTCoPath(6) = \big( (3,5),(2,4),(1,1) \big)$. For example, $\MTPathIndex{6}{1}=(1,2)$ and $\MTPathCoIndex{6}{1}=(1,1)$.}
 \label{figure:tree-diagram}
 \end{figure}
 
@@ -10960,7 +10954,7 @@ We discuss the efficiency of each algorithm.
 \begin{figure}[htp!]
 \centering
 \includegraphics[width=0.7\textwidth]{\FigureFolder/mt-diagram}
-\caption[Computation of $\MTCommit$ for $\MTMessageLength=8$.]{Diagram of the computation in $\MTCommit$ to produce a Merkle commitment for a message of length $\MTMessageLength=8$. Moreover, highlighted in green is the information included in an opening proof $\MTProof$ for the $6$-th entry of the message (which is highlighted in yellow): the salt $\MTSaltString_{6}$ and the commitments $(\MTVertexLabel_{(3,5)},\MTVertexLabel_{(2,4)},\MTVertexLabel_{(1,1)})$ that correspond to the copath $\MTCoPath(6) = \big( (3,5),(2,4),(1,1) \big)$.}
+\caption[Computation of $\MTCommit$ for $\MTMessageLength=8$.]{Diagram of the computation in $\MTCommit$ to produce a Merkle commitment for a message of length $\MTMessageLength=8$. Moreover, highlighted in blue is the information included in an opening proof $\MTProof$ for the $6$-th entry of the message (which is highlighted in yellow): the salt $\MTSaltString_{6}$ and the commitments $(\MTVertexLabel_{(3,5)},\MTVertexLabel_{(2,4)},\MTVertexLabel_{(1,1)})$ that correspond to the copath $\MTCoPath(6) = \big( (3,5),(2,4),(1,1) \big)$.}
 \label{figure:mt-diagram}
 \end{figure}
 
@@ -11090,14 +11084,14 @@ Consider a Merkle commitment $\MTCommitment$ and position $\MTMessageIndex \in [
 
 \begin{figure}[htp!]
 \centering
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[b]{0.4\textwidth}
 \centering
   \includegraphics[width=\textwidth]{\FigureFolder/mt-collision-lemma-diagram-1}
   \caption{}
   \label{figure:mt-collision-lemma-1}
 \end{subfigure}
 \quad
-\begin{subfigure}[b]{0.4\textwidth}
+\begin{subfigure}[b]{0.55\textwidth}
   \centering
   \includegraphics[width=\textwidth]{\FigureFolder/mt-collision-lemma-diagram-2}
   \caption{}
@@ -12471,7 +12465,7 @@ that works as follows. The PCP prover $\PCPProver$ receives as input an instance
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.5\textwidth]{\FigureFolder/pcp-diagram}
+\includegraphics[width=0.55\textwidth]{\FigureFolder/pcp-diagram}
 \caption{Diagram of a PCP.}
 \label{figure:pcp-diagram}
 \end{figure}
@@ -13123,7 +13117,7 @@ Simply sending the (uncommitted) PCP string $\PCPString$ would have cost $\PCPPr
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.7\textwidth]{\FigureFolder/kilian-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/kilian-diagram}
 \caption[Diagram of the Kilian transformation]{Diagram of the \KilianText ($\KilianSymbol$ in \Cref{construction:kilian-transformation}).}
 \label{figure:kilian-diagram}
 \end{figure}
@@ -13664,7 +13658,7 @@ The difference is that the argument prover provides the information in a single 
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.7\textwidth]{\FigureFolder/micali-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/micali-diagram}
 \caption[Diagram of the Micali transformation]{Diagram of the \MicaliText ($\MicaliSymbol$ in \Cref{construction:micali-transformation}).}
 \label{figure:micali-diagram}
 \end{figure}
@@ -14411,7 +14405,7 @@ that works as follows. The IOP prover $\IOPProver$ receives as input an instance
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.5\textwidth]{\FigureFolder/iop-diagram}
+\includegraphics[width=0.6\textwidth]{\FigureFolder/iop-diagram}
 \caption{Diagram of an IOP.}
 \label{figure:iop-diagram}
 \end{figure}
@@ -14857,7 +14851,7 @@ We discuss the modifications needed to additionally support non-oracle messages 
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.6\textwidth]{\FigureFolder/ibcs-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/ibcs-diagram}
 \caption[Diagram of the iBCS transformation]{Diagram of the \IBCSText ($\IBCSSymbol$ in \Cref{construction:ibcs-transformation}).}
 \label{figure:ibcs-diagram}
 \end{figure}
@@ -15515,7 +15509,7 @@ We did not discuss such a generalization for the Fiat--Shamir transformation or 
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.7\textwidth]{\FigureFolder/bcs-diagram}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/bcs-diagram}
 \caption[Diagram of the BCS transformation]{Diagram of the \BCSText ($\BCSSymbol$ in \Cref{construction:bcs-transformation}).}
 \label{figure:bcs-diagram}
 \end{figure}
@@ -17065,7 +17059,7 @@ Worst-case security is stronger than average-case security but the more stringen
   \caption{}
   \label{figure:error-bounds-average-case}
 \end{subfigure}
-\caption[Two definitions for security level.]{Diagrams showing the requirements for $\SecurityLevel$ bits of security according to the two definitions. The left-side diagram shows worst-case security: the error bound (blue line) must not go above the horizontal (green) line at height $2^{-\SecurityLevel}$, within the interval $[2^{\SecurityLevel}]$. The right-side diagram shows average-case security: the error bound (blue line) must not go above the oblique (green) line, within the interval $[2^{\SecurityLevel}]$.}
+\caption[Two definitions for security level.]{Diagrams showing the requirements for $\SecurityLevel$ bits of security according to the two definitions. The left-side diagram shows worst-case security: the error bound (green line) must not go above the horizontal (blue) line at height $2^{-\SecurityLevel}$, within the interval $[2^{\SecurityLevel}]$. The right-side diagram shows average-case security: the error bound (green line) must not go above the oblique (blue) line, within the interval $[2^{\SecurityLevel}]$.}
 \label{figure:error-bounds-two-types-of-security-level}
 \end{figure}
 
@@ -17568,7 +17562,7 @@ The choice of which family to use in any particular context may depend on progra
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.7\textwidth]{\FigureFolder/mt-arbitrary-length}
+\includegraphics[width=0.8\textwidth]{\FigureFolder/mt-arbitrary-length}
 \caption[Trees for message length $\MTMessageLength$ from $1$ to $8$.]{The trees $(\MTGraph_{\MTMessageLength})_{\MTMessageLength \in [8]}$ for messages lengths $\MTMessageLength \in [8]$ from \Cref{definition:binary-tree-arbitrary-number-of-leaves-alt-1}. The trees $\MTGraph_{1},\MTGraph_{2},\MTGraph_{4},\MTGraph_{8}$ coincide with the trees defined in \Cref{chapter:merkle-commitment} for messages whose length is a power of $2$ (see \Cref{definition:mt-graph}).}
 \label{figure:mt-arbitrary-length}
 \end{figure}
@@ -17616,7 +17610,7 @@ The same vertex may appear in multiple copaths, and thus the same commitment is 
 \MTCoPath(5) &= \big( (3,5),(2,4),(1,1) \big) \enspace, \\
 \MTCoPath(6) &= \big( (3,6),(2,4),(1,1) \big) \enspace.
 \end{align*}
-We see that the vertices $(2,4)$ and $(1,1)$ appear in both copaths, which means that the commitments $\MTVertexLabelByName{2}{4}$ and $\MTVertexLabelByName{1}{1}$ are included in both authentication paths $\MTAuthPath_{5}$ and $\MTAuthPath_{6}$. Of course, we can omit duplicate copies of commitments in an opening proof. Overall, the opening proof $\MTProof$ only needs to include commitments for the following vertices (green in \Cref{figure:mt-prune-2}):
+We see that the vertices $(2,4)$ and $(1,1)$ appear in both copaths, which means that the commitments $\MTVertexLabelByName{2}{4}$ and $\MTVertexLabelByName{1}{1}$ are included in both authentication paths $\MTAuthPath_{5}$ and $\MTAuthPath_{6}$. Of course, we can omit duplicate copies of commitments in an opening proof. Overall, the opening proof $\MTProof$ only needs to include commitments for the following vertices (blue in \Cref{figure:mt-prune-2}):
 \begin{equation*}
 \big\{ (1,1),(2,4) \big\}
 \enspace.
@@ -17628,7 +17622,7 @@ A commitment computed as part of the copath for an entry may be the result of an
 \MTCoPath(3) &= \big( (3,4),(2,1),(1,2) \big) \enspace, \\
 \MTCoPath(6) &= \big( (3,6),(2,4),(1,1) \big) \enspace.
 \end{align*}
-Here there are no duplicate vertices. Nevertheless, the computation to check $\MTAuthPath_{3}$ produces the commitment $\MTVertexLabelByName{1}{1}$ as an answer from the oracle, and therefore there is no need to include it in $\MTAuthPath_{6}$. Similarly, the computation to check $\MTAuthPath_{3}$ produces $\MTVertexLabelByName{1}{2}$ as an answer from the oracle, and therefore there is no need to include it in $\MTAuthPath_{3}$. Overall, the opening proof $\MTProof$ only needs to include commitments for the following vertices (green in \Cref{figure:mt-prune-2}):
+Here there are no duplicate vertices. Nevertheless, the computation to check $\MTAuthPath_{3}$ produces the commitment $\MTVertexLabelByName{1}{1}$ as an answer from the oracle, and therefore there is no need to include it in $\MTAuthPath_{6}$. Similarly, the computation to check $\MTAuthPath_{3}$ produces $\MTVertexLabelByName{1}{2}$ as an answer from the oracle, and therefore there is no need to include it in $\MTAuthPath_{3}$. Overall, the opening proof $\MTProof$ only needs to include commitments for the following vertices (blue in \Cref{figure:mt-prune-2}):
 \begin{equation*}
 \big\{ (3,4),(3,5),(2,1),(2,4) \big\}
 \enspace.
@@ -17643,7 +17637,7 @@ There could be both duplicate commitments and derivable commitments across multi
 \MTCoPath(5) &= \big( (3,5),(2,4),(1,1) \big) \enspace, \\
 \MTCoPath(6) &= \big( (3,6),(2,4),(1,1) \big) \enspace.
 \end{align*}
-By removing duplicate commitments and derivable commitments, we see that the opening proof $\MTProof$ only needs to include commitments for the following vertices (green in \Cref{figure:mt-prune-3}):
+By removing duplicate commitments and derivable commitments, we see that the opening proof $\MTProof$ only needs to include commitments for the following vertices (blue in \Cref{figure:mt-prune-3}):
 \begin{equation*}
 \big\{ (3,2),(3,4),(2,4) \big\}
 \enspace.
@@ -17651,14 +17645,14 @@ By removing duplicate commitments and derivable commitments, we see that the ope
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.4\textwidth]{\FigureFolder/mt-prune-1}
-\caption[Authenticating $\MTMessageIndexSet = \{5,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{5,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in green.}
+\includegraphics[width=0.5\textwidth]{\FigureFolder/mt-prune-1}
+\caption[Authenticating $\MTMessageIndexSet = \{5,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{5,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in blue.}
 \label{figure:mt-prune-1}
-\includegraphics[width=0.4\textwidth]{\FigureFolder/mt-prune-2}
-\caption[Authenticating $\MTMessageIndexSet = \{3,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{3,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in green.}
+\includegraphics[width=0.5\textwidth]{\FigureFolder/mt-prune-2}
+\caption[Authenticating $\MTMessageIndexSet = \{3,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{3,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in blue.}
 \label{figure:mt-prune-2}
-\includegraphics[width=0.4\textwidth]{\FigureFolder/mt-prune-3}
-\caption[Authenticating $\MTMessageIndexSet = \{1,3,5,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{1,3,5,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in green.}
+\includegraphics[width=0.5\textwidth]{\FigureFolder/mt-prune-3}
+\caption[Authenticating $\MTMessageIndexSet = \{1,3,5,6\}$ in the tree $\MTGraph_{3}$.]{The binary tree $\MTGraph_{3}$ with the leaves corresponding to locations $\MTMessageIndexSet = \{1,3,5,6\}$ highlighted in yellow, and the minimal set of vertices to authenticate these locations highlighted in blue.}
 \label{figure:mt-prune-3}
 \end{figure}
 
@@ -17758,12 +17752,12 @@ In order to build intuition it is useful to discuss two extreme settings.
   \item \emph{Good case.}
   The good case is when the locations in $\MTMessageIndexSet$ are all the leaves of a subtree of $\MTGraph_{\MTMessageLength}$ (in which case $\Cardinality{\MTMessageIndexSet}$ is a power of $2$). In this case, the commitment corresponding to the root vertex of the subtree can be deduced from the message entries and salt strings over $\MTMessageIndexSet$, without the need for any additional information. From thereon it suffices to provide commitments for vertices in the copath of the root vertex, and this copath consists of $\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet}$ vertices. Overall in this case $\Cardinality{\MTDeriveVertexSet(\MTMessageIndexSet)}=\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet}$.
 
-\Cref{figure:mt-prune-good-case} illustrates this phenomenon for message length $\MTMessageLength=16$ and index set $\MTMessageIndexSet = \{1,2,3,4\}$, in which case the tree depth is $\MTDepth=4$. The yellow leaf vertices are the opened locations and the green vertices are those whose commitments are included in the opening proof. We see that the size of $\MTDeriveVertexSet(\MTMessageIndexSet)$ is $2$, which agrees with the expression $\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet} = 4 - \log_{2} 4 = 4-2 = 2$.
+\Cref{figure:mt-prune-good-case} illustrates this phenomenon for message length $\MTMessageLength=16$ and index set $\MTMessageIndexSet = \{1,2,3,4\}$, in which case the tree depth is $\MTDepth=4$. The yellow leaf vertices are the opened locations and the blue vertices are those whose commitments are included in the opening proof. We see that the size of $\MTDeriveVertexSet(\MTMessageIndexSet)$ is $2$, which agrees with the expression $\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet} = 4 - \log_{2} 4 = 4-2 = 2$.
 
   \item \emph{Bad case.}
   The bad case is when the locations in $\MTMessageIndexSet$ are as spread out as possible, for example take the set $\MTMessageIndexSet = \{j \cdot \frac{\MTMessageLength}{\Cardinality{\MTMessageIndexSet}} \}_{j \in \Cardinality{\MTMessageIndexSet}}$ (and assume that $\Cardinality{\MTMessageIndexSet}$ divides $\MTMessageLength$, in which case $\Cardinality{\MTMessageIndexSet}$ is a power of $2$). In this case each location is \DoQuote{alone} in a subtree of $\frac{\MTMessageLength}{\Cardinality{\MTMessageIndexSet}}$ leaves; for each of these $\Cardinality{\MTMessageIndexSet}$ subtrees, computing the commitment of the root vertex requires obtaining commitments corresponding to a copath of length $\log_{2} \frac{\MTMessageLength}{\Cardinality{\MTMessageIndexSet}} = \log_{2} \MTMessageLength - \log_{2} \Cardinality{\MTMessageIndexSet} = \MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet}$. Thereon, given the commitments of the root vertices of the $\Cardinality{\MTMessageIndexSet}$ subtrees, one can compute the commitment of the root vertex of $\MTGraph_{\MTMessageLength}$ without any additional information. Overall in this case $\Cardinality{\MTDeriveVertexSet(\MTMessageIndexSet)}= \Cardinality{\MTMessageIndexSet} \cdot (\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet})$.
 
-\Cref{figure:mt-prune-bad-case} illustrates this phenomenon for message length $\MTMessageLength=16$ and index set $\MTMessageIndexSet = \{2,7,12,14\}$, in which case the tree depth is $\MTDepth=4$. The yellow leaf vertices are the opened locations and the green vertices are those whose commitments are included in the opening proof. We see that the size of $\MTDeriveVertexSet(\MTMessageIndexSet)$ is $8$, which agrees with the expression $\Cardinality{\MTMessageIndexSet} \cdot (\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet}) = 4 \cdot (4 - \log_{2} 4) = 8$.
+\Cref{figure:mt-prune-bad-case} illustrates this phenomenon for message length $\MTMessageLength=16$ and index set $\MTMessageIndexSet = \{2,7,12,14\}$, in which case the tree depth is $\MTDepth=4$. The yellow leaf vertices are the opened locations and the blue vertices are those whose commitments are included in the opening proof. We see that the size of $\MTDeriveVertexSet(\MTMessageIndexSet)$ is $8$, which agrees with the expression $\Cardinality{\MTMessageIndexSet} \cdot (\MTDepth-\log_{2}\Cardinality{\MTMessageIndexSet}) = 4 \cdot (4 - \log_{2} 4) = 8$.
 
 \end{itemize}
 The above examples represent extremal situations, as captured by the following lemma. The upper bound in the lemma improves on the prior (trivial) upper bound $\Cardinality{\MTMessageIndexSet} \cdot \MTDepth$.
@@ -18064,7 +18058,7 @@ $\SPSymbol=\SPSystem$ has \defemph{special soundness with arity $\SSArity$ with 
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.5\textwidth]{\FigureFolder/fork-of-transcripts-diagram}
+\includegraphics[width=0.6\textwidth]{\FigureFolder/fork-of-transcripts-diagram}
 \caption{Diagram of an $\SSArity$-fork for an SP.}
 \label{figure:fork-of-transcripts-diagram}
 \end{figure}
@@ -18099,7 +18093,7 @@ Let $\IPSymbol=\IPSystem$ be a public-coin IP with round complexity $\IPRoundCom
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=0.8\textwidth]{\FigureFolder/tree-of-transcripts-diagram}
+\includegraphics[width=0.95\textwidth]{\FigureFolder/tree-of-transcripts-diagram}
 \caption{Diagram of an $(\SSArity_{1},\SSArity_{2})$-tree of transcripts for a public-coin IP.}
 \label{figure:tree-of-transcripts-diagram}
 \end{figure}
