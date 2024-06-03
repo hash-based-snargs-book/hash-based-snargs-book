@@ -1075,7 +1075,7 @@ x \colon [n] \to \ProtoAlphabet
 \right\}
 \enspace.
 \end{equation*}
-We denote by $\ProtoAlphabet^{*} \DefineEqual \cup_{n \in \Naturals} \ProtoAlphabet^{n}$ the set of all finite-length strings over $\ProtoAlphabet$. We denote by $\BitSize{x}$ the length of a binary string $x \in \Bits^{*}$; for example $\BitSize{001}=3$. If $x$ is not a binary string then $\BitSize{x}$ denotes the length of a suitable representation of $x$ as a binary string.
+We denote by $\ProtoAlphabet^{*} \DefineEqual \cup_{n \in \Naturals} \ProtoAlphabet^{n}$ the set of all finite-length strings over $\ProtoAlphabet$.
 
 Given an ordered set $D$, we denote by $\ProtoAlphabet^{D}$ the set of strings over $\ProtoAlphabet$ of length $\Cardinality{D}$ whose entries are indexed by elements of $D$:
 \begin{equation*}
@@ -1091,6 +1091,9 @@ x \colon D \to \ProtoAlphabet
 \enspace.
 \end{equation*}
 For example, if $\ProtoAlphabet = \Bits$ and $D = \{1,8,9\}$, then a string $x$ in $ \ProtoAlphabet^{D}=\Bits^{\{1,8,9\}}$ may have the following values: $x[1] = 0$, $x[8] = 1$, and $x[9]=0$.
+
+\parhead{Bit lengths}
+A binary string is a string over the alphabet $\ProtoAlphabet=\Bits$. We denote by $\BitSize{x}$ the length of a binary string $x \in \Bits^{*}$; for example $\BitSize{001}=3$. If $x$ is not a binary string then $\BitSize{x}$ denotes the length of a suitable representation of $x$ as a binary string. For example, if $x$ is a string in $\ProtoAlphabet^{n}$ then $\BitSize{x} = n \cdot \ceil{\log_{2} \Cardinality{\ProtoAlphabet}}$ by representing each of the $n$ symbols in $x$ as a $\ceil{\log_{2} \Cardinality{\ProtoAlphabet}}$-bit string (representing the appropriate symbol in $\ProtoAlphabet$ as a binary string). If $x$ is a string in $\ProtoAlphabet^{D}$ then $\BitSize{x} = n \cdot (\ceil{\log_{2} \Cardinality{D}} + \ceil{\log_{2} \Cardinality{\ProtoAlphabet}})$ by representing $x$ as a list of pairs: if $x=(x_{i})_{i \in D}$ then $x$ is encoded as a list of $n$ pairs, each pair consisting of a $\ceil{\log_{2} \Cardinality{D}}$-bit string encoding an index $i$ and a $\ceil{\log_{2} \Cardinality{\ProtoAlphabet}}$-bit string encoding the symbol $x_{i}$.
 
 \parhead{Sampling}
 We denote by $a \gets D$ the process of sampling $a$ according to the distribution $D$. Similarly, given a finite set $S$, we denote by $a \gets S$ the process of sampling $a$ according to the uniform distribution over $S$.
