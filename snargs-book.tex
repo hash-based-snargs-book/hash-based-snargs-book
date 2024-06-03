@@ -1054,10 +1054,43 @@ We introduce basic mathematical notation and facts that we use throughout this b
 \label{section:notation}
 
 \parhead{Sets}
-We denote by $\Naturals$ the set of positive integers $\{1,2,\dots\}$ and by $\Reals$ the set of real numbers. We denote by $\Cardinality{S}$ the cardinality of (i.e., number of elements in) a set $S$. We denote by $[n]$ the set of positive integers $\{1,\dots,n\}$. For $k \in \{0,1,\dots,n\}$, we denote by $\binom{[n]}{k}$ the set of all subsets of $[n]$ of size $k$; the number of such subsets is $\binom{n}{k} \DefineEqual \frac{n!}{k! \cdot (n-k)!}$.
+We denote by $\Cardinality{S}$ the cardinality of (i.e., number of elements in) a set $S$; if $S$ has an infinite number of elements then $\Cardinality{S} \DefineEqual \infty$. We denote by $\Reals$ the set of real numbers, by $\Naturals$ the set of positive integers $\{1,2,\dots\}$, and by $[n]$ the set of positive integers $\{1,2,\dots,n\}$. For $k \in \{0,1,\dots,n\}$, we denote by $\binom{[n]}{k}$ the set of all subsets of $[n]$ of cardinality $k$; the number of such subsets is $\binom{n}{k} \DefineEqual \frac{n!}{k! \cdot (n-k)!}$. We denote by $\{x_{1},\dots,x_{n}\}$ the set that contains the elements $x_{1},\dots,x_{n}$; its cardinality is the number of distinct elements among $x_{1},\dots,x_{n}$ (as duplicate elements are counted only once). Given a set $S$, we write $\{x_{i}\}_{i \in S}$ to denote the set that, for every $i \in S$, contains the element $x_{i}$; for example, $\{x_{i}\}_{i \in [n]}=\{x_{1},\dots,x_{n}\}$.
+
+\parhead{Tuples}
+A tuple is an ordered list of elements. We denote by $(x_{i})_{i \in [n]}$ the tuple $(x_{1},\ldots,x_{n})$; more generally, $(x_{i})_{i \in S}$ denotes a tuple whose entries are indexed by elements of a given set $S$ according to a canonical order. Duplicate elements in a tuple appear multiple times, at the appropriate locations. Tuples of tuples are obtained by nesting parentheses; for example, $((x_{i},y_{i},z_{i}))_{i \in [n]}$ is the tuple of tuples $((x_{1},y_{1},z_{1}),\dots,(x_{n},y_{n},z_{n}))$. If $x$ is a tuple whose entries are indexed by a set $S$ then, for every $i \in S$, $x[i]$ is the $i$-th entry of $x$; more generally, for a subset $T \subseteq S$, $x[T]$ denotes the tuple obtained by considering the entries of $x$ whose indices are in $T$. For example, if $x = (x_{i})_{i \in \{1,4,7\}}$ then $x[7]=x_{7}$ and $x[\{1,7\}]=(x_{i})_{i \in \{1,7\}}$.
 
 \parhead{Strings}
-We denote by $\ProtoAlphabet$ a finite alphabet, and by $\ProtoAlphabet^{*}$ the set of all finite-length strings over $\ProtoAlphabet$. We use $\concat$ to denote string concatenation; for example $0 \concat 1$ is the string $01$. We denote by $\BitSize{x}$ the length of a binary string $x \in \Bits^{*}$; for example $\BitSize{001}=3$. If $x$ is not a binary string then $\BitSize{x}$ denotes the length of a suitable representation of $x$ as a binary string.
+Let $\ProtoAlphabet$ be a finite alphabet (i.e., a finite set). A string over $\ProtoAlphabet$ is a function $x \colon D \to \ProtoAlphabet$ over some ordered set $D$ that takes values in $\ProtoAlphabet$; in particular, $x$ is a tuple $(x_{i})_{i \in D}$ where every entry $x_{i}$ is an element of the alphabet $\ProtoAlphabet$. Typically $D=[n]$ for some $n \in \Naturals$, in which case we may write the string by listing the symbols in a sequence; for example, $001$ represents the string $x \colon [3] \to \Bits$ where $x_{1}=0$, $x_{2}=0$, and $x_{3}=1$. We use $\concat$ to denote string concatenation; for example $00 \concat 1$ is the string $001$.
+
+For every $n \in \Naturals$, we denote by $\ProtoAlphabet^{n}$ the set of all strings over $\ProtoAlphabet$ of length $n$:
+\begin{equation*}
+\ProtoAlphabet^{n}
+\DefineEqual
+\left\{
+x \colon [n] \to \ProtoAlphabet
+\right\}
+=
+\left\{
+(x_{i})_{i \in [n]} : \forall\, i \in [n], \; x_{i} \in \ProtoAlphabet
+\right\}
+\enspace.
+\end{equation*}
+We denote by $\ProtoAlphabet^{*} \DefineEqual \cup_{n \in \Naturals} \ProtoAlphabet^{n}$ the set of all finite-length strings over $\ProtoAlphabet$. We denote by $\BitSize{x}$ the length of a binary string $x \in \Bits^{*}$; for example $\BitSize{001}=3$. If $x$ is not a binary string then $\BitSize{x}$ denotes the length of a suitable representation of $x$ as a binary string.
+
+Given an ordered set $D$, we denote by $\ProtoAlphabet^{D}$ the set of strings over $\ProtoAlphabet$ of length $\Cardinality{D}$ whose entries are indexed by elements of $D$:
+\begin{equation*}
+\ProtoAlphabet^{D}
+\DefineEqual
+\left\{
+x \colon D \to \ProtoAlphabet
+\right\}
+=
+\left\{
+(x_{i})_{i \in D} : \forall\, i \in D, \; x_{i} \in \ProtoAlphabet
+\right\}
+\enspace.
+\end{equation*}
+For example, if $\ProtoAlphabet = \Bits$ and $D = \{1,8,9\}$, then a string $x$ in $ \ProtoAlphabet^{D}=\Bits^{\{1,8,9\}}$ may have the following values: $x[1] = 0$, $x[8] = 1$, and $x[9]=0$.
 
 \parhead{Sampling}
 We denote by $a \gets D$ the process of sampling $a$ according to the distribution $D$. Similarly, given a finite set $S$, we denote by $a \gets S$ the process of sampling $a$ according to the uniform distribution over $S$.
