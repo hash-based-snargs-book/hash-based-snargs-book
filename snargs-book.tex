@@ -3699,7 +3699,7 @@ We discuss basic observations about arguments in the random oracle model (ROM).
   \item In \Cref{section:lower-bound-on-argument-size} we prove a lower bound on argument size.
   \item In \Cref{section:ursm-limitation} we prove a limitation on the amount of public randomness.
   \item In \Cref{section:npro-limitation} we prove a limitation on a strong notion of zero knowledge.
-  \item In \Cref{section:simulators-not-in-language} discuss zero knowledge simulation on instances that are not in the language.
+  \item In \Cref{section:simulators-not-in-language} we discuss zero knowledge simulation on instances that are not in the language.
 \end{itemize}
 
 
@@ -3951,7 +3951,7 @@ For example, suppose that a non-interactive argument has argument size $\ROOutpu
 
 In a similar fashion, the soundness error of non-interactive arguments that we study in this book can be reduced by directly increasing the output of the random oracle and improving the soundness error of an underlying probabilistic proof. This is better than multiple independent executions.
 
-We conclude by noting that the method of independent executions does \emph{not} increase the query budget needed to attack the non-interactive argument. This is apparent in the regime where $\ARGNASoundnessError(\ROOutputSize,\ROQueryBound,\InstanceSize)$ is very close to $1$: in this case $\ARGNASoundnessError(\ROOutputSize,\ROQueryBound,\InstanceSize)^{\ARGRepetitionParameter}$ is also close to $1$. In other words, when considering $\ARGNASoundnessError$ as a function of $\ROQueryBound$, the amplification process reduces the error for the part of the function that is sufficiently far from one, while causing minimal impact on the part close to $1$. (In contrast, modifying the parameters of a non-interactive arguments, such as in the example above, also increase the query budget needed to attack.)
+We conclude by noting that the method of independent executions does \emph{not} increase the query budget needed to attack the non-interactive argument. This is apparent in the regime where $\ARGNASoundnessError(\ROOutputSize,\ROQueryBound,\InstanceSize)$ is very close to $1$: in this case $\ARGNASoundnessError(\ROOutputSize,\ROQueryBound,\InstanceSize)^{\ARGRepetitionParameter}$ is also close to $1$. In other words, when considering $\ARGNASoundnessError$ as a function of $\ROQueryBound$, the amplification process reduces the error for the part of the function that is sufficiently far from one, while causing minimal impact on the part close to $1$. (In contrast, modifying the parameters of a non-interactive argument, such as in the example above, also increases the query budget needed to attack.)
 \end{remark}
 
 
