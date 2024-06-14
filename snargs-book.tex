@@ -2206,7 +2206,7 @@ More generally, we can derive $\ROVectorLength$ independent random oracles $(\RO
 Above, $i$ and $j$ are $\ceil{\log_{2} \ROVectorLength}$-bit and $\ceil{\log_{2} \RONumOutputChunks_{i}}$-bit prefixes used for domain separation.
 
 \parhead{Converting algorithms}
-We can convert algorithms from the setting of a single oracle to the setting of multiple oracles, and vice versa. The conversion is formally given by the procedures $\MultiToSingle$ (multi to single) and $\SingleToMulti$ (single to multi) defined and analyzed below. We use these procedures in \Cref{section:multiple-oracles-reduction} when reducing non-interactive arguments in the setting of multiple random oracles to non-interactive arguments in the setting of a single random oracle.
+We can convert algorithms from the setting of a single oracle to the setting of multiple oracles, and vice versa. The conversion is formally given by the procedures $\MultiToSingle$ (multi to single) and $\SingleToMulti$ (single to multi) defined and analyzed below. We use these procedures in \Cref{chapter:multiple-oracles-reduction} when reducing non-interactive arguments in the setting of multiple random oracles to non-interactive arguments in the setting of a single random oracle.
 
 \begin{construction}
 \label{construction:m2s}
@@ -2910,7 +2910,7 @@ We introduce the basic definitions of arguments in the random oracle model (ROM)
   \item In \Cref{section:narg-basics} we introduce the main object of study in this book: \emph{non-interactive arguments} (NARGs) in the ROM.
   \item In \Cref{section:iarg-basics} we introduce \emph{interactive arguments} (IARGs) in the ROM. These serve as an intermediate notion in order to build intuition towards non-interactive counterparts.
 \end{itemize}
-Later in \Cref{section:narg-advanced} we discuss additional security definitions of NARGs that are useful in applications: \emph{knowledge soundness} and \emph{zero knowledge}.
+Later in \Cref{chapter:narg-advanced} we discuss additional security definitions of NARGs that are useful in applications: \emph{knowledge soundness} and \emph{zero knowledge}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3195,7 +3195,7 @@ In practice, the random oracle is heuristically instantiated via a cryptographic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Additional security definitions}
-\label{section:narg-advanced}
+\label{chapter:narg-advanced}
 
 In applications, arguments are often required to satisfy additional security definitions beyond completeness and soundness. Since non-interactive arguments (NARGs) are the focus of this book, below we provide these additional security definitions only for non-interactive arguments.
 \begin{itemize}[noitemsep]
@@ -3221,7 +3221,7 @@ There are different flavors of knowledge soundness, depending on how the extract
 \parhead{Straightline knowledge soundness}
 The definition below captures a flavor of knowledge soundness that is known as \emph{straightline}, because the extractor only needs information associated to a single execution of the argument prover. In more detail, the extractor finds the witness given only the argument prover's output and query-answer trace with the random oracle.\footnote{In particular, since the extraction procedure does not \DoQuote{change} the random oracle, this property is said to hold in the \emph{non-programmable} ROM.} This strong notion is particularly useful in a multitude of settings.
 
-\begin{ImportantDefinition}{}{adaptive-straightline-knowledge-soundness}
+\begin{ImportantDefinition}{straightline knowledge soundness}{adaptive-straightline-knowledge-soundness}
 A non-interactive argument $\NARGSymbol=\ARGSystem$ for a relation $\Relation$ has \defemph{straightline knowledge soundness error $\ARGKnowledgeError$} if there exists a polynomial-time deterministic algorithm $\ARGExtractor$ (the \emph{extractor}) such that for every output size $\ROOutputSize \in \Naturals$ of the random oracle, query bound $\ROQueryBound \in \Naturals$, $\ROQueryBound$-query deterministic argument prover $\Malicious{\ARGProver}$, and instance size bound $\InstanceSize \in \Naturals$,
 \begin{equation*}
 \Pr\left[
@@ -3267,7 +3267,7 @@ Let $\NARGSymbol=\ARGSystem$ be a non-interactive argument. A deterministic argu
 \end{equation*}
 \end{definition}
 
-\begin{ImportantDefinition}{}{adaptive-rewinding-knowledge-soundness}
+\begin{ImportantDefinition}{rewinding knowledge soundness}{adaptive-rewinding-knowledge-soundness}
 A non-interactive argument $\NARGSymbol=\ARGSystem$ for a relation $\Relation$ has \defemph{rewinding knowledge soundness error $\ARGKnowledgeError$ with extraction time $\ARGKnowledgeTime$} if there exists a probabilistic algorithm $\ARGExtractor$ (the \emph{extractor}) such that for every output size $\ROOutputSize \in \Naturals$ of the random oracle, query bound $\ROQueryBound \in \Naturals$, $\ROQueryBound$-query deterministic argument prover $\Malicious{\ARGProver}$ with failure probability $\ProverFailureProbability{\Malicious{\ARGProver}}$ and running time $\ProverRunningTime{\Malicious{\ARGProver}}$, and instance size bound $\InstanceSize \in \Naturals$,
 \begin{equation*}
 \Pr\left[
@@ -3335,7 +3335,7 @@ Hence, if inverting functions from the collection of permutations $\mathcal{G}$ 
 \parhead{Equivalent definition of rewinding knowledge soundness}
 We use a definition equivalent to \Cref{definition:adaptive-rewinding-knowledge-soundness} when establishing rewinding knowledge soundness for non-interactive arguments. Below we discuss this alternative definition, which in this book is more convenient to work with. Briefly, the extractor $\ARGExtractor$ receives as input the query-answer trace of the argument verifier, instead of receiving query access to the random oracle.
 
-\begin{ImportantDefinition}{}{adaptive-rewinding-knowledge-soundness-verifier-trace}
+\begin{ImportantDefinition}{rewinding knowledge soundness}{adaptive-rewinding-knowledge-soundness-verifier-trace}
 A non-interactive argument $\NARGSymbol=\ARGSystem$ for a relation $\Relation$ has \defemph{rewinding knowledge soundness error $\ARGKnowledgeError$ with extraction time $\ARGKnowledgeTime$} if there exists a probabilistic algorithm $\ARGExtractor$ (the \emph{extractor}) such that for every output size $\ROOutputSize \in \Naturals$ of the random oracle, query bound $\ROQueryBound \in \Naturals$, $\ROQueryBound$-query deterministic argument prover $\Malicious{\ARGProver}$ with failure probability $\ProverFailureProbability{\Malicious{\ARGProver}}$ and running time $\ProverRunningTime{\Malicious{\ARGProver}}$, and instance size bound $\InstanceSize \in \Naturals$,
 \begin{equation*}
 \Pr\left[
@@ -3589,7 +3589,7 @@ We learn that the trivial argument is \emph{not} zero knowledge for hard languag
 \parhead{(2) Adaptive zero knowledge}
 An adversary may, however, choose the instance based on the random oracle, which leads to an \emph{adaptive} notion of zero knowledge. We consider a strengthening of \Cref{definition:once-nonadaptive-zk-narg} where, in an initial phase, the adversary queries the random oracle and outputs its choice of instance $\Instance$ and witness $\Witness$, as well as a private state for continuing its computation after receiving the (real or simulated) argument string $\ARGString$. Note that we only need to consider adversaries that are \emph{admissible} in the sense that the chosen $\Witness$ is a valid witness for $\Instance$ (and, in particular, the chosen $\Instance$ is in the language). This is because zero knowledge protects the honest argument prover.
 
-\begin{ImportantDefinition}{}{once-adaptive-zk-narg}
+\begin{ImportantDefinition}{adaptive zero knowledge}{once-adaptive-zk-narg}
 A non-interactive argument $\NARGSymbol=\ARGSystem$ for a relation $\Relation$ has \defemph{adaptive zero-knowledge error $\ARGOAZKError$} (in the EPROM) if there exists a probabilistic polynomial-time simulator $\ARGSimulator$ such that, for every output size $\ROOutputSize \in \Naturals$ of the random oracle, query bound $\ROQueryBound \in \Naturals$, $\ROQueryBound$-query admissible adversary $\ARGAdversary$, and instance bound $\InstanceSize \in \Naturals$, the following two distributions are $\ARGOAZKError(\ROOutputSize,\ROQueryBound,\InstanceSize)$-close in statistical distance:
 \begin{equation*}
 \Distribution_{\RealSymbol}
@@ -4748,7 +4748,7 @@ All simulators that we construct in this book are such that they output argument
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Arguments with multiple random oracles}
-\label{section:multiple-oracles-reduction}
+\label{chapter:multiple-oracles-reduction}
 
 The definitions for a non-interactive argument in \Cref{section:narg-basics} consider the setting where (honest and malicious) parties have query access to a \emph{single} random oracle $\ROFunction$ sampled from $\RODistribution{\ROOutputSize}$. In this book we often work with a relaxed notion, where parties have query access to \emph{multiple} random oracles $(\ROFunction_{i})_{i \in [\ROVectorLength]}$, possibly with different output sizes $(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}$. In this chapter we explain how this multiple-oracle setting directly follows from the single-oracle setting with no security loss, by using the oracle derivation techniques in \Cref{section:rom-derivations}; in particular, the number of oracles and their output sizes can be specified \emph{after} the single oracle has been sampled. The takeaway is that we can feel free to use multiple oracles when convenient, as they can be \DoQuote{implemented} via a single oracle.
 
@@ -4758,7 +4758,7 @@ The definitions for a non-interactive argument in \Cref{section:narg-basics} con
 \section{Definitions}
 \label{section:narg-multiple-oracles-basic-definitions}
 
-We provide security definitions for non-interactive arguments in the setting of multiple random oracles. In comparison to the single-oracle setting, the main difference is that the number and output sizes of the random oracles depend on two parameters: a security parameter $\SecurityParameter \in \Naturals$ and an instance size bound $\InstanceSize \in \Naturals$. Both parameters are known to the argument prover and argument verifier, but we suppress them as inputs to simplify notation. In more detail, definitions of a non-interactive argument with multiple oracles are obtained from those with a single oracle by replacing the line \DoQuote{$\ROFunction \gets \RODistribution{\ROOutputSize}$} with the line \DoQuote{$\ROFunction \gets \RODistribution{\ARGOracles(\SecurityParameter,\InstanceSize)}$} in a probability experiment, where $\ARGOracles$ is an \emph{oracle configuration function} that, given a security parameter $\SecurityParameter$ and instance size bound $\InstanceSize$, specifies the output sizes $(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}$ for the oracles to be sampled; thus, $\ROFunction$ sampled from $\RODistribution{\ARGOracles(\SecurityParameter,\InstanceSize)}=\RODistribution{(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}}$ is a vector $(\ROFunction_{i})_{i \in [\ROVectorLength]}$ where each random oracle $\ROFunction_{i}$ has output size $\ROChosenOutputSize_{i}$. Below we list formal statements of the security definitions for the multiple-oracle setting, which extend the definitions for the single-oracle setting introduced in \Cref{section:narg-basics} and \Cref{section:narg-advanced}.
+We provide security definitions for non-interactive arguments in the setting of multiple random oracles. In comparison to the single-oracle setting, the main difference is that the number and output sizes of the random oracles depend on two parameters: a security parameter $\SecurityParameter \in \Naturals$ and an instance size bound $\InstanceSize \in \Naturals$. Both parameters are known to the argument prover and argument verifier, but we suppress them as inputs to simplify notation. In more detail, definitions of a non-interactive argument with multiple oracles are obtained from those with a single oracle by replacing the line \DoQuote{$\ROFunction \gets \RODistribution{\ROOutputSize}$} with the line \DoQuote{$\ROFunction \gets \RODistribution{\ARGOracles(\SecurityParameter,\InstanceSize)}$} in a probability experiment, where $\ARGOracles$ is an \emph{oracle configuration function} that, given a security parameter $\SecurityParameter$ and instance size bound $\InstanceSize$, specifies the output sizes $(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}$ for the oracles to be sampled; thus, $\ROFunction$ sampled from $\RODistribution{\ARGOracles(\SecurityParameter,\InstanceSize)}=\RODistribution{(\ROChosenOutputSize_{i})_{i \in [\ROVectorLength]}}$ is a vector $(\ROFunction_{i})_{i \in [\ROVectorLength]}$ where each random oracle $\ROFunction_{i}$ has output size $\ROChosenOutputSize_{i}$. Below we list formal statements of the security definitions for the multiple-oracle setting, which extend the definitions for the single-oracle setting introduced in \Cref{section:narg-basics} and \Cref{chapter:narg-advanced}.
 
 \begin{definition}[oracle configuration]
 \label{definition:narg-oracle-configuration}
@@ -14511,7 +14511,7 @@ We are interested in several efficiency measures of a IOP.
   \item \emph{Prover time and verifier time}, denoted $\IOPProverTime$ and $\IOPVerifierTime$, are the time complexities of the prover (to output the IOP strings) and verifier (to output its decision bit).
 
 \end{itemize}
-The above efficiency measures may be functions of the instance $\Instance$ (and possibly other parameters associated to the construction of a probabilistically checkable proof).
+The above efficiency measures may be functions of the instance $\Instance$ (and possibly other parameters associated to the construction of an IOP).
 
 \parhead{Non-oracle messages}
 In some IOP constructions it is useful to allow the IOP prover to send non-oracle messages: in each round $\RoundIndex \in [\IOPRoundComplexity]$ of an IOP, the IOP prover may send, in addition to the proof string $\IOPString_{\RoundIndex}$, a non-oracle message $\IOPProverMessage_{\RoundIndex}$ that the IOP verifier reads in its entirety. Thus, in the case of a public-coin IOP, the decision of the IOP verifier would then be computed as
@@ -14563,7 +14563,7 @@ Moreover, $\IOPExtractor(\Instance,\IOPTuple{\IOPProverMessage},\IOPTuple{\IOPVe
 \begin{align*}
 \IOPKnowledgeError(\InstanceSize,\ProverFailureProbability{\IOPMaliciousProver}) &\DefineEqual \MaxKnowledge{\IOPKnowledgeError(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance))}
 \enspace,\quad\text{and} \\
-\IOPKnowledgeTime(\Instance,\ProverFailureProbability{\IOPMaliciousProver},\ProverRunningTime{\IOPMaliciousProver}) &\DefineEqual \MaxKnowledge{\IOPKnowledgeTime(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance),\ProverRunningTime{\IOPMaliciousProver}(\Instance))}
+\IOPKnowledgeTime(\InstanceSize,\ProverFailureProbability{\IOPMaliciousProver},\ProverRunningTime{\IOPMaliciousProver}) &\DefineEqual \MaxKnowledge{\IOPKnowledgeTime(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance),\ProverRunningTime{\IOPMaliciousProver}(\Instance))}
 \enspace.
 \end{align*}
 \end{definition}
@@ -17204,9 +17204,9 @@ Therefore, for the multi-extractability property, to achieve (for example) $\Sec
 
 We illustrate how to apply the ideas in \Cref{section:security-levels} to achieve (worst-case or average-case) security levels for non-interactive arguments in the ROM. In \Cref{section:concrete-security-for-micali}, we use the example of the Micali transformation (see \Cref{chapter:micali-transformation}), and in \Cref{section:concrete-security-for-bcs} the example of the BCS transformation (see \Cref{chapter:bcs-transformation}). Similar discussions are straightforward for other constructions studied in this book.
 
-The security definitions for arguments in the ROM that we provide in \Cref{chapter:argument-definitions} and \Cref{section:narg-advanced} consider the simple setting where there is a single random oracle with output size $\ROOutputSize$, which can be identified as the security parameter $\SecurityParameter$. (That is, those definitions set $\SecurityParameter=\ROOutputSize$.)
+The security definitions for arguments in the ROM that we provide in \Cref{chapter:argument-definitions} and \Cref{chapter:narg-advanced} consider the simple setting where there is a single random oracle with output size $\ROOutputSize$, which can be identified as the security parameter $\SecurityParameter$. (That is, those definitions set $\SecurityParameter=\ROOutputSize$.)
 
-More generally, as we discuss in \Cref{section:multiple-oracles-reduction}, the number of random oracles and their output sizes for an argument in the ROM are determined by an oracle configuration function $\ARGOracles$ that receives as input the security parameter $\SecurityParameter$ and instance size bound $\InstanceSize$ (and in this case, the argument prover and argument verifier implicitly receive $\SecurityParameter$ and $\InstanceSize$). For example, in the Micali transformation, there are two oracles: one with output size $\SecurityParameter$ and one with output size $\PCPRandomnessComplexity$ (the randomness complexity of the underlying PCP verifier used to construct the non-interactive argument). This leads to security definitions for soundness, knowledge soundness, and zero knowledge in the multi-oracle setting. While in \Cref{section:multiple-oracles-reduction}, we show how the multi-oracle setting can be derived from the single-oracle setting, in this chapter, it is simpler to directly consider the multi-oracle setting.
+More generally, as we discuss in \Cref{chapter:multiple-oracles-reduction}, the number of random oracles and their output sizes for an argument in the ROM are determined by an oracle configuration function $\ARGOracles$ that receives as input the security parameter $\SecurityParameter$ and instance size bound $\InstanceSize$ (and in this case, the argument prover and argument verifier implicitly receive $\SecurityParameter$ and $\InstanceSize$). For example, in the Micali transformation, there are two oracles: one with output size $\SecurityParameter$ and one with output size $\PCPRandomnessComplexity$ (the randomness complexity of the underlying PCP verifier used to construct the non-interactive argument). This leads to security definitions for soundness, knowledge soundness, and zero knowledge in the multi-oracle setting. While in \Cref{chapter:multiple-oracles-reduction}, we show how the multi-oracle setting can be derived from the single-oracle setting, in this chapter, it is simpler to directly consider the multi-oracle setting.
 
 In addition, an argument in the ROM may have other parameters that must be set, possibly based on the security parameter $\SecurityParameter$; in particular, many constructions in this book additionally have a privacy parameter $\PrivacyParameter$ that affects (among other things) the zero-knowledge error. For example, in the Micali transformation, $\PrivacyParameter$ determines the salt size in the underlying Merkle commitment scheme and in the Fiat--Shamir query.
 
