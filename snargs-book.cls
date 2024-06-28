@@ -414,17 +414,17 @@
     }%
 }
 
-\NewTcbTheorem[number within=section,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
+\NewTcbTheorem[number within=section,use counter=theorem,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
     theostyle,%
     fontupper=\itshape,% italics in definition env
 }{definition}
 
-\NewTcbTheorem[number within=section,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
+\NewTcbTheorem[number within=section,use counter=theorem,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
     theostyle,%
     fontupper=\itshape,% italics in theorem env
 }{theorem}
 
-\NewTcbTheorem[number within=section,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
+\NewTcbTheorem[number within=section,use counter=theorem,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
     theostyle,%
 }{construction}
 
