@@ -8470,7 +8470,7 @@ The lemma directly follows from the observation that $\IPMaliciousSRProver$ wins
 \section{Soundness}
 \label{section:slow-fs-reduction}
 
-We prove that \Cref{construction:slow-fs-for-public-coin-ip} is adaptively sound. The following theorem states that the adaptive soundness error of the non-interactive argument is upper bounded by the IP state-restoration soundness error of the underlying IP. In particular, a small state-restoration soundness error for the IP is \emph{sufficient} for a small adaptive soundness error for the resulting non-interactive argument.
+We prove that \Cref{construction:slow-fs-for-public-coin-ip} is adaptively sound. The following theorem states that the adaptive soundness error of the non-interactive argument is upper bounded by the state-restoration soundness error of the underlying IP. In particular, a small state-restoration soundness error for the IP is \emph{sufficient} for a small adaptive soundness error for the resulting non-interactive argument.
 
 \begin{ImportantTheorem}{}{slow-fs-for-public-coin-ip}
 Let $\IPSymbol$ be a public-coin IP for a relation $\Relation$ with state-restoration soundness error $\IPSRSoundnessError$. For every security parameter $\SecurityParameter \in \Naturals$ and privacy parameter $\PrivacyParameter \in \Naturals$, $\NARGSymbol \DefineEqual \FSonIPTransformation{\IPSymbol}{\SecurityParameter}{\PrivacyParameter}$ in \Cref{construction:slow-fs-for-public-coin-ip} is a non-interactive argument for $\Relation$ with adaptive soundness error $\ARGSoundnessError$ (see \Cref{definition:narg-adaptive-soundness-with-cnf}) such that
