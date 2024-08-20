@@ -14552,14 +14552,14 @@ $\IOPSymbol=\IOPSystem$ for a relation $\Relation$ has \defemph{rewinding knowle
 \GivenExperiment
 \StateExperiment{
 \DecisionBit \xleftarrow{\IOPTranscript} \IOPInteract{\IOPMaliciousProver}{\IOPVerifier(\Instance)} \\
-\Witness \gets \IOPExtractor(\Instance,\IOPTuple{\IOPProverMessage},\IOPTuple{\IOPVerifierRandomMessage},\BlackBox{\IOPMaliciousProver})
+\Witness \gets \IOPExtractor(\Instance,\IOPTuple{\IOPString},\IOPTuple{\IOPVerifierRandomMessage},\BlackBox{\IOPMaliciousProver})
 }
 \right]
 \leq
 \IOPKnowledgeError(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance))
 \enspace.
 \end{equation*}
-Moreover, $\IOPExtractor(\Instance,\IOPTuple{\IOPProverMessage},\IOPTuple{\IOPVerifierRandomMessage},\BlackBox{\IOPMaliciousProver})$ runs in expected time $\IOPKnowledgeTime(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance),\ProverRunningTime{\IOPMaliciousProver}(\Instance))$. We additionally define
+Moreover, $\IOPExtractor(\Instance,\IOPTuple{\IOPString},\IOPTuple{\IOPVerifierRandomMessage},\BlackBox{\IOPMaliciousProver})$ runs in expected time $\IOPKnowledgeTime(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance),\ProverRunningTime{\IOPMaliciousProver}(\Instance))$. We additionally define
 \begin{align*}
 \IOPKnowledgeError(\InstanceSize,\ProverFailureProbability{\IOPMaliciousProver}) &\DefineEqual \MaxKnowledge{\IOPKnowledgeError(\Instance,\ProverFailureProbability{\IOPMaliciousProver}(\Instance))}
 \enspace,\quad\text{and} \\
