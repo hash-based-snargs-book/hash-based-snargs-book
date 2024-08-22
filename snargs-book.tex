@@ -11552,7 +11552,7 @@ We describe the extractor $\MTExtractor$.
 
 \begin{construction}
 \label{construction:mt-extractor}
-Given as input a Merkle commitment $\MTCommitment \in \Bits^{\ROOutputSize}$ and query-answer transcript $\ROTrace = \big( (\ROQuery_{i},\ROAnswer_{i}) \big)_{i \in [\ROQueryBound]}$, $\MTExtractor$ works as follows.
+Given as input a Merkle commitment $\MTCommitment \in \Bits^{\ROOutputSize}$ and query-answer trace $\ROTrace = \big( (\ROQuery_{i},\ROAnswer_{i}) \big)_{i \in [\ROQueryBound]}$, $\MTExtractor$ works as follows.
 \begin{enumerate}[noitemsep]
 
 \item If $\MTCommitment$ is not the answer to any query in $\ROTrace$, then output $(\MTMessageVector,\MTTrapdoor) \DefineEqual (\bot,\bot)$.
