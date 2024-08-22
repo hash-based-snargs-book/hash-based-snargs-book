@@ -1,0 +1,3465 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{ArnonCFY24}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=36055a75177bd6e233171873c66b1329}{%
+           family={Arnon},
+           familyi={A\bibinitperiod},
+           given={Gal},
+           giveni={G\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=18d30560b6562486915f4613e5fa1095}{%
+           family={Fenzi},
+           familyi={F\bibinitperiod},
+           given={Giacomo},
+           giveni={G\bibinitperiod}}}%
+        {{hash=7e9d4a5192683290c59adf2c9b3d8dca}{%
+           family={Yogev},
+           familyi={Y\bibinitperiod},
+           given={Eylon},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{31e23718bdea4c68df88305bced54468}
+      \strng{fullhash}{31e23718bdea4c68df88305bced54468}
+      \strng{fullhashraw}{31e23718bdea4c68df88305bced54468}
+      \strng{bibnamehash}{31e23718bdea4c68df88305bced54468}
+      \strng{authorbibnamehash}{31e23718bdea4c68df88305bced54468}
+      \strng{authornamehash}{31e23718bdea4c68df88305bced54468}
+      \strng{authorfullhash}{31e23718bdea4c68df88305bced54468}
+      \strng{authorfullhashraw}{31e23718bdea4c68df88305bced54468}
+      \field{labelalpha}{ACFY24}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Report 2024/390}
+      \field{title}{{STIR}: {R}eed--{S}olomon proximity testing with fewer queries}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2024/390
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2024/390
+      \endverb
+    \endentry
+    \entry{AttemaCK21}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=185f0a604276448a997d7c7003d91942}{%
+           family={Attema},
+           familyi={A\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=e712b1b3271b096addfc108a5acd1bcb}{%
+           family={Cramer},
+           familyi={C\bibinitperiod},
+           given={Ronald},
+           giveni={R\bibinitperiod}}}%
+        {{hash=83bec2354d5525c18dda93b1732778c5}{%
+           family={Kohl},
+           familyi={K\bibinitperiod},
+           given={Lisa},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{fullhash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{fullhashraw}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{bibnamehash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{authorbibnamehash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{authornamehash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{authorfullhash}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \strng{authorfullhashraw}{9bbf2be1351c8a5fd7df3bc34fb52ca8}
+      \field{labelalpha}{ACK21}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 2021 (41st International Cryptology Conference)}
+      \field{series}{CRYPTO~2021}
+      \field{title}{A compressed $\Sigma$-Protocol theory for lattices}
+      \field{year}{2021}
+      \field{pages}{549\bibrangedash 579}
+      \range{pages}{31}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2021/307
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2021/307
+      \endverb
+    \endentry
+    \entry{AttemaFK22}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=185f0a604276448a997d7c7003d91942}{%
+           family={Attema},
+           familyi={A\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=a5cf36db5a8bff12419022f6f31208ed}{%
+           family={Fehr},
+           familyi={F\bibinitperiod},
+           given={Serge},
+           giveni={S\bibinitperiod}}}%
+        {{hash=81a58d3e49f2c98098c7733996b58aaf}{%
+           family={Kloo{ß}},
+           familyi={K\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{fullhash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{fullhashraw}{7f63657cd40cce99488fe177504eafb1}
+      \strng{bibnamehash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{authorbibnamehash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{authornamehash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{authorfullhash}{7f63657cd40cce99488fe177504eafb1}
+      \strng{authorfullhashraw}{7f63657cd40cce99488fe177504eafb1}
+      \field{labelalpha}{AFK22}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2022 (20th Theory of Cryptography Conference)}
+      \field{series}{TCC~2022}
+      \field{title}{{F}iat--{S}hamir transformation of multi-round interactive proofs}
+      \field{year}{2022}
+      \field{pages}{113\bibrangedash 142}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2021/1377
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2021/1377
+      \endverb
+    \endentry
+    \entry{AielloH87}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=4fea2121146a33bc8119b75691416d69}{%
+           family={Aiello},
+           familyi={A\bibinitperiod},
+           given={William},
+           giveni={W\bibinitperiod}}}%
+        {{hash=804cd45ec4be77b4cc5e4d994ba18af0}{%
+           family={H{å}stad},
+           familyi={H\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{fullhash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{fullhashraw}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{bibnamehash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{authorbibnamehash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{authornamehash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{authorfullhash}{4301b60de6241e55a4b4c4e9edc11866}
+      \strng{authorfullhashraw}{4301b60de6241e55a4b4c4e9edc11866}
+      \field{labelalpha}{AH87}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of FOCS 1987 (28th Symposium on Foundations of Computer Science)}
+      \field{series}{FOCS~1987}
+      \field{title}{Perfect zero-knowledge languages can be recognized in two rounds}
+      \field{year}{1987}
+      \field{pages}{439\bibrangedash 448}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/SFCS.1987.47
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/SFCS.1987.47
+      \endverb
+    \endentry
+    \entry{AroraLMSS98}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=8e08b59145b9531815169c7ed0a0b055}{%
+           family={Arora},
+           familyi={A\bibinitperiod},
+           given={Sanjeev},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8de06808d97fa9673d700197a2bce191}{%
+           family={Lund},
+           familyi={L\bibinitperiod},
+           given={Carsten},
+           giveni={C\bibinitperiod}}}%
+        {{hash=2f555526320a1c4028ad0f6328953999}{%
+           family={Motwani},
+           familyi={M\bibinitperiod},
+           given={Rajeev},
+           giveni={R\bibinitperiod}}}%
+        {{hash=8753fbfaaa4aa8a1195c657edc9daef4}{%
+           family={Sudan},
+           familyi={S\bibinitperiod},
+           given={Madhu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=02787b7c625f75874530bb3bf8b10add}{%
+           family={Szegedy},
+           familyi={S\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{fullhash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{fullhashraw}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{bibnamehash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{authorbibnamehash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{authornamehash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{authorfullhash}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \strng{authorfullhashraw}{6bc1e98cb01145498a2f0dd2d6054b70}
+      \field{labelalpha}{ALMSS98}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1992.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{3}
+      \field{title}{Proof verification and the hardness of approximation problems}
+      \field{volume}{45}
+      \field{year}{1998}
+      \field{pages}{501\bibrangedash 555}
+      \range{pages}{55}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/278298.278306
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/278298.278306
+      \endverb
+    \endentry
+    \entry{AroraS03}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=8e08b59145b9531815169c7ed0a0b055}{%
+           family={Arora},
+           familyi={A\bibinitperiod},
+           given={Sanjeev},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8753fbfaaa4aa8a1195c657edc9daef4}{%
+           family={Sudan},
+           familyi={S\bibinitperiod},
+           given={Madhu},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{fullhash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{fullhashraw}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{bibnamehash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{authorbibnamehash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{authornamehash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{authorfullhash}{44b6058ae567fc978c8a849abb7c0558}
+      \strng{authorfullhashraw}{44b6058ae567fc978c8a849abb7c0558}
+      \field{labelalpha}{AS03}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~1997.}
+      \field{journaltitle}{Combinatorica}
+      \field{number}{3}
+      \field{title}{Improved low-degree testing and its applications}
+      \field{volume}{23}
+      \field{year}{2003}
+      \field{pages}{365\bibrangedash 426}
+      \range{pages}{62}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00493-003-0025-0
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00493-003-0025-0
+      \endverb
+    \endentry
+    \entry{AroraS98}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=8e08b59145b9531815169c7ed0a0b055}{%
+           family={Arora},
+           familyi={A\bibinitperiod},
+           given={Sanjeev},
+           giveni={S\bibinitperiod}}}%
+        {{hash=39a329e2b5e4ee534c5c5ef2f16d4b64}{%
+           family={Safra},
+           familyi={S\bibinitperiod},
+           given={Shmuel},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{fullhash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{fullhashraw}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{bibnamehash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{authorbibnamehash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{authornamehash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{authorfullhash}{075a9a815662b8cfc3908e240d581b6d}
+      \strng{authorfullhashraw}{075a9a815662b8cfc3908e240d581b6d}
+      \field{labelalpha}{AS98}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1992.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{1}
+      \field{title}{Probabilistic checking of proofs: a new characterization of {NP}}
+      \field{volume}{45}
+      \field{year}{1998}
+      \field{pages}{70\bibrangedash 122}
+      \range{pages}{53}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/273865.273901
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/273865.273901
+      \endverb
+    \endentry
+    \entry{Babai85}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=cfe2ebe8e6de75b0a81d44ecef78d092}{%
+           family={Babai},
+           familyi={B\bibinitperiod},
+           given={László},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{fullhash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{fullhashraw}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{bibnamehash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{authorbibnamehash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{authornamehash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{authorfullhash}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \strng{authorfullhashraw}{cfe2ebe8e6de75b0a81d44ecef78d092}
+      \field{labelalpha}{Bab85}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 1985 (17th Symposium on Theory of Computing)}
+      \field{series}{STOC~1985}
+      \field{title}{Trading group theory for randomness}
+      \field{year}{1985}
+      \field{pages}{421\bibrangedash 429}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/22145.22192
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/22145.22192
+      \endverb
+    \endentry
+    \entry{BuenzBBPWM18}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=188658a4b692b633b6c2576bc1fac67e}{%
+           family={Bünz},
+           familyi={B\bibinitperiod},
+           given={Benedikt},
+           giveni={B\bibinitperiod}}}%
+        {{hash=08b87a25d40227212bb21975cbcb33c5}{%
+           family={Bootle},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9ef331cc9e5b527723547dfa1becd8cf}{%
+           family={Boneh},
+           familyi={B\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=fe914f862504c238885350db24127f4a}{%
+           family={Poelstra},
+           familyi={P\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2b412289584d398c21473720d90bf541}{%
+           family={Wuille},
+           familyi={W\bibinitperiod},
+           given={Pieter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=6ed451a5305d52289f2b57a9f92a048d}{%
+           family={Maxwell},
+           familyi={M\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{fullhash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{fullhashraw}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{bibnamehash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{authorbibnamehash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{authornamehash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{authorfullhash}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \strng{authorfullhashraw}{5be97f70c03c6605e1d5dfcf51abfb9a}
+      \field{labelalpha}{BBBPWM18}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of S\&P~2018 (39th IEEE Symposium on Security and Privacy)}
+      \field{series}{S\&P~2018}
+      \field{title}{Bulletproofs: short proofs for confidential transactions and more}
+      \field{year}{2018}
+      \field{pages}{315\bibrangedash 334}
+      \range{pages}{20}
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/SP.2018.00020
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/SP.2018.00020
+      \endverb
+    \endentry
+    \entry{BenSassonBHR18-fri}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=bf97e764974352a8876a094898013b36}{%
+           family={Bentov},
+           familyi={B\bibinitperiod},
+           given={Iddo},
+           giveni={I\bibinitperiod}}}%
+        {{hash=5dadcc2918418307c9ed8e02eab89a14}{%
+           family={Horesh},
+           familyi={H\bibinitperiod},
+           given={Yinon},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=666ef3473499e16ffdd9d262b960becc}{%
+           family={Riabzev},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{fullhash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{fullhashraw}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{bibnamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorbibnamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authornamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorfullhash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorfullhashraw}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \field{extraname}{1}
+      \field{labelalpha}{BBHR18}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ICALP 2018 (45th International Colloquium on Automata, Languages and Programming)}
+      \field{series}{ICALP~2018}
+      \field{title}{Fast {R}eed--{S}olomon interactive oracle proofs of proximity}
+      \field{year}{2018}
+      \field{pages}{14:1\bibrangedash 14:17}
+      \range{pages}{-1}
+      \verb{urlraw}
+      \verb https://doi.org/10.4230/LIPIcs.ICALP.2018.14
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.4230/LIPIcs.ICALP.2018.14
+      \endverb
+    \endentry
+    \entry{BenSassonBHR18-sci}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=bf97e764974352a8876a094898013b36}{%
+           family={Bentov},
+           familyi={B\bibinitperiod},
+           given={Iddo},
+           giveni={I\bibinitperiod}}}%
+        {{hash=5dadcc2918418307c9ed8e02eab89a14}{%
+           family={Horesh},
+           familyi={H\bibinitperiod},
+           given={Yinon},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=666ef3473499e16ffdd9d262b960becc}{%
+           family={Riabzev},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{fullhash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{fullhashraw}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{bibnamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorbibnamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authornamehash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorfullhash}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \strng{authorfullhashraw}{34f7bbaaf15d3d6369c0b337d8ffa903}
+      \field{extraname}{2}
+      \field{labelalpha}{BBHR19}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 2019 (39th International Cryptology Conference)}
+      \field{series}{CRYPTO~2019}
+      \field{title}{Scalable zero knowledge with no trusted setup}
+      \field{year}{2019}
+      \field{pages}{733\bibrangedash 764}
+      \range{pages}{32}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-26954-8_23
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-26954-8_23
+      \endverb
+    \endentry
+    \entry{BootleCCGP16}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=08b87a25d40227212bb21975cbcb33c5}{%
+           family={Bootle},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c9674d9ab7f569513d6a9477f5604cbe}{%
+           family={Cerulli},
+           familyi={C\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b0542d93e1fcf8c2adfd7d66ab22543b}{%
+           family={Chaidos},
+           familyi={C\bibinitperiod},
+           given={Pyrros},
+           giveni={P\bibinitperiod}}}%
+        {{hash=f0d5c2124aca42e40182208688a5ccbf}{%
+           family={Groth},
+           familyi={G\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f8cb552349cc443e67d3d4d6f6f71044}{%
+           family={Petit},
+           familyi={P\bibinitperiod},
+           given={Christophe},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{fullhash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{fullhashraw}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{bibnamehash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{authorbibnamehash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{authornamehash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{authorfullhash}{454f74919ff98fa40079cdc03f48a7b5}
+      \strng{authorfullhashraw}{454f74919ff98fa40079cdc03f48a7b5}
+      \field{labelalpha}{BCCGP16}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of EUROCRYPT 2016 (35th International Conference on Theory and Application of Cryptographic Techniques)}
+      \field{series}{EUROCRYPT~2016}
+      \field{title}{Efficient zero-knowledge arguments for arithmetic circuits in the discrete log setting}
+      \field{year}{2016}
+      \field{pages}{327\bibrangedash 357}
+      \range{pages}{31}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-49896-5_12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-49896-5_12
+      \endverb
+    \endentry
+    \entry{BenSassonCFGRS17}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cbf2b5aaa03a90566943482500843166}{%
+           family={Forbes},
+           familyi={F\bibinitperiod},
+           given={Michael\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=015d26e4871eab7050331efee381386a}{%
+           family={Gabizon},
+           familyi={G\bibinitperiod},
+           given={Ariel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=666ef3473499e16ffdd9d262b960becc}{%
+           family={Riabzev},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{fullhash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{fullhashraw}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{bibnamehash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{authorbibnamehash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{authornamehash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{authorfullhash}{f981b183c9929b230cfdc440d1ae8309}
+      \strng{authorfullhashraw}{f981b183c9929b230cfdc440d1ae8309}
+      \field{labelalpha}{BCFGRS17}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2017 (15th Theory of Cryptography Conference)}
+      \field{series}{TCC~2017}
+      \field{title}{Zero knowledge protocols from succinct constraint detection}
+      \field{year}{2017}
+      \field{pages}{172\bibrangedash 206}
+      \range{pages}{35}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-319-70503-3_6
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-319-70503-3_6
+      \endverb
+    \endentry
+    \entry{BootleCG20}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=08b87a25d40227212bb21975cbcb33c5}{%
+           family={Bootle},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f0d5c2124aca42e40182208688a5ccbf}{%
+           family={Groth},
+           familyi={G\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{fullhash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{fullhashraw}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{bibnamehash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{authorbibnamehash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{authornamehash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{authorfullhash}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \strng{authorfullhashraw}{37c5dbab15a3bb4009ea548dcb057a4c}
+      \field{labelalpha}{BCG20}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2020 (18th Theory of Cryptography Conference)}
+      \field{series}{TCC~2020}
+      \field{title}{Linear-Time arguments with sublinear verification from tensor codes}
+      \field{year}{2020}
+      \field{pages}{19\bibrangedash 46}
+      \range{pages}{28}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-64378-2_2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-64378-2_2
+      \endverb
+    \endentry
+    \entry{BootleCGGHJ17}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=08b87a25d40227212bb21975cbcb33c5}{%
+           family={Bootle},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c9674d9ab7f569513d6a9477f5604cbe}{%
+           family={Cerulli},
+           familyi={C\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=846c5c16b928de8bea0945c65b529059}{%
+           family={Ghadafi},
+           familyi={G\bibinitperiod},
+           given={Essam},
+           giveni={E\bibinitperiod}}}%
+        {{hash=f0d5c2124aca42e40182208688a5ccbf}{%
+           family={Groth},
+           familyi={G\bibinitperiod},
+           given={Jens},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d2bdc7fcdc3f3e9ce9a17cf4989a243e}{%
+           family={Hajiabadi},
+           familyi={H\bibinitperiod},
+           given={Mohammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=74fa0a6c42fc8555a5964dc02e5f3f6c}{%
+           family={Jakobsen},
+           familyi={J\bibinitperiod},
+           given={Sune\bibnamedelima K.},
+           giveni={S\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{fullhash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{fullhashraw}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{bibnamehash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{authorbibnamehash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{authornamehash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{authorfullhash}{62a8e69d2e1082565fffe0312b6c4730}
+      \strng{authorfullhashraw}{62a8e69d2e1082565fffe0312b6c4730}
+      \field{labelalpha}{BCGGHJ17}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ASIACRYPT 2017 (23rd International Conference on the Theory and Applications of Cryptology and Information Security)}
+      \field{series}{ASIACRYPT~2017}
+      \field{title}{Linear-Time zero-knowledge proofs for arithmetic circuit satisfiability}
+      \field{year}{2017}
+      \field{pages}{336\bibrangedash 365}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-319-70700-6_12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-319-70700-6_12
+      \endverb
+    \endentry
+    \entry{BenSassonCGRS17}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=015d26e4871eab7050331efee381386a}{%
+           family={Gabizon},
+           familyi={G\bibinitperiod},
+           given={Ariel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=666ef3473499e16ffdd9d262b960becc}{%
+           family={Riabzev},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{d064835a97262b298b5e3175bf89188b}
+      \strng{fullhash}{d064835a97262b298b5e3175bf89188b}
+      \strng{fullhashraw}{d064835a97262b298b5e3175bf89188b}
+      \strng{bibnamehash}{d064835a97262b298b5e3175bf89188b}
+      \strng{authorbibnamehash}{d064835a97262b298b5e3175bf89188b}
+      \strng{authornamehash}{d064835a97262b298b5e3175bf89188b}
+      \strng{authorfullhash}{d064835a97262b298b5e3175bf89188b}
+      \strng{authorfullhashraw}{d064835a97262b298b5e3175bf89188b}
+      \field{labelalpha}{BCGRS17}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ICALP 2017 (44th International Colloquium on Automata, Languages and Programming)}
+      \field{series}{ICALP~2017}
+      \field{title}{Interactive oracle proofs with constant rate and query complexity}
+      \field{year}{2017}
+      \field{pages}{40:1\bibrangedash 40:15}
+      \range{pages}{-1}
+      \verb{urlraw}
+      \verb https://doi.org/10.4230/LIPIcs.ICALP.2017.40
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.4230/LIPIcs.ICALP.2017.40
+      \endverb
+    \endentry
+    \entry{BenSassonCGV16}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=015d26e4871eab7050331efee381386a}{%
+           family={Gabizon},
+           familyi={G\bibinitperiod},
+           given={Ariel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=37e60561c9593ab3c5d37d85a184713e}{%
+           family={Virza},
+           familyi={V\bibinitperiod},
+           given={Madars},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{fullhash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{fullhashraw}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{bibnamehash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{authorbibnamehash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{authornamehash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{authorfullhash}{e25dbcf49ccf645f93d2388c70640f01}
+      \strng{authorfullhashraw}{e25dbcf49ccf645f93d2388c70640f01}
+      \field{labelalpha}{BCGV16}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2016-A (13th Theory of Cryptography Conference)}
+      \field{series}{TCC~2016-A}
+      \field{title}{Quasilinear-Size zero knowledge from linear-algebraic {PCP}s}
+      \field{year}{2016}
+      \field{pages}{33\bibrangedash 64}
+      \range{pages}{32}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-49099-0_2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-49099-0_2
+      \endverb
+    \endentry
+    \entry{BootleCL22}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=08b87a25d40227212bb21975cbcb33c5}{%
+           family={Bootle},
+           familyi={B\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5c3d2410d1b70c89e3c83553913c4863}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Siqi},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{fullhash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{fullhashraw}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{bibnamehash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{authorbibnamehash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{authornamehash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{authorfullhash}{d5ff4c291ad7b3f066a96598b446aef7}
+      \strng{authorfullhashraw}{d5ff4c291ad7b3f066a96598b446aef7}
+      \field{labelalpha}{BCL22}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of EUROCRYPT 2022 (42nd International Conference on Theory and Application of Cryptographic Techniques)}
+      \field{series}{EUROCRYPT~2022}
+      \field{title}{Zero-Knowledge {IOP}s with linear-time prover and polylogarithmic-time verifier}
+      \field{year}{2022}
+      \field{pages}{275\bibrangedash 304}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-031-07085-3_10
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-031-07085-3_10
+      \endverb
+    \endentry
+    \entry{BenSassonCRSVW19}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=666ef3473499e16ffdd9d262b960becc}{%
+           family={Riabzev},
+           familyi={R\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=37e60561c9593ab3c5d37d85a184713e}{%
+           family={Virza},
+           familyi={V\bibinitperiod},
+           given={Madars},
+           giveni={M\bibinitperiod}}}%
+        {{hash=983c258cabafe31c1b00a5d399243f56}{%
+           family={Ward},
+           familyi={W\bibinitperiod},
+           given={Nicholas\bibnamedelima P.},
+           giveni={N\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{fullhash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{fullhashraw}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{bibnamehash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{authorbibnamehash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{authornamehash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{authorfullhash}{e609f44832a9a794090c4a2dd71c7940}
+      \strng{authorfullhashraw}{e609f44832a9a794090c4a2dd71c7940}
+      \field{labelalpha}{BCRSVW19}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of EUROCRYPT 2019 (38th International Conference on the Theory and Applications of Cryptographic Techniques)}
+      \field{series}{EUROCRYPT~2019}
+      \field{title}{Aurora: transparent succinct arguments for {R1CS}}
+      \field{year}{2019}
+      \field{pages}{103\bibrangedash 128}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-17653-2_4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-17653-2_4
+      \endverb
+    \endentry
+    \entry{BenSassonCS16}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{fullhash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{fullhashraw}{3f4a17b1e651457a66322428f6c948da}
+      \strng{bibnamehash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{authorbibnamehash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{authornamehash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{authorfullhash}{3f4a17b1e651457a66322428f6c948da}
+      \strng{authorfullhashraw}{3f4a17b1e651457a66322428f6c948da}
+      \field{labelalpha}{BCS16}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2016-B (14th Theory of Cryptography Conference)}
+      \field{series}{TCC~2016-B}
+      \field{title}{Interactive oracle proofs}
+      \field{year}{2016}
+      \field{pages}{31\bibrangedash 60}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-53644-5_2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-53644-5_2
+      \endverb
+    \endentry
+    \entry{BonehDFLSZ11}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=9ef331cc9e5b527723547dfa1becd8cf}{%
+           family={Boneh},
+           familyi={B\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=4b3699a914590786c548ed76136ef346}{%
+           family={Dagdelen},
+           familyi={D\bibinitperiod},
+           given={Özgür},
+           giveni={Ö\bibinitperiod}}}%
+        {{hash=23091f1713beeb72d7a1d501b5d5923e}{%
+           family={Fischlin},
+           familyi={F\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+        {{hash=586b1924d576086f65c68d45b1268724}{%
+           family={Lehmann},
+           familyi={L\bibinitperiod},
+           given={Anja},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ceb8daa54477eed371173bb1a0704255}{%
+           family={Schaffner},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=de90e6188942e1336d313c4670df52bf}{%
+           family={Zhandry},
+           familyi={Z\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{de5354c11b1882545e647570cd3091c1}
+      \strng{fullhash}{de5354c11b1882545e647570cd3091c1}
+      \strng{fullhashraw}{de5354c11b1882545e647570cd3091c1}
+      \strng{bibnamehash}{de5354c11b1882545e647570cd3091c1}
+      \strng{authorbibnamehash}{de5354c11b1882545e647570cd3091c1}
+      \strng{authornamehash}{de5354c11b1882545e647570cd3091c1}
+      \strng{authorfullhash}{de5354c11b1882545e647570cd3091c1}
+      \strng{authorfullhashraw}{de5354c11b1882545e647570cd3091c1}
+      \field{labelalpha}{BDFLSZ11}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ASIACRYPT~2011 (17th International Conference on the Theory and Application of Cryptology and Information Security)}
+      \field{series}{ASIACRYPT~2011}
+      \field{title}{Random oracles in a quantum world}
+      \field{year}{2011}
+      \field{pages}{41\bibrangedash 69}
+      \range{pages}{29}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-25385-0_3
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-25385-0_3
+      \endverb
+    \endentry
+    \entry{BabaiFL91}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=cfe2ebe8e6de75b0a81d44ecef78d092}{%
+           family={Babai},
+           familyi={B\bibinitperiod},
+           given={László},
+           giveni={L\bibinitperiod}}}%
+        {{hash=e43a5724fcae7ec1838dfc44579da075}{%
+           family={Fortnow},
+           familyi={F\bibinitperiod},
+           given={Lance},
+           giveni={L\bibinitperiod}}}%
+        {{hash=8de06808d97fa9673d700197a2bce191}{%
+           family={Lund},
+           familyi={L\bibinitperiod},
+           given={Carsten},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{fullhash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{fullhashraw}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{bibnamehash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{authorbibnamehash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{authornamehash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{authorfullhash}{ac0ed9df53e487872ecf2d1443ca7459}
+      \strng{authorfullhashraw}{ac0ed9df53e487872ecf2d1443ca7459}
+      \field{labelalpha}{BFL91}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1990.}
+      \field{journaltitle}{Computational Complexity}
+      \field{title}{Non-Deterministic exponential time has two-prover interactive protocols}
+      \field{volume}{1}
+      \field{year}{1991}
+      \field{pages}{3\bibrangedash 40}
+      \range{pages}{38}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/BF01200056
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/BF01200056
+      \endverb
+    \endentry
+    \entry{BabaiFLS91}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=cfe2ebe8e6de75b0a81d44ecef78d092}{%
+           family={Babai},
+           familyi={B\bibinitperiod},
+           given={László},
+           giveni={L\bibinitperiod}}}%
+        {{hash=e43a5724fcae7ec1838dfc44579da075}{%
+           family={Fortnow},
+           familyi={F\bibinitperiod},
+           given={Lance},
+           giveni={L\bibinitperiod}}}%
+        {{hash=d5e3b7202f03ae0df5cbadb9ad44c9f8}{%
+           family={Levin},
+           familyi={L\bibinitperiod},
+           given={Leonid\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=02787b7c625f75874530bb3bf8b10add}{%
+           family={Szegedy},
+           familyi={S\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{fullhash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{fullhashraw}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{bibnamehash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{authorbibnamehash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{authornamehash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{authorfullhash}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \strng{authorfullhashraw}{0336b3b968b7697cac4e6f03b7dc1ba0}
+      \field{labelalpha}{BFLS91}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 1991 (23rd Symposium on Theory of Computing)}
+      \field{series}{STOC~1991}
+      \field{title}{Checking computations in polylogarithmic time}
+      \field{year}{1991}
+      \field{pages}{21\bibrangedash 32}
+      \range{pages}{12}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/103418.103428
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/103418.103428
+      \endverb
+    \endentry
+    \entry{BarakG08}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=ef4505bdcbc58ae15e11f8bc6c51af7e}{%
+           family={Barak},
+           familyi={B\bibinitperiod},
+           given={Boaz},
+           giveni={B\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{fullhash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{fullhashraw}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{bibnamehash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{authorbibnamehash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{authornamehash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{authorfullhash}{2f9738a064955d2397b6a5cfac01f642}
+      \strng{authorfullhashraw}{2f9738a064955d2397b6a5cfac01f642}
+      \field{labelalpha}{BG08}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in CCC~'02.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{5}
+      \field{title}{Universal Arguments and their Applications}
+      \field{volume}{38}
+      \field{year}{2008}
+      \field{pages}{1661\bibrangedash 1694}
+      \range{pages}{34}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/070709244
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/070709244
+      \endverb
+    \endentry
+    \entry{BennettG81}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=9e07e222475916c813dd37c28db7c325}{%
+           family={Bennett},
+           familyi={B\bibinitperiod},
+           given={Charles\bibnamedelima H.},
+           giveni={C\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=69fc3648695bdb0cfbba6903ec76dae2}{%
+           family={Gill},
+           familyi={G\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{fullhash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{fullhashraw}{32c53261694ffe34d26932b8f335a1be}
+      \strng{bibnamehash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{authorbibnamehash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{authornamehash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{authorfullhash}{32c53261694ffe34d26932b8f335a1be}
+      \strng{authorfullhashraw}{32c53261694ffe34d26932b8f335a1be}
+      \field{labelalpha}{BG81}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{1}
+      \field{title}{Relative to a random oracle {$A$}, {$P^A \neq NP^A \neq coNP^A$} with probability 1}
+      \field{volume}{10}
+      \field{year}{1981}
+      \field{pages}{96\bibrangedash 113}
+      \range{pages}{18}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/0210008
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/0210008
+      \endverb
+    \endentry
+    \entry{BenOrGGHKMR88}{inproceedings}{}{}
+      \name{author}{7}{}{%
+        {{hash=41eb128ae71f8745a6089159ac4aaf4e}{%
+           family={{Ben-Or}},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=804cd45ec4be77b4cc5e4d994ba18af0}{%
+           family={H{å}stad},
+           familyi={H\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4591268c67f1c3a2dddd96c8b3457967}{%
+           family={Kilian},
+           familyi={K\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2198941c13b8201b0e0d2127034bb263}{%
+           family={Rogaway},
+           familyi={R\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{fullhash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{fullhashraw}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{bibnamehash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{authorbibnamehash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{authornamehash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{authorfullhash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{authorfullhashraw}{c4d5827a30a2e7c339f7d52debc06c98}
+      \field{labelalpha}{BGGHKMR88}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1988 (8th International Cryptology Conference)}
+      \field{series}{CRYPTO~1988}
+      \field{title}{Everything provable is provable in zero-knowledge}
+      \field{year}{1988}
+      \field{pages}{37\bibrangedash 56}
+      \range{pages}{20}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34799-2_4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34799-2_4
+      \endverb
+    \endentry
+    \entry{BenSassonGHSV05}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=cfdedddbe9e3c4182ae5140f9c80b8f3}{%
+           family={Harsha},
+           familyi={H\bibinitperiod},
+           given={Prahladh},
+           giveni={P\bibinitperiod}}}%
+        {{hash=8753fbfaaa4aa8a1195c657edc9daef4}{%
+           family={Sudan},
+           familyi={S\bibinitperiod},
+           given={Madhu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c915d3380da8c4288e9634bbee5ba983}{%
+           family={Vadhan},
+           familyi={V\bibinitperiod},
+           given={Salil},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{fullhash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{fullhashraw}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{bibnamehash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{authorbibnamehash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{authornamehash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{authorfullhash}{8b4548c0bdc14e3da21a948882a0b451}
+      \strng{authorfullhashraw}{8b4548c0bdc14e3da21a948882a0b451}
+      \field{labelalpha}{BGHSV05}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CCC 2005 (20th Conference on Computational Complexity)}
+      \field{series}{CCC~2005}
+      \field{title}{Short {PCP}s verifiable in polylogarithmic time}
+      \field{year}{2005}
+      \field{pages}{120\bibrangedash 134}
+      \range{pages}{15}
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/CCC.2005.27
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/CCC.2005.27
+      \endverb
+    \endentry
+    \entry{BlockGKTTZ23}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=9e168c791d6744c1f4408dfa3dcb6983}{%
+           family={Block},
+           familyi={B\bibinitperiod},
+           given={Alexander\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=330e03ae855cd69c42df94452422c97a}{%
+           family={Garreta},
+           familyi={G\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod}}}%
+        {{hash=85053e14c4a72772970b91a572b9b9c1}{%
+           family={Katz},
+           familyi={K\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3a3494692023101d1ccddbb75d675624}{%
+           family={Thaler},
+           familyi={T\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=22600f963b915990833cd51aea24fe4c}{%
+           family={Tiwari},
+           familyi={T\bibinitperiod},
+           given={Pratyush\bibnamedelima Ranjan},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=7cf4267d81dee550aa8b02092fb5afa3}{%
+           family={Zając},
+           familyi={Z\bibinitperiod},
+           given={Michał},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{fullhash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{fullhashraw}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{bibnamehash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{authorbibnamehash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{authornamehash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{authorfullhash}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \strng{authorfullhashraw}{6bfaf19aabcf17ec0cce8066d1f335a4}
+      \field{labelalpha}{BGKTTZ23}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 29th International Conference on the Theory and Application of Cryptology and Information Security}
+      \field{series}{ASIACRYPT~2023}
+      \field{title}{{Fiat--Shamir} security of {FRI} and related {SNARKs}}
+      \field{year}{2023}
+      \field{pages}{3\bibrangedash 40}
+      \range{pages}{38}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-981-99-8724-5\_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-981-99-8724-5%5C_1
+      \endverb
+    \endentry
+    \entry{BlockGTZ23}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=9e168c791d6744c1f4408dfa3dcb6983}{%
+           family={Block},
+           familyi={B\bibinitperiod},
+           given={Alexander\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=330e03ae855cd69c42df94452422c97a}{%
+           family={Garreta},
+           familyi={G\bibinitperiod},
+           given={Albert},
+           giveni={A\bibinitperiod}}}%
+        {{hash=22600f963b915990833cd51aea24fe4c}{%
+           family={Tiwari},
+           familyi={T\bibinitperiod},
+           given={Pratyush\bibnamedelima Ranjan},
+           giveni={P\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=7cf4267d81dee550aa8b02092fb5afa3}{%
+           family={Zając},
+           familyi={Z\bibinitperiod},
+           given={Michał},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{fullhash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{fullhashraw}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{bibnamehash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{authorbibnamehash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{authornamehash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{authorfullhash}{f0f2924719ee758de38bdc0e87a41b4a}
+      \strng{authorfullhashraw}{f0f2924719ee758de38bdc0e87a41b4a}
+      \field{labelalpha}{BGTZ23}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2023/1256}
+      \field{title}{On soundness notions for interactive oracle proofs}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2023/1256
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2023/1256
+      \endverb
+    \endentry
+    \entry{BellareN06}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=06e2bb2f83d8b669b46db64431509301}{%
+           family={Bellare},
+           familyi={B\bibinitperiod},
+           given={Mihir},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4ce119fc14821a47944904ada0bda23f}{%
+           family={Neven},
+           familyi={N\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{fullhash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{fullhashraw}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{bibnamehash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{authorbibnamehash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{authornamehash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{authorfullhash}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \strng{authorfullhashraw}{fc04e8fae9f5d62d49663e2e0a4742e4}
+      \field{labelalpha}{BN06}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CCS 2006 (13th Conference on Computer and Communications Security)}
+      \field{series}{CCS~2006}
+      \field{title}{Multi-signatures in the plain public-key model and a general forking lemma}
+      \field{year}{2006}
+      \field{pages}{390\bibrangedash 399}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1180405.1180453
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1180405.1180453
+      \endverb
+    \endentry
+    \entry{BellareR93}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=06e2bb2f83d8b669b46db64431509301}{%
+           family={Bellare},
+           familyi={B\bibinitperiod},
+           given={Mihir},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2198941c13b8201b0e0d2127034bb263}{%
+           family={Rogaway},
+           familyi={R\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{fullhash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{fullhashraw}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{bibnamehash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{authorbibnamehash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{authornamehash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{authorfullhash}{817c7655f7da4865d0cb63932b8d4676}
+      \strng{authorfullhashraw}{817c7655f7da4865d0cb63932b8d4676}
+      \field{labelalpha}{BR93}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CCS 1993 (1st Conference on Computer and Communications Security)}
+      \field{series}{CCS~1993}
+      \field{title}{Random oracles are practical: a paradigm for designing efficient protocols}
+      \field{year}{1993}
+      \field{pages}{62\bibrangedash 73}
+      \range{pages}{12}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/168588.168596
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/168588.168596
+      \endverb
+    \endentry
+    \entry{Brassard81}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=504bb784f2241f359d5030d2ca7f2bdd}{%
+           family={Brassard},
+           familyi={B\bibinitperiod},
+           given={Gilles},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{fullhash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{fullhashraw}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{bibnamehash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{authorbibnamehash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{authornamehash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{authorfullhash}{504bb784f2241f359d5030d2ca7f2bdd}
+      \strng{authorfullhashraw}{504bb784f2241f359d5030d2ca7f2bdd}
+      \field{labelalpha}{Bra81}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Computer and System Sciences}
+      \field{number}{3}
+      \field{title}{A time-luck tradeoff in relativized cryptography}
+      \field{volume}{22}
+      \field{year}{1981}
+      \field{pages}{280\bibrangedash 311}
+      \range{pages}{32}
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/0022-0000(81)90034-9
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/0022-0000(81)90034-9
+      \endverb
+    \endentry
+    \entry{BenSassonS08}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=c225b1561fdce9ac9f61f1edca0e0160}{%
+           family={{Ben-Sasson}},
+           familyi={B\bibinitperiod},
+           given={Eli},
+           giveni={E\bibinitperiod}}}%
+        {{hash=8753fbfaaa4aa8a1195c657edc9daef4}{%
+           family={Sudan},
+           familyi={S\bibinitperiod},
+           given={Madhu},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{fullhash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{fullhashraw}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{bibnamehash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{authorbibnamehash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{authornamehash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{authorfullhash}{3b1caae179a53f7372af29fae0ab8c08}
+      \strng{authorfullhashraw}{3b1caae179a53f7372af29fae0ab8c08}
+      \field{labelalpha}{BS08}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~2005.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{2}
+      \field{title}{Short {PCP}s with polylog query complexity}
+      \field{volume}{38}
+      \field{year}{2008}
+      \field{pages}{551\bibrangedash 607}
+      \range{pages}{57}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/050646445
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/050646445
+      \endverb
+    \endentry
+    \entry{CanettiCHLRR18}{misc}{}{}
+      \name{author}{6}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=2098edee0489688d4396a18d3a959713}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Yilei},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=f1578fdc6128c5100a34863dc853bbee}{%
+           family={Holmgren},
+           familyi={H\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=aa882c77a5f6b30c2f88caecc9ef00b6}{%
+           family={Lombardi},
+           familyi={L\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8386b9fcc2a9783ef59c9c2cc1fd2396}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Guy\bibnamedelima N.},
+           giveni={G\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=0905645f1b049f8267ba1f3c372c8a26}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Ron\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{fullhash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{fullhashraw}{951e64feb84624f2c516f14bb8e75807}
+      \strng{bibnamehash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{authorbibnamehash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{authornamehash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{authorfullhash}{951e64feb84624f2c516f14bb8e75807}
+      \strng{authorfullhashraw}{951e64feb84624f2c516f14bb8e75807}
+      \field{labelalpha}{CCHLRR18}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Report 2018/1004}
+      \field{title}{{F}iat--{S}hamir from simpler assumptions}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2018/1004
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2018/1004
+      \endverb
+    \endentry
+    \entry{ChiesaDGS24}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d33090f6e26b3890814e789b3ad48dec}{%
+           family={{Dall'Agnol}},
+           familyi={D\bibinitperiod},
+           given={Marcel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5dbb20ed49700ffdaf9f648e76c7cc9e}{%
+           family={Guan},
+           familyi={G\bibinitperiod},
+           given={Ziyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{fullhash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{fullhashraw}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{bibnamehash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{authorbibnamehash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{authornamehash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{authorfullhash}{eec1accc91510d27ccb746b4f9a25717}
+      \strng{authorfullhashraw}{eec1accc91510d27ccb746b4f9a25717}
+      \field{labelalpha}{CDGS23}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2023/1737}
+      \field{title}{On the Security of Succinct Interactive Arguments from Vector Commitments}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2023/1737
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2023/1737
+      \endverb
+    \endentry
+    \entry{FOPPSummer21}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=765e93b292884e6e1e3ee3428cc7e844}{%
+           family={Gur},
+           familyi={G\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{fullhash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{fullhashraw}{f7e3afee0486170ce8b68d756290f475}
+      \strng{bibnamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorbibnamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authornamehash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorfullhash}{f7e3afee0486170ce8b68d756290f475}
+      \strng{authorfullhashraw}{f7e3afee0486170ce8b68d756290f475}
+      \field{labelalpha}{CG21}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundations and frontiers of probabilistic proofs}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://www.slmath.org/workshops/931
+      \endverb
+      \verb{url}
+      \verb https://www.slmath.org/workshops/931
+      \endverb
+    \endentry
+    \entry{CascudoG22}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=e8d285ca9c4570111e8caa3cb0304a16}{%
+           family={Cascudo},
+           familyi={C\bibinitperiod},
+           given={Ignacio},
+           giveni={I\bibinitperiod}}}%
+        {{hash=556ee848f24b95115dad44ebc594f555}{%
+           family={Giunta},
+           familyi={G\bibinitperiod},
+           given={Emanuele},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{fullhash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{fullhashraw}{dccf2611efa48db5af636cb2324a2431}
+      \strng{bibnamehash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{authorbibnamehash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{authornamehash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{authorfullhash}{dccf2611efa48db5af636cb2324a2431}
+      \strng{authorfullhashraw}{dccf2611efa48db5af636cb2324a2431}
+      \field{labelalpha}{CG22}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of FC 2022 (26th International Conference on Financial Cryptography and Data Security)}
+      \field{series}{FC~2022}
+      \field{title}{On interactive oracle proofs for boolean {R1CS} statements}
+      \field{year}{2022}
+      \field{pages}{230\bibrangedash 247}
+      \range{pages}{18}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-031-18283-9_11
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-031-18283-9_11
+      \endverb
+    \endentry
+    \entry{CanettiGH04}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=7c86404bf6ef06056efb632aff16d2c0}{%
+           family={Halevi},
+           familyi={H\bibinitperiod},
+           given={Shai},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{fullhash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{fullhashraw}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{bibnamehash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{authorbibnamehash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{authornamehash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{authorfullhash}{1fc7a193839d20b334bc767a9b5b64ef}
+      \strng{authorfullhashraw}{1fc7a193839d20b334bc767a9b5b64ef}
+      \field{labelalpha}{CGH04}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~1998.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{4}
+      \field{title}{The random oracle methodology, revisited}
+      \field{volume}{51}
+      \field{year}{2004}
+      \field{pages}{557\bibrangedash 594}
+      \range{pages}{38}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1008731.1008734
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1008731.1008734
+      \endverb
+    \endentry
+    \entry{FOPPSummer23}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{fullhash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{fullhashraw}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{bibnamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorbibnamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authornamehash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorfullhash}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \strng{authorfullhashraw}{dfbdc8dc8205deeb7a8fbc765799dd0b}
+      \field{labelalpha}{Chi23}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Foundations and frontiers of probabilistic proofs}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.slmath.org/workshops/1037
+      \endverb
+      \verb{url}
+      \verb https://www.slmath.org/workshops/1037
+      \endverb
+    \endentry
+    \entry{ChiesaMS19}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2fa2f0d603f6986d2ccd347ec4dd37d1}{%
+           family={Manohar},
+           familyi={M\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{fullhash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{fullhashraw}{605b6282cd5f7d59071456fe50527f38}
+      \strng{bibnamehash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{authorbibnamehash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{authornamehash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{authorfullhash}{605b6282cd5f7d59071456fe50527f38}
+      \strng{authorfullhashraw}{605b6282cd5f7d59071456fe50527f38}
+      \field{labelalpha}{CMS19}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2019 (17th Theory of Cryptography Conference)}
+      \field{series}{TCC~2019}
+      \field{title}{Succinct arguments in the quantum random oracle model}
+      \field{year}{2019}
+      \field{pages}{1\bibrangedash 29}
+      \range{pages}{29}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-36033-7_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-36033-7_1
+      \endverb
+    \endentry
+    \entry{ChiesaOS20}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=dfbdc8dc8205deeb7a8fbc765799dd0b}{%
+           family={Chiesa},
+           familyi={C\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod}}}%
+        {{hash=a0e0452755f5eb27b38b6a25cb0ce6f7}{%
+           family={Ojha},
+           familyi={O\bibinitperiod},
+           given={Dev},
+           giveni={D\bibinitperiod}}}%
+        {{hash=896937001f6118cf7da5efde1c17d4e0}{%
+           family={Spooner},
+           familyi={S\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{eca3461071650834e590573c4db7c1a3}
+      \strng{fullhash}{eca3461071650834e590573c4db7c1a3}
+      \strng{fullhashraw}{eca3461071650834e590573c4db7c1a3}
+      \strng{bibnamehash}{eca3461071650834e590573c4db7c1a3}
+      \strng{authorbibnamehash}{eca3461071650834e590573c4db7c1a3}
+      \strng{authornamehash}{eca3461071650834e590573c4db7c1a3}
+      \strng{authorfullhash}{eca3461071650834e590573c4db7c1a3}
+      \strng{authorfullhashraw}{eca3461071650834e590573c4db7c1a3}
+      \field{labelalpha}{COS20}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of EUROCRYPT 2020 (39th International Conference on the Theory and Applications of Cryptographic Techniques)}
+      \field{series}{EUROCRYPT~2020}
+      \field{title}{Fractal: post-quantum and transparent recursive proofs from holography}
+      \field{year}{2020}
+      \field{pages}{769\bibrangedash 793}
+      \range{pages}{25}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-45721-1_27
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-45721-1_27
+      \endverb
+    \endentry
+    \entry{Cramer97}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{hash=e712b1b3271b096addfc108a5acd1bcb}{%
+           family={Cramer},
+           familyi={C\bibinitperiod},
+           given={Ronald},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of Amsterdam}%
+      }
+      \strng{namehash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{fullhash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{fullhashraw}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{bibnamehash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{authorbibnamehash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{authornamehash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{authorfullhash}{e712b1b3271b096addfc108a5acd1bcb}
+      \strng{authorfullhashraw}{e712b1b3271b096addfc108a5acd1bcb}
+      \field{labelalpha}{Cra97}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Modular design of secure yet practical cryptographic protocols}
+      \field{type}{phdthesis}
+      \field{year}{1997}
+      \verb{urlraw}
+      \verb https://ir.cwi.nl/pub/21438/21438A.pdf
+      \endverb
+      \verb{url}
+      \verb https://ir.cwi.nl/pub/21438/21438A.pdf
+      \endverb
+    \endentry
+    \entry{Damgard89}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=e7d2c4b806bfb9a8aa20810a903c51d2}{%
+           family={Damg{å}rd},
+           familyi={D\bibinitperiod},
+           given={Ivan},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{fullhash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{fullhashraw}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{bibnamehash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{authorbibnamehash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{authornamehash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{authorfullhash}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \strng{authorfullhashraw}{e7d2c4b806bfb9a8aa20810a903c51d2}
+      \field{labelalpha}{Dam89}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1989 (9th International Cryptology Conference)}
+      \field{series}{CRYPTO~1989}
+      \field{title}{A design principle for hash functions}
+      \field{volume}{435}
+      \field{year}{1989}
+      \field{pages}{416\bibrangedash 427}
+      \range{pages}{12}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34805-0_39
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34805-0_39
+      \endverb
+    \endentry
+    \entry{DinurFKRS11}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=9a5f80a9b2b1359cbc50244c7816730c}{%
+           family={Dinur},
+           familyi={D\bibinitperiod},
+           given={Irit},
+           giveni={I\bibinitperiod}}}%
+        {{hash=9c224159035ed70a4e6ff4e308b6e172}{%
+           family={Fischer},
+           familyi={F\bibinitperiod},
+           given={Eldar},
+           giveni={E\bibinitperiod}}}%
+        {{hash=c5859d80c0725ed0c1788c633ca58fdb}{%
+           family={Kindler},
+           familyi={K\bibinitperiod},
+           given={Guy},
+           giveni={G\bibinitperiod}}}%
+        {{hash=2be204ff183c79ca47c4fb3d72aed23b}{%
+           family={Raz},
+           familyi={R\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=39a329e2b5e4ee534c5c5ef2f16d4b64}{%
+           family={Safra},
+           familyi={S\bibinitperiod},
+           given={Shmuel},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{fullhash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{fullhashraw}{1cc535099dc0c6239dd6d456de990729}
+      \strng{bibnamehash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{authorbibnamehash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{authornamehash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{authorfullhash}{1cc535099dc0c6239dd6d456de990729}
+      \strng{authorfullhashraw}{1cc535099dc0c6239dd6d456de990729}
+      \field{labelalpha}{DFKRS11}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~1999.}
+      \field{journaltitle}{Computational Complexity}
+      \field{number}{3}
+      \field{title}{{PCP} characterizations of {NP}: toward a polynomially-small error-probability}
+      \field{volume}{20}
+      \field{year}{2011}
+      \field{pages}{413\bibrangedash 504}
+      \range{pages}{92}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00037-011-0014-4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00037-011-0014-4
+      \endverb
+    \endentry
+    \entry{DonFMS19}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{hash=6a7434e360c3a4cc4d5e7cec16cbca73}{%
+           family={Don},
+           familyi={D\bibinitperiod},
+           given={Jelle},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a5cf36db5a8bff12419022f6f31208ed}{%
+           family={Fehr},
+           familyi={F\bibinitperiod},
+           given={Serge},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3578cb5f53a69cc42241a1ca5aca773e}{%
+           family={Majenz},
+           familyi={M\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=ceb8daa54477eed371173bb1a0704255}{%
+           family={Schaffner},
+           familyi={S\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{fullhash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{fullhashraw}{278ffdef9147ee2b8967d087039b368f}
+      \strng{bibnamehash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{authorbibnamehash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{authornamehash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{authorfullhash}{278ffdef9147ee2b8967d087039b368f}
+      \strng{authorfullhashraw}{278ffdef9147ee2b8967d087039b368f}
+      \field{labelalpha}{DFMS19}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO~'19 (39th Annual International Cryptology Conference)}
+      \field{series}{CRYPTO~'19}
+      \field{title}{Security of the {F}iat--{S}hamir transformation in the quantum random-oracle model}
+      \field{year}{2019}
+      \field{pages}{356\bibrangedash 383}
+      \range{pages}{28}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-26951-7_13
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-26951-7_13
+      \endverb
+    \endentry
+    \entry{DinurHK15}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=9a5f80a9b2b1359cbc50244c7816730c}{%
+           family={Dinur},
+           familyi={D\bibinitperiod},
+           given={Irit},
+           giveni={I\bibinitperiod}}}%
+        {{hash=cfdedddbe9e3c4182ae5140f9c80b8f3}{%
+           family={Harsha},
+           familyi={H\bibinitperiod},
+           given={Prahladh},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c5859d80c0725ed0c1788c633ca58fdb}{%
+           family={Kindler},
+           familyi={K\bibinitperiod},
+           given={Guy},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{fullhash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{fullhashraw}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{bibnamehash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{authorbibnamehash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{authornamehash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{authorfullhash}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \strng{authorfullhashraw}{2e0ad72e7ef2cf8d17020ea557b6f12d}
+      \field{labelalpha}{DHK15}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 2015 (47th Symposium on Theory of Computing)}
+      \field{series}{STOC~2015}
+      \field{title}{Polynomially low error {PCP}s with polyloglog n queries via modular composition}
+      \field{year}{2015}
+      \field{pages}{267\bibrangedash 276}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/2746539.2746630
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/2746539.2746630
+      \endverb
+    \endentry
+    \entry{Dinur07}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=9a5f80a9b2b1359cbc50244c7816730c}{%
+           family={Dinur},
+           familyi={D\bibinitperiod},
+           given={Irit},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{fullhash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{fullhashraw}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{bibnamehash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{authorbibnamehash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{authornamehash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{authorfullhash}{9a5f80a9b2b1359cbc50244c7816730c}
+      \strng{authorfullhashraw}{9a5f80a9b2b1359cbc50244c7816730c}
+      \field{labelalpha}{Din07}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~2006.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{3}
+      \field{title}{The {PCP} theorem by gap amplification}
+      \field{volume}{54}
+      \field{year}{2007}
+      \field{pages}{12:1\bibrangedash 12:44}
+      \range{pages}{-1}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1236457.1236459
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1236457.1236459
+      \endverb
+    \endentry
+    \entry{FeigeGLSS96}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=b1684193b9de8503418fa549b5fe487c}{%
+           family={Feige},
+           familyi={F\bibinitperiod},
+           given={Uriel},
+           giveni={U\bibinitperiod}}}%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=42befd3df8752959e1d5f5afad41319d}{%
+           family={Lovász},
+           familyi={L\bibinitperiod},
+           given={Laszlo},
+           giveni={L\bibinitperiod}}}%
+        {{hash=39a329e2b5e4ee534c5c5ef2f16d4b64}{%
+           family={Safra},
+           familyi={S\bibinitperiod},
+           given={Shmuel},
+           giveni={S\bibinitperiod}}}%
+        {{hash=02787b7c625f75874530bb3bf8b10add}{%
+           family={Szegedy},
+           familyi={S\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{fullhash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{fullhashraw}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{bibnamehash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{authorbibnamehash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{authornamehash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{authorfullhash}{f9a901bc3650f2b5d0759d2430c1c998}
+      \strng{authorfullhashraw}{f9a901bc3650f2b5d0759d2430c1c998}
+      \field{labelalpha}{FGLSS96}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1991.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{2}
+      \field{title}{Interactive proofs and the hardness of approximating cliques}
+      \field{volume}{43}
+      \field{year}{1996}
+      \field{pages}{268\bibrangedash 292}
+      \range{pages}{25}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/226643.226652
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/226643.226652
+      \endverb
+    \endentry
+    \entry{Fortnow89}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=e43a5724fcae7ec1838dfc44579da075}{%
+           family={Fortnow},
+           familyi={F\bibinitperiod},
+           given={Lance},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{fullhash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{fullhashraw}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{bibnamehash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{authorbibnamehash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{authornamehash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{authorfullhash}{e43a5724fcae7ec1838dfc44579da075}
+      \strng{authorfullhashraw}{e43a5724fcae7ec1838dfc44579da075}
+      \field{labelalpha}{For89}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~1987.}
+      \field{journaltitle}{Advances in Computing Research}
+      \field{title}{The complexity of perfect zero-knowledge}
+      \field{volume}{5}
+      \field{year}{1989}
+      \field{pages}{327\bibrangedash 343}
+      \range{pages}{17}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/28395.28418
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/28395.28418
+      \endverb
+    \endentry
+    \entry{FiatS86}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=f5bfb67a9bf9effc7ef349b81997386d}{%
+           family={Fiat},
+           familyi={F\bibinitperiod},
+           given={Amos},
+           giveni={A\bibinitperiod}}}%
+        {{hash=71b77dd8ab33fe646ef25cded49e9881}{%
+           family={Shamir},
+           familyi={S\bibinitperiod},
+           given={Adi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{fullhash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{fullhashraw}{3a893a83aa5e797024efdb1a12959269}
+      \strng{bibnamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorbibnamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authornamehash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorfullhash}{3a893a83aa5e797024efdb1a12959269}
+      \strng{authorfullhashraw}{3a893a83aa5e797024efdb1a12959269}
+      \field{labelalpha}{FS86}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1986 (6th International Cryptology Conference)}
+      \field{series}{CRYPTO~1986}
+      \field{title}{How to prove yourself: practical solutions to identification and signature problems}
+      \field{year}{1986}
+      \field{pages}{186\bibrangedash 194}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/3-540-47721-7_12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/3-540-47721-7_12
+      \endverb
+    \endentry
+    \entry{GoldreichH98}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=804cd45ec4be77b4cc5e4d994ba18af0}{%
+           family={Håstad},
+           familyi={H\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{fullhash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{fullhashraw}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{bibnamehash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{authorbibnamehash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{authornamehash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{authorfullhash}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \strng{authorfullhashraw}{2d34e7003c32fb5831e5f1ba9b64287b}
+      \field{labelalpha}{GH98}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Information Processing Letters}
+      \field{number}{4}
+      \field{title}{On the complexity of interactive proofs with bounded communication}
+      \field{volume}{67}
+      \field{year}{1998}
+      \field{pages}{205\bibrangedash 214}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1016/S0020-0190(98)00116-1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1016/S0020-0190(98)00116-1
+      \endverb
+    \endentry
+    \entry{GoldwasserKR15}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=482df7d0138a4e484da58b3748958a2b}{%
+           family={Kalai},
+           familyi={K\bibinitperiod},
+           given={Yael\bibnamedelima Tauman},
+           giveni={Y\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=8386b9fcc2a9783ef59c9c2cc1fd2396}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Guy\bibnamedelima N.},
+           giveni={G\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{fullhash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{fullhashraw}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{bibnamehash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{authorbibnamehash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{authornamehash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{authorfullhash}{87a34cbcd4454ebdd211fe956241ddda}
+      \strng{authorfullhashraw}{87a34cbcd4454ebdd211fe956241ddda}
+      \field{labelalpha}{GKR15}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~2008.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{4}
+      \field{title}{Delegating computation: interactive proofs for {M}uggles}
+      \field{volume}{62}
+      \field{year}{2015}
+      \field{pages}{27:1\bibrangedash 27:64}
+      \range{pages}{-1}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/2699436
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/2699436
+      \endverb
+    \endentry
+    \entry{GolovnevSTW23}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=778db0e0af5b4b473a8fcb3cac5b9622}{%
+           family={Golovnev},
+           familyi={G\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0cc492530e892f7a5966c9ef6f807cba}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6f2a2ff0388e71316a057e785b0160d8}{%
+           family={Setty},
+           familyi={S\bibinitperiod},
+           given={Srinath\bibnamedelimb T.\bibnamedelimi V.},
+           giveni={S\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=3a3494692023101d1ccddbb75d675624}{%
+           family={Thaler},
+           familyi={T\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=576bbde2acf3c9771442761f5c5591a5}{%
+           family={Wahby},
+           familyi={W\bibinitperiod},
+           given={Riad\bibnamedelima S.},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{fullhash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{fullhashraw}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{bibnamehash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{authorbibnamehash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{authornamehash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{authorfullhash}{2db520b5a7c2ae72859d202efadbaeef}
+      \strng{authorfullhashraw}{2db520b5a7c2ae72859d202efadbaeef}
+      \field{labelalpha}{GLSTW23}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 2023 (43rd Annual International Cryptology Conference)}
+      \field{series}{CRYPTO~2023}
+      \field{title}{Brakedown: linear-time and field-agnostic {SNARKs} for {R1CS}}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-031-38545-2_7
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-031-38545-2_7
+      \endverb
+    \endentry
+    \entry{GoldwasserMR89}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6ca128b1528751729e6bdfdbae0d354c}{%
+           family={Rackoff},
+           familyi={R\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{fullhash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{fullhashraw}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{bibnamehash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{authorbibnamehash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{authornamehash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{authorfullhash}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \strng{authorfullhashraw}{5bf73ce5d88b579eb39eff08f0c2729f}
+      \field{labelalpha}{GMR89}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~1985.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{1}
+      \field{title}{The knowledge complexity of interactive proof systems}
+      \field{volume}{18}
+      \field{year}{1989}
+      \field{pages}{186\bibrangedash 208}
+      \range{pages}{23}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/0218012
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/0218012
+      \endverb
+    \endentry
+    \entry{GoldreichMW91}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=94bdc407739d530448ac88956c6c98a5}{%
+           family={Wigderson},
+           familyi={W\bibinitperiod},
+           given={Avi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{fullhash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{fullhashraw}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{bibnamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authorbibnamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authornamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authorfullhash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authorfullhashraw}{5a9fcc707bce192056e824a8880d37a2}
+      \field{labelalpha}{GMW91}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1986.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{3}
+      \field{title}{Proofs that yield nothing but their validity or all languages in {NP} have zero-knowledge proof systems}
+      \field{volume}{38}
+      \field{year}{1991}
+      \field{pages}{691\bibrangedash 729}
+      \range{pages}{39}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/116825.116852
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/116825.116852
+      \endverb
+    \endentry
+    \entry{GoldreichVW02}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=c915d3380da8c4288e9634bbee5ba983}{%
+           family={Vadhan},
+           familyi={V\bibinitperiod},
+           given={Salil},
+           giveni={S\bibinitperiod}}}%
+        {{hash=94bdc407739d530448ac88956c6c98a5}{%
+           family={Wigderson},
+           familyi={W\bibinitperiod},
+           given={Avi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{fullhash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{fullhashraw}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{bibnamehash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{authorbibnamehash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{authornamehash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{authorfullhash}{ae6227ad3c067954ea9ea1b86a48172a}
+      \strng{authorfullhashraw}{ae6227ad3c067954ea9ea1b86a48172a}
+      \field{labelalpha}{GVW02}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in ICALP~2001.}
+      \field{journaltitle}{Computational Complexity}
+      \field{number}{1-2}
+      \field{title}{On interactive proofs with a laconic prover}
+      \field{volume}{11}
+      \field{year}{2002}
+      \field{pages}{1\bibrangedash 53}
+      \range{pages}{53}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00037-002-0169-0
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00037-002-0169-0
+      \endverb
+    \endentry
+    \entry{GentryW11}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=bd007b2a3d698c39bd758b253f7c2ebf}{%
+           family={Gentry},
+           familyi={G\bibinitperiod},
+           given={Craig},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e70142f333ab926e7234ddfa7cba6db2}{%
+           family={Wichs},
+           familyi={W\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{fullhash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{fullhashraw}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{bibnamehash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{authorbibnamehash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{authornamehash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{authorfullhash}{7a028e871099bc52f3dad5d3f016268e}
+      \strng{authorfullhashraw}{7a028e871099bc52f3dad5d3f016268e}
+      \field{labelalpha}{GW11}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC~'11 (43rd Annual ACM Symposium on Theory of Computing)}
+      \field{series}{STOC~'11}
+      \field{title}{Separating Succinct Non-Interactive Arguments From All Falsifiable Assumptions}
+      \field{year}{2011}
+      \field{pages}{99\bibrangedash 108}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/1993636.1993651
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/1993636.1993651
+      \endverb
+    \endentry
+    \entry{Holmgren19}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f1578fdc6128c5100a34863dc853bbee}{%
+           family={Holmgren},
+           familyi={H\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{fullhash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{fullhashraw}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{bibnamehash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{authorbibnamehash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{authornamehash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{authorfullhash}{f1578fdc6128c5100a34863dc853bbee}
+      \strng{authorfullhashraw}{f1578fdc6128c5100a34863dc853bbee}
+      \field{labelalpha}{Hol19}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2019/1261}
+      \field{title}{On round-by-round soundness and state restoration attacks}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2019/1261
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2019/1261
+      \endverb
+    \endentry
+    \entry{IshaiMSX15}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=5d2e4cfa73650faa445e88497717a0ec}{%
+           family={Ishai},
+           familyi={I\bibinitperiod},
+           given={Yuval},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=d305cfdfd92b81e6b1e1371f146577ef}{%
+           family={Mahmoody},
+           familyi={M\bibinitperiod},
+           given={Mohammad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=0e9166224409c3d193f407331ef18b02}{%
+           family={Sahai},
+           familyi={S\bibinitperiod},
+           given={Amit},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f694c0e712a963f0207e0bf9704b7358}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{539372ab896595d34f11dad7b145a890}
+      \strng{fullhash}{539372ab896595d34f11dad7b145a890}
+      \strng{fullhashraw}{539372ab896595d34f11dad7b145a890}
+      \strng{bibnamehash}{539372ab896595d34f11dad7b145a890}
+      \strng{authorbibnamehash}{539372ab896595d34f11dad7b145a890}
+      \strng{authornamehash}{539372ab896595d34f11dad7b145a890}
+      \strng{authorfullhash}{539372ab896595d34f11dad7b145a890}
+      \strng{authorfullhashraw}{539372ab896595d34f11dad7b145a890}
+      \field{labelalpha}{IMSX15}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{On Zero-Knowledge {PCP}s: Limitations, Simplifications, and Applications}
+      \field{year}{2015}
+      \verb{urlraw}
+      \verb http://www.cs.virginia.edu/~mohammad/files/papers/ZKPCPs-Full.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.cs.virginia.edu/~mohammad/files/papers/ZKPCPs-Full.pdf
+      \endverb
+    \endentry
+    \entry{ImpagliazzoR89}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=fecb48e0778d57043f598aa75fabb52e}{%
+           family={Impagliazzo},
+           familyi={I\bibinitperiod},
+           given={Russell},
+           giveni={R\bibinitperiod}}}%
+        {{hash=cbeaad4fe85b400f2c47733f82d53bdf}{%
+           family={Rudich},
+           familyi={R\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{fullhash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{fullhashraw}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{bibnamehash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{authorbibnamehash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{authornamehash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{authorfullhash}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \strng{authorfullhashraw}{ee0a327df929bdd7ef019fefe64e7a9b}
+      \field{labelalpha}{IR89}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 1989 (21st Symposium on Theory of Computing)}
+      \field{series}{STOC~1989}
+      \field{title}{Limits on the provable consequences of one-way permutations}
+      \field{year}{1989}
+      \field{pages}{44\bibrangedash 61}
+      \range{pages}{18}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/73007.73012
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/73007.73012
+      \endverb
+    \endentry
+    \entry{Kilian92}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=4591268c67f1c3a2dddd96c8b3457967}{%
+           family={Kilian},
+           familyi={K\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{fullhash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{fullhashraw}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{bibnamehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{authorbibnamehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{authornamehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{authorfullhash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{authorfullhashraw}{4591268c67f1c3a2dddd96c8b3457967}
+      \field{labelalpha}{Kil92}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 1992 (24th Symposium on Theory of Computing)}
+      \field{series}{STOC~1992}
+      \field{title}{A note on efficient zero-knowledge proofs and arguments}
+      \field{year}{1992}
+      \field{pages}{723\bibrangedash 732}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/129712.129782
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/129712.129782
+      \endverb
+    \endentry
+    \entry{LundFKN92}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=8de06808d97fa9673d700197a2bce191}{%
+           family={Lund},
+           familyi={L\bibinitperiod},
+           given={Carsten},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e43a5724fcae7ec1838dfc44579da075}{%
+           family={Fortnow},
+           familyi={F\bibinitperiod},
+           given={Lance},
+           giveni={L\bibinitperiod}}}%
+        {{hash=3b18324710eb86ef266f79d772e61b59}{%
+           family={Karloff},
+           familyi={K\bibinitperiod},
+           given={{Howard J.}},
+           giveni={H\bibinitperiod}}}%
+        {{hash=dd03ed102537d5040adaf7ede9bad0ec}{%
+           family={Nisan},
+           familyi={N\bibinitperiod},
+           given={Noam},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{fullhash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{fullhashraw}{f421902294f9f1c230654be216ca4bc9}
+      \strng{bibnamehash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{authorbibnamehash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{authornamehash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{authorfullhash}{f421902294f9f1c230654be216ca4bc9}
+      \strng{authorfullhashraw}{f421902294f9f1c230654be216ca4bc9}
+      \field{labelalpha}{LFKN92}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1990.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{4}
+      \field{title}{Algebraic methods for interactive proof systems}
+      \field{volume}{39}
+      \field{year}{1992}
+      \field{pages}{859\bibrangedash 868}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/146585.146605
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/146585.146605
+      \endverb
+    \endentry
+    \entry{LiuZ19}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=7d69d8a6e608d4d2de25a8e94fa01bb3}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Qipeng},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=de90e6188942e1336d313c4670df52bf}{%
+           family={Zhandry},
+           familyi={Z\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{fullhash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{fullhashraw}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{bibnamehash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{authorbibnamehash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{authornamehash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{authorfullhash}{35e36785cedaefaf3ec6625de6c41cd0}
+      \strng{authorfullhashraw}{35e36785cedaefaf3ec6625de6c41cd0}
+      \field{labelalpha}{LZ19}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO~'19 (39th Annual International Cryptology Conference)}
+      \field{series}{CRYPTO~'19}
+      \field{title}{Revisiting post-quantum {F}iat--{S}hamir}
+      \field{year}{2019}
+      \field{pages}{326\bibrangedash 355}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-26951-7_12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-26951-7_12
+      \endverb
+    \endentry
+    \entry{Merkle89-tree}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=7ce153cbcf9fe4d00b9e06666f55de7a}{%
+           family={Merkle},
+           familyi={M\bibinitperiod},
+           given={Ralph\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{bibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorbibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authornamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \field{extraname}{1}
+      \field{labelalpha}{Mer89}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1989 (9th International Cryptology Conference)}
+      \field{series}{CRYPTO~1989}
+      \field{title}{A certified digital signature}
+      \field{year}{1989}
+      \field{pages}{218\bibrangedash 238}
+      \range{pages}{21}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34805-0_21
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34805-0_21
+      \endverb
+    \endentry
+    \entry{Merkle89-hash}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=7ce153cbcf9fe4d00b9e06666f55de7a}{%
+           family={Merkle},
+           familyi={M\bibinitperiod},
+           given={Ralph\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{fullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{bibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorbibnamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authornamehash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhash}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \strng{authorfullhashraw}{7ce153cbcf9fe4d00b9e06666f55de7a}
+      \field{extraname}{2}
+      \field{labelalpha}{Mer89}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1989 (9th International Cryptology Conference)}
+      \field{series}{CRYPTO~1989}
+      \field{title}{One way hash functions and {DES}}
+      \field{volume}{435}
+      \field{year}{1989}
+      \field{pages}{428\bibrangedash 446}
+      \range{pages}{19}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34805-0_40
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34805-0_40
+      \endverb
+    \endentry
+    \entry{Micali00}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{fullhash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{fullhashraw}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{bibnamehash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{authorbibnamehash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{authornamehash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{authorfullhash}{fb54c363f1b0d126e883c84df49e4790}
+      \strng{authorfullhashraw}{fb54c363f1b0d126e883c84df49e4790}
+      \field{labelalpha}{Mic00}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1994.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{4}
+      \field{title}{Computationally sound proofs}
+      \field{volume}{30}
+      \field{year}{2000}
+      \field{pages}{1253\bibrangedash 1298}
+      \range{pages}{46}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/S0097539795284959
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/S0097539795284959
+      \endverb
+    \endentry
+    \entry{Mie09}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=d7ef9ead123d220d3cf5acd2b1f85e2c}{%
+           family={Mie},
+           familyi={M\bibinitperiod},
+           given={Thilo},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{fullhash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{fullhashraw}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{bibnamehash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{authorbibnamehash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{authornamehash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{authorfullhash}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \strng{authorfullhashraw}{d7ef9ead123d220d3cf5acd2b1f85e2c}
+      \field{labelalpha}{Mie09}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issue}{3}
+      \field{journaltitle}{Annals of Mathematics and Artificial Intelligence}
+      \field{title}{Short {PCPP}s verifiable in polylogarithmic time with o(1) queries}
+      \field{volume}{56}
+      \field{year}{2009}
+      \field{pages}{313\bibrangedash 338}
+      \range{pages}{26}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s10472-009-9169-y
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s10472-009-9169-y
+      \endverb
+    \endentry
+    \entry{Pass03}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=312f04a816efd618c9798c39b91d6e0a}{%
+           family={Pass},
+           familyi={P\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{fullhash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{fullhashraw}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{bibnamehash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{authorbibnamehash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{authornamehash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{authorfullhash}{312f04a816efd618c9798c39b91d6e0a}
+      \strng{authorfullhashraw}{312f04a816efd618c9798c39b91d6e0a}
+      \field{labelalpha}{Pas03}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 2003 (23rd International Cryptology Conference)}
+      \field{series}{CRYPTO~2003}
+      \field{title}{On deniability in the common reference string and random oracle model}
+      \field{year}{2003}
+      \field{pages}{316\bibrangedash 337}
+      \range{pages}{22}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-540-45146-4_19
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-540-45146-4_19
+      \endverb
+    \endentry
+    \entry{PointchevalS96}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=8477cabfb261c3696163854eae25beb1}{%
+           family={Pointcheval},
+           familyi={P\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=1376067edec67519daf9e0c439f72c89}{%
+           family={Stern},
+           familyi={S\bibinitperiod},
+           given={Jacques},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{fullhash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{fullhashraw}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{bibnamehash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{authorbibnamehash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{authornamehash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{authorfullhash}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \strng{authorfullhashraw}{a6ffdde4e4559dd4bc1f878af9f4aab7}
+      \field{labelalpha}{PS96}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of EUROCRYPT 1996 (15th International Conference on Theory and Application of Cryptographic Techniques)}
+      \field{series}{EUROCRYPT~1996}
+      \field{title}{Security proofs for signature schemes}
+      \field{year}{1996}
+      \field{pages}{387\bibrangedash 398}
+      \range{pages}{12}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/3-540-68339-9_33
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/3-540-68339-9_33
+      \endverb
+    \endentry
+    \entry{RonZewiR20}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=7549ccb38691252f4dc36a65e7342b73}{%
+           family={{Ron-Zewi}},
+           familyi={R\bibinitperiod},
+           given={Noga},
+           giveni={N\bibinitperiod}}}%
+        {{hash=1c38fa3906c4976a3d64f4395d3dc05a}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Ron},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{fullhash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{fullhashraw}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{bibnamehash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{authorbibnamehash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{authornamehash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{authorfullhash}{c34b7d032a2601a5350be58c530c5c69}
+      \strng{authorfullhashraw}{c34b7d032a2601a5350be58c530c5c69}
+      \field{extraname}{1}
+      \field{labelalpha}{RR20}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of FOCS 2020 (61st Symposium on Foundations of Computer Science)}
+      \field{series}{FOCS~2020}
+      \field{title}{Local proofs approaching the witness length}
+      \field{year}{2020}
+      \field{pages}{846\bibrangedash 857}
+      \range{pages}{12}
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/FOCS46700.2020.00083
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/FOCS46700.2020.00083
+      \endverb
+    \endentry
+    \entry{RonZewiR22}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=7549ccb38691252f4dc36a65e7342b73}{%
+           family={{Ron-Zewi}},
+           familyi={R\bibinitperiod},
+           given={Noga},
+           giveni={N\bibinitperiod}}}%
+        {{hash=0905645f1b049f8267ba1f3c372c8a26}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Ron\bibnamedelima D.},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{fullhash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{fullhashraw}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{bibnamehash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{authorbibnamehash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{authornamehash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{authorfullhash}{acc8e87d05ee669d1fa57911f9aa3319}
+      \strng{authorfullhashraw}{acc8e87d05ee669d1fa57911f9aa3319}
+      \field{extraname}{2}
+      \field{labelalpha}{RR22}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 2022 (54th Symposium on the Theory of Computing)}
+      \field{series}{STOC~2022}
+      \field{title}{Proving as fast as computing: succinct arguments with constant prover overhead}
+      \field{year}{2022}
+      \field{pages}{1353\bibrangedash 1363}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3519935.3519956
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3519935.3519956
+      \endverb
+    \endentry
+    \entry{ReingoldRR21}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=6ff631f4e02261486e4a7d47b7aa7d0b}{%
+           family={Reingold},
+           familyi={R\bibinitperiod},
+           given={Omer},
+           giveni={O\bibinitperiod}}}%
+        {{hash=1c38fa3906c4976a3d64f4395d3dc05a}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Ron},
+           giveni={R\bibinitperiod}}}%
+        {{hash=f106b13a5fc7b67798625e67910f0fc2}{%
+           family={Rothblum},
+           familyi={R\bibinitperiod},
+           given={Guy},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{fullhash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{fullhashraw}{625823096318b664c9bccbf25e0ae00e}
+      \strng{bibnamehash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{authorbibnamehash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{authornamehash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{authorfullhash}{625823096318b664c9bccbf25e0ae00e}
+      \strng{authorfullhashraw}{625823096318b664c9bccbf25e0ae00e}
+      \field{labelalpha}{RRR21}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in STOC~2016.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{3}
+      \field{title}{Constant-round interactive proofs for delegating computation}
+      \field{volume}{50}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/16M1096773
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/16M1096773
+      \endverb
+    \endentry
+    \entry{RazS97}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=2be204ff183c79ca47c4fb3d72aed23b}{%
+           family={Raz},
+           familyi={R\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=39a329e2b5e4ee534c5c5ef2f16d4b64}{%
+           family={Safra},
+           familyi={S\bibinitperiod},
+           given={Shmuel},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{fullhash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{fullhashraw}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{bibnamehash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{authorbibnamehash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{authornamehash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{authorfullhash}{e9ce342af88cabff3c25d60be19aeaa1}
+      \strng{authorfullhashraw}{e9ce342af88cabff3c25d60be19aeaa1}
+      \field{labelalpha}{RS97}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of STOC 1997 (29th Symposium on Theory of Computing)}
+      \field{series}{STOC~1997}
+      \field{title}{A sub-constant error-probability low-degree test, and a sub-constant error-probability {PCP} characterization of {NP}}
+      \field{year}{1997}
+      \field{pages}{475\bibrangedash 484}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/258533.258641
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/258533.258641
+      \endverb
+    \endentry
+    \entry{Schnorr89}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=0cd5bbd149e4d6d600854c7f315a0dc9}{%
+           family={Schnorr},
+           familyi={S\bibinitperiod},
+           given={{Claus-Peter}},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{fullhash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{fullhashraw}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{bibnamehash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{authorbibnamehash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{authornamehash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{authorfullhash}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \strng{authorfullhashraw}{0cd5bbd149e4d6d600854c7f315a0dc9}
+      \field{labelalpha}{Sch89}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of CRYPTO 1989 (9th International Cryptology Conference)}
+      \field{series}{CRYPTO~1989}
+      \field{title}{Efficient identification and signatures for smart cards}
+      \field{year}{1989}
+      \field{pages}{239\bibrangedash 252}
+      \range{pages}{14}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/0-387-34805-0_22
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/0-387-34805-0_22
+      \endverb
+    \endentry
+    \entry{Shamir92}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=71b77dd8ab33fe646ef25cded49e9881}{%
+           family={Shamir},
+           familyi={S\bibinitperiod},
+           given={Adi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{fullhash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{fullhashraw}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{bibnamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authorbibnamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authornamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authorfullhash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authorfullhashraw}{71b77dd8ab33fe646ef25cded49e9881}
+      \field{labelalpha}{Sha92}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{A preliminary version of this article appears in FOCS~1990.}
+      \field{journaltitle}{Journal of the ACM}
+      \field{number}{4}
+      \field{title}{{IP} = {PSPACE}}
+      \field{volume}{39}
+      \field{year}{1992}
+      \field{pages}{869\bibrangedash 877}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/146585.146609
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/146585.146609
+      \endverb
+    \endentry
+    \entry{ThalerBook}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=3a3494692023101d1ccddbb75d675624}{%
+           family={Thaler},
+           familyi={T\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{fullhash}{3a3494692023101d1ccddbb75d675624}
+      \strng{fullhashraw}{3a3494692023101d1ccddbb75d675624}
+      \strng{bibnamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorbibnamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authornamehash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorfullhash}{3a3494692023101d1ccddbb75d675624}
+      \strng{authorfullhashraw}{3a3494692023101d1ccddbb75d675624}
+      \field{labelalpha}{Tha22}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Proofs, arguments, and zero-knowledge}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.html
+      \endverb
+      \verb{url}
+      \verb https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.html
+      \endverb
+    \endentry
+    \entry{Valiant08}{inproceedings}{}{}
+      \name{author}{1}{}{%
+        {{hash=cfdaece692fde4e082f957802f53331b}{%
+           family={Valiant},
+           familyi={V\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{cfdaece692fde4e082f957802f53331b}
+      \strng{fullhash}{cfdaece692fde4e082f957802f53331b}
+      \strng{fullhashraw}{cfdaece692fde4e082f957802f53331b}
+      \strng{bibnamehash}{cfdaece692fde4e082f957802f53331b}
+      \strng{authorbibnamehash}{cfdaece692fde4e082f957802f53331b}
+      \strng{authornamehash}{cfdaece692fde4e082f957802f53331b}
+      \strng{authorfullhash}{cfdaece692fde4e082f957802f53331b}
+      \strng{authorfullhashraw}{cfdaece692fde4e082f957802f53331b}
+      \field{labelalpha}{Val08}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of TCC 2008 (5th Theory of Cryptography Conference)}
+      \field{series}{TCC~2008}
+      \field{title}{Incrementally verifiable computation or proofs of knowledge imply time/space efficiency}
+      \field{year}{2008}
+      \field{pages}{1\bibrangedash 18}
+      \range{pages}{18}
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-540-78524-8_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-540-78524-8_1
+      \endverb
+    \endentry
+    \entry{YamakawaZ22}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=b42bd1ad929b988e4d082afce44c55ec}{%
+           family={Yamakawa},
+           familyi={Y\bibinitperiod},
+           given={Takashi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=de90e6188942e1336d313c4670df52bf}{%
+           family={Zhandry},
+           familyi={Z\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{fullhash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{fullhashraw}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{bibnamehash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{authorbibnamehash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{authornamehash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{authorfullhash}{0fb07105a6137e7000118f0f5f12c5fb}
+      \strng{authorfullhashraw}{0fb07105a6137e7000118f0f5f12c5fb}
+      \field{labelalpha}{YZ22}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of FOCS 2022 (63rd Symposium on Foundations of Computer Science)}
+      \field{series}{FOCS~2022}
+      \field{title}{Verifiable quantum advantage without structure}
+      \field{year}{2022}
+      \field{pages}{69\bibrangedash 74}
+      \range{pages}{6}
+      \verb{urlraw}
+      \verb https://doi.org/10.1109/FOCS54457.2022.00014
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109/FOCS54457.2022.00014
+      \endverb
+    \endentry
+    \entry{ZKProof}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=e09b2c57646be005478049a0b3099602}{%
+           family={ZKProof},
+           familyi={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{e09b2c57646be005478049a0b3099602}
+      \strng{fullhash}{e09b2c57646be005478049a0b3099602}
+      \strng{fullhashraw}{e09b2c57646be005478049a0b3099602}
+      \strng{bibnamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorbibnamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authornamehash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorfullhash}{e09b2c57646be005478049a0b3099602}
+      \strng{authorfullhashraw}{e09b2c57646be005478049a0b3099602}
+      \field{labelalpha}{ZKP22}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{ZKProof} community reference}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://docs.zkproof.org/reference
+      \endverb
+      \verb{url}
+      \verb https://docs.zkproof.org/reference
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
