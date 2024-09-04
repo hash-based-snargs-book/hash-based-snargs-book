@@ -12,6 +12,8 @@
 \newcommand*{\notesoption}{false}
 \newcommand*{\lateroption}{false}
 \newcommand*{\doneoption}{false}
+\newcommand*{\lightoption}{false}
+\newcommand*{\ultralightoption}{false}
 
 \DeclareOption{bookview}{}
 \DeclareOption{singlepageview}{%
@@ -30,7 +32,16 @@
     \dt@donetrue%
 }
 \makeatother
+\DeclareOption{lightweight}{
+    \renewcommand*{\lightoption}{true}%
+}
+\DeclareOption{ultralightweight}{
+    \renewcommand*{\lightoption}{true}%
+    \renewcommand*{\ultralightoption}{true}%
+}
 \ProcessOptions\relax
+
+\def\true{true}
 
 \LoadClass[
     fontsize=11pt,%
@@ -43,16 +54,30 @@
 ]{scrbook} % KOMA-Script book class
 
 \RequirePackage[a4paper,scale=0.75,marginratio={1:1,4:3},head=76.5pt,twoside=\twoside]{geometry}
-\RequirePackage{babel}
+\ifx\ultralightoption\true
+\else
+    \RequirePackage{babel}
+\fi
 \RequirePackage{caption}
 \RequirePackage{subcaption}
 \RequirePackage{array}
-\RequirePackage{microtype}
 \RequirePackage{amssymb}
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{mathtools}
-\RequirePackage{graphicx}
+\ifx\lightoption\true
+    \RequirePackage[draft]{graphicx}
+\else
+    \RequirePackage{graphicx}
+\fi
+\ifx\ultralightoption\true
+\else
+    \RequirePackage{tcolorbox}
+      \tcbuselibrary{skins}
+      \tcbuselibrary{theorems}
+      \tcbuselibrary{breakable}
+    \RequirePackage{microtype}
+\fi
 \RequirePackage{braket}
 \RequirePackage{bm}
 \RequirePackage{bbm}
@@ -60,24 +85,31 @@
 \RequirePackage{float}
 \RequirePackage{multirow}
 \RequirePackage{mathrsfs}
-\RequirePackage{adjustbox}
-\RequirePackage{breakcites}
+\ifx\ultralightoption\true
+\else
+    \RequirePackage{adjustbox}
+    \RequirePackage{breakcites}
+\fi
 \RequirePackage{booktabs}
 \RequirePackage{verbatim}
 \RequirePackage{verbatimbox}
 \RequirePackage{xfrac}
 \RequirePackage{mathdots}
 \RequirePackage{xpatch}
-\RequirePackage{bookmark}
 \RequirePackage{xcolor}
-\RequirePackage{afterpage}
-\RequirePackage{pagecolor}
-\RequirePackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+\ifx\ultralightoption\true
+    \newcommand*{\fullref}[1]{}
+\else
+    \RequirePackage{bookmark}
+    \RequirePackage{afterpage}
+    \RequirePackage{pagecolor}
+    \RequirePackage[type={CC},modifier={by-sa},version={4.0}]{doclicense}
+    \RequirePackage[nameinlink]{cleveref}
+      \creflabelformat{equation}{#2\textup{#1}#3}
+      \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
+\fi
 \RequirePackage[classfont=sanserif,langfont=roman]{complexity}
 \RequirePackage{paralist}
-\RequirePackage[nameinlink]{cleveref}
-  \creflabelformat{equation}{#2\textup{#1}#3}
-  \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
 \RequirePackage{enumitem}
   \setlist[itemize]{leftmargin=2em}
   \setlist[enumerate]{leftmargin=2em}
@@ -86,14 +118,13 @@
 \setcounter{secnumdepth}{3}
 \RequirePackage{chngcntr}
 \RequirePackage{epigraph}
-\RequirePackage{etoc}
-\RequirePackage{fontspec}
-\RequirePackage[backend=biber,style=alphabetic,maxnames=99,maxalphanames=99,sorting=anyt,backref=true,url=true]{biblatex}
-\RequirePackage{tcolorbox}
-  \tcbuselibrary{skins}
-  \tcbuselibrary{theorems}
-  \tcbuselibrary{breakable}
-\RequirePackage{scrlayer-scrpage}
+\ifx\ultralightoption\true
+\else
+    \RequirePackage{etoc}
+    \RequirePackage{fontspec}
+    \RequirePackage[backend=biber,style=alphabetic,maxnames=99,maxalphanames=99,sorting=anyt,backref=true,url=true]{biblatex}
+    \RequirePackage{scrlayer-scrpage}
+\fi
 \RequirePackage{ifpdf}
 \RequirePackage{url}
 \RequirePackage{etoolbox}
@@ -101,18 +132,55 @@
 \RequirePackage{relsize}
 \RequirePackage[quiet]{marginnote}
 \RequirePackage{morefloats}
+\ifx\ultralightoption\true
+    \renewcommand*{\tableofcontents}{}
+    \newcommand*{\maketitlepage}{}
+    \newcommand*{\doclicenseThis}{}
+    \newcommand*{\printbibliography}{}
+    \newcommand*{\Cref}[1]{}
+    \renewcommand*{\thispagestyle}[1]{}
+    \newcommand*{\phantomsection}{}
+    \newcommand*{\bookmark}{}
+    \newcommand*{\hypersetup}{}
+    \newcommand*{\etocsetlocaltop}{}
+    \newcommand*{\bookmarksetup}{}
+\else
+\fi
+
+
+%%%%% black-box rewinding access
+
+\ifx\lightoption\true
+    \newcommand{\BlackBox}[1]{#1}
+\else
+    \RequirePackage{tikz}
+    \definecolor{lightpink}{rgb}{1.0, 0.71, 0.76}
+    \makeatletter
+    \newcommand{\BlackBox}[1]{%
+    \begingroup
+    \setlength{\fboxsep}{1pt}%
+    \tikzstyle{mybox} = [fill=lightpink!50, rounded corners=2pt, inner sep=1pt]
+    \tikz[baseline=(box.base)] \node[mybox](box) {\m@th$\displaystyle#1$};
+    \endgroup
+    }
+    \makeatother
+\fi
+
 
 \setlength\epigraphwidth{.6\textwidth}
 
-\hypersetup{% setup for pdf bookmarks
-    pdflang=en-US,%
-    unicode=true,%
-	pdfborder={0 0 0},%
-	bookmarksopen=true,%
-    bookmarksopenlevel=0,%
-	bookmarksnumbered=true,%
-    linktoc=all,%
-}
+\ifx\ultralightoption\true
+\else
+    \hypersetup{% setup for pdf bookmarks
+        pdflang=en-US,%
+        unicode=true,%
+        pdfborder={0 0 0},%
+        bookmarksopen=true,%
+        bookmarksopenlevel=0,%
+        bookmarksnumbered=true,%
+        linktoc=all,%
+    }
+\fi
 
 \allowdisplaybreaks
 
@@ -129,19 +197,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% COLORS
 
-\definecolor{darkgrey}{HTML}{333333}
-\definecolor{lightmidgrey}{HTML}{aaaaaa}
-\definecolor{extralightgrey}{HTML}{eeeeee}
+\ifx\ultralightoption\true
+    \newcommand*{\opacitybg}{}
+    \newcommand*{\opacitytitle}{}
 
-\definecolor{darkblue}{rgb}{0, 0, 0.8}
-\definecolor{overviewbg}{HTML}{dfefdf}
+    \newcommand{\Paint}[1]{#1}
+\else
+    \definecolor{darkgrey}{HTML}{333333}
+    \definecolor{lightmidgrey}{HTML}{aaaaaa}
+    \definecolor{extralightgrey}{HTML}{eeeeee}
 
-% "Important" environments
-\definecolor{specialgreen}{HTML}{4b764b}
-\newcommand*{\opacitybg}{0.15}
-\newcommand*{\opacitytitle}{0.55}
+    \definecolor{darkblue}{rgb}{0, 0, 0.8}
+    \definecolor{overviewbg}{HTML}{dfefdf}
 
-\newcommand{\Paint}[1]{\textcolor{darkblue}{#1}}
+    % "Important" environments
+    \definecolor{specialgreen}{HTML}{4b764b}
+    \newcommand*{\opacitybg}{0.15}
+    \newcommand*{\opacitytitle}{0.55}
+
+    \newcommand{\Paint}[1]{\textcolor{darkblue}{#1}}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -150,22 +225,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% FONTS
 
-\setmainfont[%
-    Path=./fonts/,%
-    ItalicFont = lmroman10-italic.otf,%
-    SmallCapsFont = lmromancaps10-regular,%
-    BoldFont = lmroman10-bold.otf,%
-    BoldItalicFont = lmroman10-bolditalic.otf,%
-    Ligatures = {Common, Discretionary, TeX}
-]{lmroman10-regular.otf}
+\ifx\ultralightoption\true
+\else
+    \setmainfont[%
+        Path=./fonts/,%
+        ItalicFont = lmroman10-italic.otf,%
+        SmallCapsFont = lmromancaps10-regular,%
+        BoldFont = lmroman10-bold.otf,%
+        BoldItalicFont = lmroman10-bolditalic.otf,%
+        Ligatures = {Common, Discretionary, TeX}
+    ]{lmroman10-regular.otf}
 
-\setsansfont[%
-    Path=./fonts/,%
-    ItalicFont = lmsans10-oblique.otf,%
-    BoldFont = lmsans10-bold.otf,%
-    BoldItalicFont = lmsans10-boldoblique.otf,%
-    Ligatures = {Common, Discretionary, TeX}
-]{lmsans10-regular.otf}
+    \setsansfont[%
+        Path=./fonts/,%
+        ItalicFont = lmsans10-oblique.otf,%
+        BoldFont = lmsans10-bold.otf,%
+        BoldItalicFont = lmsans10-boldoblique.otf,%
+        Ligatures = {Common, Discretionary, TeX}
+    ]{lmsans10-regular.otf}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -221,44 +299,56 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% TITLE PAGE
 
-\tcbset{
-    headingstyle/.style={%
-        colback=overviewbg,%
-        boxrule=0mm,%
-        colframe=overviewbg,%
-        arc=5mm,%
-        boxsep=10mm,%
-        sharp corners,%
-        rounded corners,%
-        halign=center,%
-    }%
-}
+\ifx\lightoption\true
+\else
+    \tcbset{
+        headingstyle/.style={%
+            colback=overviewbg,%
+            boxrule=0mm,%
+            colframe=overviewbg,%
+            arc=5mm,%
+            boxsep=10mm,%
+            sharp corners,%
+            rounded corners,%
+            halign=center,%
+        }%
+    }
+\fi
 
-\newcommand*{\maketitlepage}{%
-    \begin{titlepage}%
-        \centering%
-        \sffamily%
-        \vspace*{1cm}%
-        \begin{tcolorbox}[%
-            headingstyle,%
-            left*=0mm,%
-            right*=0mm,%
-            grow to left by=10mm,%
-            grow to right by=10mm,%
-        ]%
+\ifx\ultralightoption\true
+\else
+    \newcommand*{\maketitlepage}{%
+        \begin{titlepage}%
+            \centering%
+            \sffamily%
+            \vspace*{1cm}%
+            \ifx\lightoption\true
+            \else
+                \begin{tcolorbox}[%
+                    headingstyle,%
+                    left*=0mm,%
+                    right*=0mm,%
+                    grow to left by=10mm,%
+                    grow to right by=10mm,%
+                ]%
+            \fi
             {\HUGE\textbf{Building\hspace*{.35em}Cryptographic\hspace*{.35em}Proofs}\descrule[overviewbg]}\par%
             \addvspace{.75\baselineskip}%
             {\HUGE\textbf{from\hspace*{.35em}Hash\hspace*{.35em}Functions}{\color{overviewbg}\rule[-.15\baselineskip]{.1pt}{.85\baselineskip}}}\par%
-        \end{tcolorbox}%
-        \vspace{2cm}%
-        {\LARGE Alessandro Chiesa}\par%
-        \vspace{1cm}%
-        {\LARGE Eylon Yogev}\par%
-        \vfill%
-        {\Large \today}%
-    \end{titlepage}%
-    \bookmark[page=1]{Cover Page}%
-}
+            \ifx\lightoption\true
+            \else
+                \end{tcolorbox}%
+            \fi
+            \vspace{2cm}%
+            {\LARGE Alessandro Chiesa}\par%
+            \vspace{1cm}%
+            {\LARGE Eylon Yogev}\par%
+            \vfill%
+            {\Large \today}%
+        \end{titlepage}%
+        \bookmark[page=1]{Cover Page}%
+    }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -267,14 +357,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% PART PAGES
 
-\renewcommand*{\partpagestyle}{empty} % No page number and running head on part pages
+\ifx\ultralightoption\true
+    \newcommand{\PartAbstract}[1]{#1}
+\else
+    \renewcommand*{\partpagestyle}{empty} % No page number and running head on part pages
 
-% part page style with green box
-\renewcommand*{\partlineswithprefixformat}[3]{%
-    \begin{tcolorbox}[%
-        headingstyle,%
-        bottom=-7.5mm,%
-    ]%
+    % part page style with green box
+    \renewcommand*{\partlineswithprefixformat}[3]{%
+        \ifx\lightoption\true
+        \else
+            \begin{tcolorbox}[%
+                headingstyle,%
+                bottom=-7.5mm,%
+            ]%
+        \fi
         \sffamily%
         \bfseries%
         \huge%
@@ -285,79 +381,91 @@
         \addvspace{.65\baselineskip}%
         #3%
         \descrule[overviewbg]%
-    \end{tcolorbox}%
-}
+        \ifx\lightoption\true
+        \else
+            \end{tcolorbox}%
+        \fi
+    }
 
-\renewcommand*{\partheademptypage}{} % remove empty page after part title page (book view)
+    \renewcommand*{\partheademptypage}{} % remove empty page after part title page (book view)
 
-% Part "overview" pages
-\newcommand{\PartAbstract}[1]{
-    \clearpage%
-    \thispagestyle{empty} % No page number and running head on "overview" pages
-    \setcounter{tocdepth}{1} % section-level toc
-    \setlength{\tnwchapter}{1.85em} % toc num width for chapter level entries
-    \setlength{\tnwsection}{\tnwchapter} % toc num width for section level entries
-    \addtolength{\tnwsection}{.65em}
-    \setlength{\tichapter}{0mm} % toc indent for chapter level entries
-    \setlength{\tisection}{\tnwchapter} % toc indent for section level entries
-    \RedeclareSectionCommand[%
-        tocentryformat=\normalfont\normalsize\sffamily\bfseries,%
-        tocpagenumberformat=\normalfont\normalsize\sffamily\bfseries,%
-        tocindent=\tichapter,%
-        tocnumwidth=\tnwchapter,%
-        toclevel=0,%
-        tocbeforeskip=.45\baselineskip,%
-        toconstarthigherlevel=\vspace{-.15\baselineskip}%
-    ]%
-    {chapter}
-    \RedeclareSectionCommand[%
-        tocentryformat=\normalfont\normalsize\sffamily,%
-        tocpagenumberformat=\normalfont\normalsize\sffamily,%
-        tocindent=\tisection,%
-        tocnumwidth=\tnwsection,%
-        toclevel=1,%
-        tocbeforeskip=.1\baselineskip,%
-    ]%
-    {section}
-    \newgeometry{% different page margins on "overview page"
-        twoside=false,%
-        hscale=0.675,%
-        vscale=0.85,%
-        marginratio={1:1,1:1},%
-    }%
-    \vspace*{2\baselineskip minus 2\baselineskip}
-    \begin{tcolorbox}[%
-        title=Overview,%
-        coltitle=black,%
-        toptitle=10mm,%
-        colbacktitle=overviewbg,%
-        fonttitle=\sffamily\bfseries\superLARGE,%
-        colback=overviewbg,%
-        boxrule=0mm,%
-        colframe=overviewbg,%
-        arc=5mm,%
-        top=4.5mm,%
-        bottom=2mm,%
-        left*=9.5mm,%
-        right*=9.5mm,%
-        sharp corners,%
-        rounded corners,%
-        grow to left by=5mm,%
-        grow to right by=5mm,%
-    ]
-        \sffamily
-        #1
-        \etocsettocstyle{%
-            \vspace*{-.3\baselineskip}%
-            \rule[-10pt]{\textwidth}{.5pt}\par%
-            \vspace*{-.3\baselineskip}\par%
-        }{}%
-        \localtableofcontents
-    \end{tcolorbox}
-    \vspace*{4\baselineskip minus 3\baselineskip}
-    \clearpage%
-    \restoregeometry%
-}
+    % Part "overview" pages
+    \newcommand{\PartAbstract}[1]{
+        \clearpage%
+        \thispagestyle{empty} % No page number and running head on "overview" pages
+        \setcounter{tocdepth}{1} % section-level toc
+        \setlength{\tnwchapter}{1.85em} % toc num width for chapter level entries
+        \setlength{\tnwsection}{\tnwchapter} % toc num width for section level entries
+        \addtolength{\tnwsection}{.65em}
+        \setlength{\tichapter}{0mm} % toc indent for chapter level entries
+        \setlength{\tisection}{\tnwchapter} % toc indent for section level entries
+        \RedeclareSectionCommand[%
+            tocentryformat=\normalfont\normalsize\sffamily\bfseries,%
+            tocpagenumberformat=\normalfont\normalsize\sffamily\bfseries,%
+            tocindent=\tichapter,%
+            tocnumwidth=\tnwchapter,%
+            toclevel=0,%
+            tocbeforeskip=.45\baselineskip,%
+            toconstarthigherlevel=\vspace{-.15\baselineskip}%
+        ]%
+        {chapter}
+        \RedeclareSectionCommand[%
+            tocentryformat=\normalfont\normalsize\sffamily,%
+            tocpagenumberformat=\normalfont\normalsize\sffamily,%
+            tocindent=\tisection,%
+            tocnumwidth=\tnwsection,%
+            toclevel=1,%
+            tocbeforeskip=.1\baselineskip,%
+        ]%
+        {section}
+        \newgeometry{% different page margins on "overview page"
+            twoside=false,%
+            hscale=0.675,%
+            vscale=0.85,%
+            marginratio={1:1,1:1},%
+        }%
+        \vspace*{2\baselineskip minus 2\baselineskip}
+        \ifx\lightoption\true
+        \else
+            \begin{tcolorbox}[%
+                title=Overview,%
+                coltitle=black,%
+                toptitle=10mm,%
+                colbacktitle=overviewbg,%
+                fonttitle=\sffamily\bfseries\superLARGE,%
+                colback=overviewbg,%
+                boxrule=0mm,%
+                colframe=overviewbg,%
+                arc=5mm,%
+                top=4.5mm,%
+                bottom=2mm,%
+                left*=9.5mm,%
+                right*=9.5mm,%
+                sharp corners,%
+                rounded corners,%
+                grow to left by=5mm,%
+                grow to right by=5mm,%
+            ]
+        \fi
+        {%
+            \sffamily
+            #1
+            \etocsettocstyle{%
+                \vspace*{-.3\baselineskip}%
+                \rule[-10pt]{\textwidth}{.5pt}\par%
+                \vspace*{-.3\baselineskip}\par%
+            }{}%
+            \localtableofcontents%
+        }
+        \ifx\lightoption\true
+        \else
+            \end{tcolorbox}
+        \fi
+        \vspace*{4\baselineskip minus 3\baselineskip}
+        \clearpage%
+        \restoregeometry%
+    }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -379,54 +487,75 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{claim}[theorem]{Claim}
-\definecolor{theorembackgroundcolor}{HTML}{e0f3e0}
-\definecolor{theoremlinecolor}{HTML}{707a70}
 \theoremstyle{definition} % non-italics
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{construction}[theorem]{Construction}
-\definecolor{constructioncolor}{HTML}{e0f3e0}
-\crefname{ImportantTheorem}{theorem}{theorems}
-\crefname{ImportantDefinition}{definition}{definitions}
-\crefname{ImportantConstruction}{construction}{constructions}
+\ifx\ultralightoption\true
+    \newenvironment{ImportantTheorem}[2]{
+        \begin{theorem}
+    }{%
+        \end{theorem}
+    }
+    \newenvironment{ImportantDefinition}[2]{
+        \begin{definition}
+    }{%
+        \end{definition}
+    }
+    \newenvironment{ImportantConstruction}[2]{
+        \begin{construction}
+    }{%
+        \end{construction}
+    }
+\else
+    \definecolor{theorembackgroundcolor}{HTML}{e0f3e0}
+    \definecolor{theoremlinecolor}{HTML}{707a70}
+    \definecolor{constructioncolor}{HTML}{e0f3e0}
+    \crefname{ImportantTheorem}{theorem}{theorems}
+    \crefname{ImportantDefinition}{definition}{definitions}
+    \crefname{ImportantConstruction}{construction}{constructions}
+\fi
 
-% general "Important" theorem style
-\tcbset{
-    theostyle/.style={%
-        enhanced jigsaw,%
-        before skip balanced=\baselineskip,%
-        after skip balanced=1.2\baselineskip,%
-        fonttitle=\bfseries,%
-        boxrule=0mm,%
-        titlerule=0mm,%
-        toprule=0mm,%
-        toptitle=-.3mm,%
-        bottomtitle=-.3mm,%
-        bottomrule=0mm,%
-        boxsep=.65\baselineskip,%
-        arc=5mm,%
-        rounded corners,%
-        breakable,%
-        colback=specialgreen,%
-        colframe=specialgreen,%
-        after title=\descrule[specialgreen],%
-        opacityback=\opacitybg,%
-        opacityframe=\opacitytitle,%
-    }%
-}
+\ifx\ultralightoption\true
+\else
+    % general "Important" theorem style
+    \tcbset{
+        theostyle/.style={%
+            enhanced jigsaw,%
+            before skip balanced=\baselineskip,%
+            after skip balanced=1.2\baselineskip,%
+            fonttitle=\bfseries,%
+            boxrule=0mm,%
+            titlerule=0mm,%
+            toprule=0mm,%
+            toptitle=-.3mm,%
+            bottomtitle=-.3mm,%
+            bottomrule=0mm,%
+            boxsep=.65\baselineskip,%
+            arc=5mm,%
+            rounded corners,%
+            breakable,%
+            colback=specialgreen,%
+            colframe=specialgreen,%
+            after title=\descrule[specialgreen],%
+            opacityback=\opacitybg,%
+            opacityframe=\opacitytitle,%
+        }%
+    }
 
-\NewTcbTheorem[number within=section,use counter=theorem,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
-    theostyle,%
-    fontupper=\itshape,% italics in definition env
-}{definition}
+    \NewTcbTheorem[number within=section,use counter=theorem,crefname={definition}{definitions}]{ImportantDefinition}{Definition}{%
+        theostyle,%
+        fontupper=\itshape,% italics in definition env
+    }{definition}
 
-\NewTcbTheorem[number within=section,use counter=theorem,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
-    theostyle,%
-    fontupper=\itshape,% italics in theorem env
-}{theorem}
+    \NewTcbTheorem[number within=section,use counter=theorem,crefname={theorem}{theorems}]{ImportantTheorem}{Theorem}{%
+        theostyle,%
+        fontupper=\itshape,% italics in theorem env
+    }{theorem}
 
-\NewTcbTheorem[number within=section,use counter=theorem,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
-    theostyle,%
-}{construction}
+    \NewTcbTheorem[number within=section,use counter=theorem,crefname={construction}{constructions}]{ImportantConstruction}{Construction}{%
+        theostyle,%
+    }{construction}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -451,66 +580,69 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% BIBLIOGRAPHY
 
-\bibliography{references}
-\renewcommand*{\bibfont}{\small}
+\ifx\ultralightoption\true
+\else
+    \bibliography{references}
+    \renewcommand*{\bibfont}{\small}
 
-\DefineBibliographyStrings{english}{%
-    backrefpage={\unskip{}Cited on page},%
-    backrefpages={\unskip{}Cited on pages}%
-}
-
-\AtEveryBibitem{%
-  \ifentrytype{inproceedings}{%
-    \clearfield{year}%
-    \clearfield{series}%
-  }{}%
-}
-
-% newline after authors
-\DeclareDelimFormat[bib]{nametitledelim}{\newline\bibsentence}
-
-% newline after title
-\makeatletter
-\def\do#1{
-  \ifcsdef{blx@bbx@#1}
-    {\xpatchbibdriver{#1}
-       {\printlist{language}%
-        \newunit\newblock}
-       {\printlist{language}%
-        \printunit{\newline\bibsentence}}
-       {}{}}
-    {}}
-\abx@doentrytypes
-\makeatother
-
-% url on its own line
-\DeclareFieldFormat{url}{\newline\textsc{url}: \url{#1}.}
-
-% addendum field on new line
-\renewbibmacro*{addendum+pubstate}{%
-\setunit{\newline}%
-\printfield{addendum}%
-\newunit\newblock
-\printfield{pubstate}}
-
-% no colons after "In"
-\renewcommand*{\intitlepunct}{\addspace}
-\DeclareFieldFormat*{title}{\mkbibitalic{#1}}
-\DeclareFieldFormat*{booktitle}{#1}
-\DeclareFieldFormat*{journaltitle}{#1}
-%\DeclareFieldFormat[article,inbook,incollection,inproceedings,thesis,misc]{titlecase:title}{\MakeSentenceCase*{#1}}
-\renewcommand*{\finentrypunct}{}
-\renewbibmacro*{pageref}{%
-\addperiod
-\iflistundef{pageref}
-  {}
-  {\newline\footnotesize\printtext[parens]{
-    \ifnumgreater{\value{pageref}}{1}
-    {\bibstring{backrefpages}\ppspace}
-    {\bibstring{backrefpage}\ppspace}\printlist[pageref][-\value{listtotal}]{pageref}\addperiod
+    \DefineBibliographyStrings{english}{%
+        backrefpage={\unskip{}Cited on page},%
+        backrefpages={\unskip{}Cited on pages}%
     }
-  }
-}
+
+    \AtEveryBibitem{%
+    \ifentrytype{inproceedings}{%
+        \clearfield{year}%
+        \clearfield{series}%
+    }{}%
+    }
+
+    % newline after authors
+    \DeclareDelimFormat[bib]{nametitledelim}{\newline\bibsentence}
+
+    % newline after title
+    \makeatletter
+    \def\do#1{
+    \ifcsdef{blx@bbx@#1}
+        {\xpatchbibdriver{#1}
+        {\printlist{language}%
+            \newunit\newblock}
+        {\printlist{language}%
+            \printunit{\newline\bibsentence}}
+        {}{}}
+        {}}
+    \abx@doentrytypes
+    \makeatother
+
+    % url on its own line
+    \DeclareFieldFormat{url}{\newline\textsc{url}: \url{#1}.}
+
+    % addendum field on new line
+    \renewbibmacro*{addendum+pubstate}{%
+    \setunit{\newline}%
+    \printfield{addendum}%
+    \newunit\newblock
+    \printfield{pubstate}}
+
+    % no colons after "In"
+    \renewcommand*{\intitlepunct}{\addspace}
+    \DeclareFieldFormat*{title}{\mkbibitalic{#1}}
+    \DeclareFieldFormat*{booktitle}{#1}
+    \DeclareFieldFormat*{journaltitle}{#1}
+    %\DeclareFieldFormat[article,inbook,incollection,inproceedings,thesis,misc]{titlecase:title}{\MakeSentenceCase*{#1}}
+    \renewcommand*{\finentrypunct}{}
+    \renewbibmacro*{pageref}{%
+    \addperiod
+    \iflistundef{pageref}
+    {}
+    {\newline\footnotesize\printtext[parens]{
+        \ifnumgreater{\value{pageref}}{1}
+        {\bibstring{backrefpages}\ppspace}
+        {\bibstring{backrefpage}\ppspace}\printlist[pageref][-\value{listtotal}]{pageref}\addperiod
+        }
+    }
+    }
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -519,234 +651,289 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% HEADER %%%%%
 
-\automark[chapter]{chapter} % in single page layout show chapter title on all pages
-\automark*[section]{} % in book view layout show section title on odd pages
+\ifx\ultralightoption\true
+\else
+    \automark[chapter]{chapter} % in single page layout show chapter title on all pages
+    \automark*[section]{} % in book view layout show section title on odd pages
 
-\tcbset{
-    headerstyle/.style={% styles for all header color boxes
-        boxsep=0mm,%
-        sharp corners,%
-    },%
-    allplainandframe/.style={% all frame boxes and those for "plain" page style (no running head)
-        height=12.5mm,%
-        boxrule=.1mm,%
-    },%
-    upperlower/.style={% boxes within the frame box
-        enhanced,%
-        height=12mm,%
-        width=20mm,%
-        boxrule=0mm,%
-        colframe=extralightgrey,%
-        valign=center,%
-        colback=extralightgrey,%
-    },%
-    plainframe/.style={% frame boxes on "plain" page style pages
-        skin=bicolor,%
-        colframe=white,%
-        top=0mm,%
-        bottom=0mm,%
-        valign=center,%
-    },%
-    frameandplainupper/.style={% frame boxes and left box on "plain" page style pages
-        colframe=lightmidgrey,%
-        valign=center,%
-        colback=extralightgrey,%
-        fuzzy shadow={0mm}{-.5mm}{.1mm}{.2mm}{black!50!white},%
-    },%
-    plainupper/.style={% left box on "plain" page style pages
-        enhanced,%
-        width=45mm,%
-    },%
-    frame/.style={% frame boxes
-        skin=enhanced,%
-        colbacklower=extralightgrey,%
-        left*=0mm,%
-        right*=0mm,%
-        grow to left by=26.5mm,%
-        grow to right by=26.5mm,%
-        sidebyside,%
-        segmentation hidden,%
-        top=0mm,%
-        bottom=0mm,%
-        valign lower=center,%
-        sidebyside gap=0mm,%
-        lower separated=true,%
-        sidebyside align=center seam,%
-        halign lower=right,%
-    },%
-}
-
-% boxes on the left side on even pages
-
-\newtcolorbox{leplainframe}{%
-    headerstyle,%
-    allplainandframe,%
-    plainframe,%
-    colback=extralightgrey,%
-    colbacklower=white,%
-    right*=0mm,%
-    halign=left,%
-}
-
-\newtcbox{\leplainupper}{%
-    headerstyle,%
-    allplainandframe,%
-    frameandplainupper,%
-    plainupper,%
-    tcbox width=minimum left,%
-    left*=0mm,%
-    grow to left by=26.5mm,%
-}
-
-\newtcolorbox{leframe}{
-    headerstyle,%
-    allplainandframe,%
-    frameandplainupper,%
-    frame,%
-    lefthand width=20mm,%
-}
-
-\newtcbox{\leupper}{%
-    headerstyle,%
-    upperlower,%
-    tcbox width=minimum left,%
-    left*=0mm,%
-}
-
-\newtcbox{\lelower}{%
-    headerstyle,%
-    upperlower,%
-    right*=0mm,%
-}
-
-% boxes on the right side on odd pages
-
-\newtcolorbox{roplainframe}{%
-    headerstyle,%
-    allplainandframe,%
-    plainframe,%
-    colback=white,%
-    colbacklower=extralightgrey,%
-    right*=0mm,%
-    halign=right,%
-}
-
-\newtcbox{\roplainupper}{%
-    headerstyle,%
-    allplainandframe,%
-    frameandplainupper,%
-    plainupper,%
-    tcbox width=minimum right,%
-    right*=0mm,%
-    grow to right by=26.5mm,%
-}
-
-\newtcolorbox{roframe}{
-    headerstyle,%
-    allplainandframe,%
-    frameandplainupper,%
-    frame,%
-    righthand width=20mm,%
-}
-
-\newtcbox{\roupper}{%
-    headerstyle,%
-    upperlower,%
-    left*=0mm,%
-}
-
-\newtcbox{\rolower}{%
-    headerstyle,%
-    upperlower,%
-    tcbox width=minimum right,%
-    right*=0mm,%
-}
-
-% left side of the header on even pages
-
-\lehead[%
-    \begin{leplainframe}%
-        \leplainupper{%
+    \ifx\lightoption\true
+        \lehead[%
             \descrule%
             \bfseries%
             \upshape%
             \sffamily%
             \addfontfeature{Scale=1}%
             \thepage% page number
-        }%
-    \end{leplainframe}%
-]{%
-\begin{leframe}%
-    \leupper{%
-        \descrule%
-        \bfseries%
-        \upshape%
-        \sffamily%
-        \addfontfeature{Scale=1}%
-        \thepage% page number
-    }%
-    \tcblower%
-    \lelower{%
-        \descrule%
-        \color{darkgrey}%
-        \bfseries%
-        \upshape%
-        \sffamily%
-        \addfontfeature{Scale=.95}%
-        \headmark% running head
-    }%
-\end{leframe}%
-}
-
-\cehead*{} % center of the header on even pages
-\rehead*{} % right side of the header on even pages
-\lohead*{} % left side of the header on odd pages
-\cohead*{} % center of the header on odd pages
-
-% right side of the header on odd pages
-
-\rohead[%
-    \begin{roplainframe}%
-        \roplainupper{%
+        ]{%
             \descrule%
             \bfseries%
             \upshape%
             \sffamily%
             \addfontfeature{Scale=1}%
             \thepage% page number
-        }%
-    \end{roplainframe}
-]{%
-\begin{roframe}%
-    \roupper{%
-        \descrule%
-        \color{darkgrey}%
-        \bfseries%
-        \upshape%
-        \sffamily%
-        \addfontfeature{Scale=.95}%
-        \headmark% running head
-    }%
-    \tcblower%
-    \rolower{%
-        \descrule%
-        \bfseries%
-        \upshape%
-        \sffamily%
-        \addfontfeature{Scale=1}%
-        \thepage% page number
-    }%
-\end{roframe}%
-}
+            \descrule%
+            \hspace*{\fill}%
+            \color{darkgrey}%
+            \bfseries%
+            \upshape%
+            \sffamily%
+            \addfontfeature{Scale=.95}%
+            \headmark% running head
+        }
+    \else
+        \tcbset{
+            headerstyle/.style={% styles for all header color boxes
+                boxsep=0mm,%
+                sharp corners,%
+            },%
+            allplainandframe/.style={% all frame boxes and those for "plain" page style (no running head)
+                height=12.5mm,%
+                boxrule=.1mm,%
+            },%
+            upperlower/.style={% boxes within the frame box
+                enhanced,%
+                height=12mm,%
+                width=20mm,%
+                boxrule=0mm,%
+                colframe=extralightgrey,%
+                valign=center,%
+                colback=extralightgrey,%
+            },%
+            plainframe/.style={% frame boxes on "plain" page style pages
+                skin=bicolor,%
+                colframe=white,%
+                top=0mm,%
+                bottom=0mm,%
+                valign=center,%
+            },%
+            frameandplainupper/.style={% frame boxes and left box on "plain" page style pages
+                colframe=lightmidgrey,%
+                valign=center,%
+                colback=extralightgrey,%
+                fuzzy shadow={0mm}{-.5mm}{.1mm}{.2mm}{black!50!white},%
+            },%
+            plainupper/.style={% left box on "plain" page style pages
+                enhanced,%
+                width=45mm,%
+            },%
+            frame/.style={% frame boxes
+                skin=enhanced,%
+                colbacklower=extralightgrey,%
+                left*=0mm,%
+                right*=0mm,%
+                grow to left by=26.5mm,%
+                grow to right by=26.5mm,%
+                sidebyside,%
+                segmentation hidden,%
+                top=0mm,%
+                bottom=0mm,%
+                valign lower=center,%
+                sidebyside gap=0mm,%
+                lower separated=true,%
+                sidebyside align=center seam,%
+                halign lower=right,%
+            },%
+        }
 
-\setlength{\headsep}{16pt}% vertical white space between header and textarea
+        % boxes on the left side on even pages
 
-\lefoot*{} % left side of the footer on even pages
-\cefoot*{} % center of the footer on even pages
-\refoot*{} % right side of the footer on even pages
-\lofoot*{} % left side of the footer on odd pages
-\cofoot*{} % center of the footer on odd pages
-\rofoot*{} % right side of the footer on odd pages
+        \newtcolorbox{leplainframe}{%
+            headerstyle,%
+            allplainandframe,%
+            plainframe,%
+            colback=extralightgrey,%
+            colbacklower=white,%
+            right*=0mm,%
+            halign=left,%
+        }
+
+        \newtcbox{\leplainupper}{%
+            headerstyle,%
+            allplainandframe,%
+            frameandplainupper,%
+            plainupper,%
+            tcbox width=minimum left,%
+            left*=0mm,%
+            grow to left by=26.5mm,%
+        }
+
+        \newtcolorbox{leframe}{
+            headerstyle,%
+            allplainandframe,%
+            frameandplainupper,%
+            frame,%
+            lefthand width=20mm,%
+        }
+
+        \newtcbox{\leupper}{%
+            headerstyle,%
+            upperlower,%
+            tcbox width=minimum left,%
+            left*=0mm,%
+        }
+
+        \newtcbox{\lelower}{%
+            headerstyle,%
+            upperlower,%
+            right*=0mm,%
+        }
+
+        % boxes on the right side on odd pages
+
+        \newtcolorbox{roplainframe}{%
+            headerstyle,%
+            allplainandframe,%
+            plainframe,%
+            colback=white,%
+            colbacklower=extralightgrey,%
+            right*=0mm,%
+            halign=right,%
+        }
+
+        \newtcbox{\roplainupper}{%
+            headerstyle,%
+            allplainandframe,%
+            frameandplainupper,%
+            plainupper,%
+            tcbox width=minimum right,%
+            right*=0mm,%
+            grow to right by=26.5mm,%
+        }
+
+        \newtcolorbox{roframe}{
+            headerstyle,%
+            allplainandframe,%
+            frameandplainupper,%
+            frame,%
+            righthand width=20mm,%
+        }
+
+        \newtcbox{\roupper}{%
+            headerstyle,%
+            upperlower,%
+            left*=0mm,%
+        }
+
+        \newtcbox{\rolower}{%
+            headerstyle,%
+            upperlower,%
+            tcbox width=minimum right,%
+            right*=0mm,%
+        }
+
+        % left side of the header on even pages
+
+        \lehead[%
+            \begin{leplainframe}%
+                \leplainupper{%
+                    \descrule%
+                    \bfseries%
+                    \upshape%
+                    \sffamily%
+                    \addfontfeature{Scale=1}%
+                    \thepage% page number
+                }%
+            \end{leplainframe}%
+        ]{%
+        \begin{leframe}%
+            \leupper{%
+                \descrule%
+                \bfseries%
+                \upshape%
+                \sffamily%
+                \addfontfeature{Scale=1}%
+                \thepage% page number
+            }%
+            \tcblower%
+            \lelower{%
+                \descrule%
+                \color{darkgrey}%
+                \bfseries%
+                \upshape%
+                \sffamily%
+                \addfontfeature{Scale=.95}%
+                \headmark% running head
+            }%
+        \end{leframe}%
+        }
+    \fi
+
+    \cehead*{} % center of the header on even pages
+    \rehead*{} % right side of the header on even pages
+    \lohead*{} % left side of the header on odd pages
+    \cohead*{} % center of the header on odd pages
+
+    \ifx\lightoption\true
+        \rohead[%
+            \descrule%
+            \bfseries%
+            \upshape%
+            \sffamily%
+            \addfontfeature{Scale=1}%
+            \thepage% page number
+        ]{%
+            \descrule%
+            \color{darkgrey}%
+            \bfseries%
+            \upshape%
+            \sffamily%
+            \addfontfeature{Scale=.95}%
+            \headmark% running head
+            \hspace*{\fill}%
+            \descrule%
+            \bfseries%
+            \upshape%
+            \sffamily%
+            \addfontfeature{Scale=1}%
+            \thepage% page number
+        }
+    \else
+        % right side of the header on odd pages
+
+        \rohead[%
+            \begin{roplainframe}%
+                \roplainupper{%
+                    \descrule%
+                    \bfseries%
+                    \upshape%
+                    \sffamily%
+                    \addfontfeature{Scale=1}%
+                    \thepage% page number
+                }%
+            \end{roplainframe}
+        ]{%
+        \begin{roframe}%
+            \roupper{%
+                \descrule%
+                \color{darkgrey}%
+                \bfseries%
+                \upshape%
+                \sffamily%
+                \addfontfeature{Scale=.95}%
+                \headmark% running head
+            }%
+            \tcblower%
+            \rolower{%
+                \descrule%
+                \bfseries%
+                \upshape%
+                \sffamily%
+                \addfontfeature{Scale=1}%
+                \thepage% page number
+            }%
+        \end{roframe}%
+        }
+    \fi
+
+    \setlength{\headsep}{16pt}% vertical white space between header and textarea
+
+    \lefoot*{} % left side of the footer on even pages
+    \cefoot*{} % center of the footer on even pages
+    \refoot*{} % right side of the footer on even pages
+    \lofoot*{} % left side of the footer on odd pages
+    \cofoot*{} % center of the footer on odd pages
+    \rofoot*{} % right side of the footer on odd pages
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -755,95 +942,109 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% TOC %%%%%
 
-\addto\captionsamerican{% change headings to lowercase "figures" and "tables" lettering
-    \renewcommand{\listfigurename}{List of figures}
-    \renewcommand{\listtablename}{List of tables}
-}
+\ifx\ultralightoption\true
+\else
+    \addto\captionsamerican{% change headings to lowercase "figures" and "tables" lettering
+        \renewcommand{\listfigurename}{List of figures}
+        \renewcommand{\listtablename}{List of tables}
+    }
 
-\AfterTOCHead[toc]{% additional vertical white space after toc heading
-    \vspace*{1\baselineskip plus \baselineskip minus \baselineskip}%
-}
+    \AfterTOCHead[toc]{% additional vertical white space after toc heading
+        \vspace*{1\baselineskip plus \baselineskip minus \baselineskip}%
+    }
 
-\newlength{\tnwpart} % toc num width of part entries
-\newlength{\tnwchapter} % toc num width of chapter entries
-\newlength{\tnwsection} % toc num width of section entries
-\newlength{\tipart} % toc indent of part entries
-\newlength{\tichapter} % toc indent of chapter entries
-\newlength{\tisection} % toc indent of section entries
+    \newlength{\tnwpart} % toc num width of part entries
+    \newlength{\tnwchapter} % toc num width of chapter entries
+    \newlength{\tnwsection} % toc num width of section entries
+    \newlength{\tipart} % toc indent of part entries
+    \newlength{\tichapter} % toc indent of chapter entries
+    \newlength{\tisection} % toc indent of section entries
 
-\setlength{\tnwpart}{1.85em}
-\setlength{\tnwchapter}{\tnwpart}
-\setlength{\tnwsection}{\tnwchapter}
-\addtolength{\tnwsection}{1em}
+    \setlength{\tnwpart}{1.85em}
+    \setlength{\tnwchapter}{\tnwpart}
+    \setlength{\tnwsection}{\tnwchapter}
+    \addtolength{\tnwsection}{1em}
 
-\setlength{\tipart}{\dimexpr-1.85em + 5mm\relax} % adjustment to colored boxes
-\setlength{\tichapter}{\dimexpr5mm + 1.85em\relax} % adjustment to colored boxes
-\setlength{\tisection}{5em}
+    \setlength{\tipart}{\dimexpr-1.85em + 5mm\relax} % adjustment to colored boxes
+    \setlength{\tichapter}{\dimexpr5mm + 1.85em\relax} % adjustment to colored boxes
+    \setlength{\tisection}{5em}
 
-\RedeclareSectionCommands[%
-    tocraggedentrytext=true,% no hyphenation in toc entries
-    tocpagenumberwidth+=.08em,%
-    tocpagenumberformat=\normalfont\normalsize%
-]%
-{chapter,section,subsection,subsubsection}
+    \RedeclareSectionCommands[%
+        tocraggedentrytext=true,% no hyphenation in toc entries
+        tocpagenumberwidth+=.08em,%
+        tocpagenumberformat=\normalfont\normalsize%
+    ]%
+    {chapter,section,subsection,subsubsection}
 
-\DeclareTOCStyleEntry[linefill]{tocline}{chapter}% dotted lines for chapter level entries
+    \DeclareTOCStyleEntry[linefill]{tocline}{chapter}% dotted lines for chapter level entries
 
-\newcommand*{\specialparttocentryformat}[1]{%
-    \supernormalsize%
-    \bfseries%
-    \sffamily%
-    \tcbox[% part entries in green boxes
-        boxrule=0mm,%
-        colframe=overviewbg,%
-        colback=overviewbg,%
-        arc=2mm,%
-        sharp corners,%
-        rounded corners,%
-        boxsep=.8mm,%
-        left*=0mm,%
-        extrude left by=5mm,%
-    ]{%
-        \descrule[overviewbg]%
-        #1%
-    }%
-}
+    \newcommand*{\specialparttocentryformat}[1]{%
+        \supernormalsize%
+        \bfseries%
+        \sffamily%
+        \ifx\lightoption\true
+            #1%
+        \else
+            \tcbox[% part entries in green boxes
+                boxrule=0mm,%
+                colframe=overviewbg,%
+                colback=overviewbg,%
+                arc=2mm,%
+                sharp corners,%
+                rounded corners,%
+                boxsep=.8mm,%
+                left*=0mm,%
+                extrude left by=5mm,%
+            ]{%
+                \descrule[overviewbg]%
+                #1%
+            }%
+        \fi
+    }
 
-\makeatletter
-\RedeclareSectionCommand[%
-    tocentryformat=\specialparttocentryformat,%
-    tocpagenumberbox=\@gobble,% remove page number
-    tocpagenumberwidth=0pt,%
-    toclevel=-1,%
-    tocbeforeskip=-.05\baselineskip,%
-    tocnumwidth=\tnwpart,%
-    tocindent=\tipart,%
-]%
-{part}
-\makeatother
+    \makeatletter
+    \RedeclareSectionCommand[%
+        tocentryformat=\specialparttocentryformat,%
+        tocpagenumberbox=\@gobble,% remove page number
+        tocpagenumberwidth=0pt,%
+        toclevel=-1,%
+        tocnumwidth=\tnwpart,%
+        tocindent=\tipart,%
+    ]%
+    {part}
+    \makeatother
 
-\RedeclareSectionCommand[%
-    tocentryformat=\normalfont\normalsize\sffamily,%
-    tocpagenumberformat=\normalfont\normalsize\sffamily,%
-    tocindent=\tichapter,%
-    tocnumwidth=\tnwchapter,%
-    toclevel=0,%
-    tocbeforeskip=.45\baselineskip,%
-    toconstarthigherlevel=\vspace{-.15\baselineskip}%
-]%
-{chapter}
+    \ifx\lightoption\true
+    \else
+        \RedeclareSectionCommand[%
+            tocbeforeskip=-.05\baselineskip,%
+        ]%
+        {part}
+    \fi
 
-% list of figures and list of tables
-\DeclareTOCStyleEntries[%
-    entryformat=\normalfont\normalsize\sffamily,%
-    pagenumberformat=\normalfont\normalsize\sffamily,%
-    raggedentrytext=true,% no hyphenation
-    pagenumberwidth+=.08em,%
-    indent=\tichapter,%
-    numwidth=\tnwsection,%
-    level=0,%
-    beforeskip=.45\baselineskip%
-]{tocline}{figure,table}
+    \RedeclareSectionCommand[%
+        tocentryformat=\normalfont\normalsize\sffamily,%
+        tocpagenumberformat=\normalfont\normalsize\sffamily,%
+        tocindent=\tichapter,%
+        tocnumwidth=\tnwchapter,%
+        toclevel=0,%
+        tocbeforeskip=.45\baselineskip,%
+        toconstarthigherlevel=\vspace{-.15\baselineskip}%
+    ]%
+    {chapter}
+
+    % list of figures and list of tables
+    \DeclareTOCStyleEntries[%
+        entryformat=\normalfont\normalsize\sffamily,%
+        pagenumberformat=\normalfont\normalsize\sffamily,%
+        raggedentrytext=true,% no hyphenation
+        pagenumberwidth+=.08em,%
+        indent=\tichapter,%
+        numwidth=\tnwsection,%
+        level=0,%
+        beforeskip=.45\baselineskip%
+    ]{tocline}{figure,table}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
