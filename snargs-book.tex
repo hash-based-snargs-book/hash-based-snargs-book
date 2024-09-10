@@ -636,8 +636,8 @@
 \newcommand{\HashedIndex}{\IOPVerifierRandomMessage_{\IndexRoundSubscript}}
 \newcommand{\COSARGString}{\Big((\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
 \newcommand{\PaintedCOSARGString}{\Big(\Paint{(\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\,}\big((\MTCommitment_{\RoundIndex},\IOPQuerySet_{\RoundIndex},\IOPEntries_{\RoundIndex},\MTProof_{\RoundIndex},\RandSaltString_{\RoundIndex})\big)_{\RoundIndex \in [\IOPRoundComplexity]}\Big)}
-\newcommand{\COSFSFirstQuery}{(\MTCommitment_{\IndexRoundSubscript},\HashedIndex,\Instance,\MTCommitment_{1},\RandSaltString_{1})}
-\newcommand{\PaintedCOSFSFirstQuery}{(\Paint{\MTCommitment_{\IndexRoundSubscript},\HashedIndex,\,}\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\COSFSFirstQuery}{(\HashedIndex,\Instance,\MTCommitment_{1},\RandSaltString_{1})}
+\newcommand{\PaintedCOSFSFirstQuery}{(\Paint{\HashedIndex,\,}\Instance,\MTCommitment_{1},\RandSaltString_{1})}
 
 \newcommand{\BCSSubscript}{\scriptscriptstyle\mathrm{BCS}}
 \newcommand{\BCSProver}{\ARGProver_{\BCSSubscript}}
@@ -22040,7 +22040,7 @@ In \Cref{section:holographic-iop} we provide a formal treatment of holographic I
 We informally explain how any \emph{holographic} probabilistic proof system naturally leads to a \emph{preprocessing} argument system in the ROM. The idea underlying this implication is intuitive and flexible: every transformation studied in this book can be extended to support holography-to-preprocessing, and similar extensions hold in other settings (e.g., beyond the pure ROM). Later, in \Cref{section:cos-transformation} we provide a detailed description of this idea for the case of preprocessing NARGs constructed from holographic IOPs, which is known as the COS transformation.
 
 \parhead{The argument indexer}
-We describe how to construct, in the ROM, an argument indexer $\ARGIndexer$ starting from a given indexer $\PPIndexer$ for an underlying probabilistic proof (SP, IP, PCP, IOP). The argument indexer $\ARGIndexer$, given an index $\Index$ and access to a random oracle (or random oracles), is tasked with producing a prover index key $\ARGpik$ and a verifier index key $\ARGvik$ that can be used, respectively, by the argument prover $\ARGProver$ and argument verifier $\ARGVerifier$ in the online phase later on. First $\ARGIndexer$ runs $\PPIndexer$, obtaining encoded indices $\ProverEncodedIndex$ and $\VerifierEncodedIndex$ for the prover and verifier respectively. The verifier of the probabilistic proof will want to query $\VerifierEncodedIndex$; to facilitate this, $\ARGIndexer$ commits to $\VerifierEncodedIndex$ via the Merkle commitment scheme using a random oracle $\ROIndexTreeFunction$, resulting in a Merkle commitment $\MTCommitment_{\IndexRoundSubscript}$ (to include in $\ARGvik$) and trapdoor $\MTTrapdoor_{\IndexRoundSubscript}$. As no hiding properties are needed, the Merkle commitment scheme is configured without salts (the salt size is set to zero). Moreover, the argument verifier $\ARGVerifier$ may need to hash the \DoQuote{full instance} $(\Index,\Instance)$; to facilitate this, $\ARGIndexer$ uses a random oracle $\ROIndexHashFunction$ to hash the index to obtain $\HashedIndex \DefineEqual \ROIndexHashFunction(\Index)$ to include in $\ARGvik$, so that the argument verifier $\ARGVerifier$ may hash $(\HashedIndex,\Instance)$ instead of $(\Index,\Instance)$. The prover index $\ARGpik$ is set to $(\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ (all obtained outputs) and the verifier index key $\ARGvik$ is set to $(\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.
+We describe how to construct, in the ROM, an argument indexer $\ARGIndexer$ starting from a given indexer $\PPIndexer$ for an underlying probabilistic proof (SP, IP, PCP, IOP). The argument indexer $\ARGIndexer$, given an index $\Index$ and access to a random oracle (or random oracles), is tasked with producing a prover index key $\ARGpik$ and a verifier index key $\ARGvik$ that can be used, respectively, by the argument prover $\ARGProver$ and argument verifier $\ARGVerifier$ in the online phase later on. First $\ARGIndexer$ runs $\PPIndexer$, obtaining encoded indices $\ProverEncodedIndex$ and $\VerifierEncodedIndex$ for the prover and verifier respectively. The verifier of the probabilistic proof will want to query $\VerifierEncodedIndex$; to facilitate this, $\ARGIndexer$ commits to $\VerifierEncodedIndex$ via the Merkle commitment scheme using a random oracle $\ROIndexTreeFunction$, resulting in a Merkle commitment $\MTCommitment_{\IndexRoundSubscript}$ (to include in $\ARGvik$) and trapdoor $\MTTrapdoor_{\IndexRoundSubscript}$. As no hiding properties are needed, the Merkle commitment scheme is configured without salts (the salt size is set to zero). Moreover, the argument verifier $\ARGVerifier$ may need to hash the \DoQuote{full instance} $(\Index,\Instance)$; to facilitate this, $\ARGIndexer$ uses a random oracle $\ROIndexHashFunction$ to hash the index to obtain $\HashedIndex \DefineEqual \ROIndexHashFunction(\Index)$ to include in $\ARGvik$, so that the argument verifier $\ARGVerifier$ may hash $(\HashedIndex,\Instance)$ instead of $(\Index,\Instance)$. The prover index $\ARGpik$ is set to $(\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ and the verifier index key $\ARGvik$ is set to $(\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.
 
 The above strategy is summarized in the construction of the argument indexer below, and essentially remains the same no matter the online phase or probabilistic proof.
 
@@ -22050,14 +22050,14 @@ Let $\PPIndexer$ be the indexer of the probabilistic proof, which receives as in
 \begin{itemize}
 \item[] $\ARGIndexer^{(\ROIndexTreeFunction,\ROIndexHashFunction)}(\Index)$:
 \begin{enumerate}[nolistsep]
-  \item Compute a hash of the index: $\HashedIndex \DefineEqual \ROIndexHashFunction(\Index) \in \Bits^{\SecurityParameter}$.\footnote{This step can be omitted in case the argument verifier does not need to hash the full instance $(\Index,\Instance)$, which is the case when constructing preprocessing \emph{interactive} arguments (because, in such a case, the Fiat--Shamir transformation is not used). Specifically, this step can be omitted for the preprocessing extensions of the Kilian transformation and of the iBCS transformation. In this case, $\HashedIndex$ is omitted from $\ARGpik$ and $\ARGvik$. (In fact, in this case $\MTCommitment_{\IndexRoundSubscript}$ can also be omitted from $\ARGpik$.) \label{footnote:cos-for-ibcs-simplifies}}
+  \item Compute a hash of the index: $\HashedIndex \DefineEqual \ROIndexHashFunction(\Index) \in \Bits^{\SecurityParameter}$.\footnote{This step can be omitted in case the argument verifier does not need to hash the full instance $(\Index,\Instance)$, which is the case when constructing preprocessing \emph{interactive} arguments (because, in such a case, the Fiat--Shamir transformation is not used). Specifically, this step can be omitted for the preprocessing extensions of the Kilian transformation and of the iBCS transformation. In this case, $\HashedIndex$ is omitted from $\ARGpik$ and $\ARGvik$. \label{footnote:cos-for-ibcs-simplifies}}
   \item Compute the prover encoded index and verifier encoded index: $(\ProverEncodedIndex,\VerifierEncodedIndex) \DefineEqual \PPIndexer(\Index)$.
   \item Commit to $\VerifierEncodedIndex$ via the Merkle commitment scheme $\MTSymbol_{\IndexRoundSubscript}$:
   \begin{equation*}
   (\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript}) \DefineEqual \MTIdxCommit{\IndexRoundSubscript}^{\ROIndexTreeFunction}(\VerifierEncodedIndex)
   \enspace.
   \end{equation*}
-  \item Set the prover index key $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$
+  \item Set the prover index key $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$
   \item Set the verifier index key $\ARGvik \DefineEqual (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.
   \item Output $(\ARGpik,\ARGvik)$.
 \end{enumerate}
@@ -22068,7 +22068,7 @@ Note that $\ARGIndexer$ is a deterministic algorithm, profiting from the benefit
 \parhead{The argument prover and verifier}
 The argument prover $\ARGProver$ and argument verifier $\ARGVerifier$ are constructed from the prover $\PPProver$ and verifier $\PPVerifier$ of the probabilistic proof. The construction is similar to the relevant transformation in the non-preprocessing setting except for certain differences.
 \begin{itemize}
-  \item $\ARGProver$ and $\ARGVerifier$ additionally receive as input $\ARGpik = (\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ and $\ARGvik = (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$, respectively.
+  \item $\ARGProver$ and $\ARGVerifier$ additionally receive as input $\ARGpik = (\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ and $\ARGvik = (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$, respectively.
   \item $\ARGProver$ additionally sends answers $\IOPEntries_{\IndexRoundSubscript}$ to the queries $\IOPQuerySet_{\IndexRoundSubscript}$ of $\PPVerifier$ to the verifier encoded index $\VerifierEncodedIndex$, and a corresponding Merkle opening proof $\MTProof_{\IndexRoundSubscript}$ (computed from the trapdoor $\MTTrapdoor_{\IndexRoundSubscript}$ and query set $\IOPQuerySet_{\IndexRoundSubscript}$) relative to the Merkle commitment $\MTCommitment_{\IndexRoundSubscript}$.
   \item $\ARGVerifier$ answers the queries $\IOPQuerySet_{\IndexRoundSubscript}$ of $\PPVerifier$ to the verifier encoded index by using the answers $\IOPEntries_{\IndexRoundSubscript}$ received from the argument prover, and checks the validity of these query-answer pairs by using the Merkle commitment $\MTCommitment_{\IndexRoundSubscript}$ included in $\ARGvik$ by $\ARGIndexer$ and the Merkle opening proof $\MTProof_{\IndexRoundSubscript}$ received from $\ARGProver$. Moreover, if relevant, $\ARGVerifier$ hashes the (short) pair $(\HashedIndex,\Instance)$ rather than the (long) full instance $(\Index,\Instance)$, which intuitively suffices since $\HashedIndex$ is the hash of $\Index$ included in $\ARGvik$ by $\ARGIndexer$.
 \end{itemize}
@@ -22674,7 +22674,7 @@ hence the oracle configuration is $\ARGOracles(\SecurityParameter,\IndexSize,\In
   \Paint{(\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript}) \DefineEqual \MTIdxCommit{\IndexRoundSubscript}^{\ROIndexTreeFunction}(\VerifierEncodedIndex)
   \enspace.}
   \end{equation*}
-  \item \Paint{Set the prover index key $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$.}
+  \item \Paint{Set the prover index key $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$.}
   \item \Paint{Set the verifier index key $\ARGvik \DefineEqual (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.}
   \item \Paint{Output $(\ARGpik,\ARGvik)$.}
 \end{enumerate}
@@ -22682,7 +22682,7 @@ Note that $\ARGIndexer$ is deterministic, and does not use the random oracles $\
 
 \item $\ARGProver^{\ROFunction}(\ARGpik,\Instance,\Witness)$:
 \begin{enumerate}[nolistsep]
-  \item \Paint{Parse the prover index key $\ARGpik$ as $(\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$.}
+  \item \Paint{Parse the prover index key $\ARGpik$ as $(\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$.}
   \item For $\RoundIndex = 1,\dots,\IOPRoundComplexity$:
   \begin{enumerate}[nolistsep]
     \item Compute the $\RoundIndex$-th proof string (and auxiliary state) of the IOP prover:
@@ -22735,7 +22735,7 @@ Note that $\ARGIndexer$ is deterministic, and does not use the random oracles $\
   \begin{enumerate}[nolistsep]
     \item derive IOP verifier randomness $\IOPVerifierRandomMessage_{\RoundIndex}$ as in \Cref{step:cos-derive-randomness} of the argument prover $\ARGProver$.
   \end{enumerate}
-  \Paint{(Note that, when $\RoundIndex=1$, $\MTCommitment_{\IndexRoundSubscript}$ and $\HashedIndex$ are used to derive $\IOPVerifierRandomMessage_{1}$.)}
+  \Paint{(Note that, when $\RoundIndex=1$, $\HashedIndex$ is used to derive $\IOPVerifierRandomMessage_{1}$.)}
   \item \label{step:cos-check-iop-verifier}
   Check that $\HIOPVerifier^{\PaintedHIOPLocalView{\IOPQuerySet}{\IOPEntries}}(\IOPVerifierInput)=1$. (The IOP verifier $\HIOPVerifier(\IOPVerifierInput)$ accepts if each query $\IOPQueryIndex \in \IOPQuerySet_{\RoundIndex}$ is answered with $\IOPEntries_{\RoundIndex}[\IOPQueryIndex] \in \IOPAlphabet$. If any query falls outside the sets $(\IOPQuerySet_{\RoundIndex})_{\RoundIndex=\Paint{0}}^{\IOPRoundComplexity}$ then reject.)
   \item \Paint{Check that $\MTIdxCheck{\IndexRoundSubscript}^{\ROIndexTreeFunction}(\MTCommitment_{\IndexRoundSubscript},\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript})=1$.}
@@ -23044,7 +23044,7 @@ We are left to upper bound the probability of the event $\Event_{1} \lor \Event_
     \item Parse $\ROAdvState'$ as $(\AuxiliaryState,\LazyROIndexHashFunction,\LazyROTreeFunction,(\LazySub{\ROFunction}{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]})$.
     \item Set $\HashedIndex \DefineEqual \LazyROIndexHashFunction(\Index)$.
     \item Compute $(\ProverEncodedIndex,\VerifierEncodedIndex) \DefineEqual \HIOPIndexer(\Index)$.
-    \item Set $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTCommitment_{\IndexRoundSubscript},\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ and $\ARGvik \DefineEqual (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.
+    \item Set $\ARGpik \DefineEqual (\ProverEncodedIndex,\VerifierEncodedIndex,\MTTrapdoor_{\IndexRoundSubscript},\HashedIndex)$ and $\ARGvik \DefineEqual (\MTCommitment_{\IndexRoundSubscript},\HashedIndex)$.
     \item Compute $(\Instance,\ARGString_{\COSSubscript}) \gets \Malicious{\ARGProver}_{\COSSubscript}^{(\ROIndexTreeFunction,\LazyROIndexHashFunction,\LazyROTreeFunction,(\LazySub{\ROFunction}{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]})}(\AuxiliaryState,\ARGpik,\ARGvik)$.
     \item Parse $\ARGString_{\COSSubscript}$ as $\big((\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript}),\ARGString_{\BCSSubscript}\big)$.
     \item Output $(\IOPQuerySet_{\IndexRoundSubscript},\IOPEntries_{\IndexRoundSubscript},\MTProof_{\IndexRoundSubscript})$.
@@ -23088,7 +23088,7 @@ Overall, noting that $\ROIndexHashQueryBound = \ROQueryBound_{\IndexRoundSubscri
 
 \begin{remark}[simpler error term when extending iBCS]
 \label{remark:cos-for-ibcs}
-The COS transformation can be simplified to extend the iBCS transformation in order to construct a preprocessing \emph{interactive} argument from a holographic IOP (see \Cref{section:from-holography-to-preprocessing} and \Cref{footnote:cos-for-ibcs-simplifies}). One can perform a security reduction similar to the one in this section, yielding a security loss of only $\MTHonestBindingExpression{\SecurityParameter}{\ROIndexTreeQueryBound}{\IOPProofLength_{\IndexRoundSubscript}}$. Indeed, the other error term $\frac{1}{2} \cdot \frac{\ROIndexHashQueryBound^2}{2^{\SecurityParameter}}$ disappears because there is no longer a need to hash the index $\Index$ (the Fiat--Shamir transformation is not used in the iBCS transformation); in particular, the random oracle $\ROIndexHashFunction$ is no longer needed.
+The COS transformation can be simplified to extend the iBCS transformation in order to construct a preprocessing \emph{interactive} argument from a holographic IOP (see \Cref{section:from-holography-to-preprocessing} and \Cref{footnote:cos-for-ibcs-simplifies}). One can perform a security reduction similar to the one in this section, yielding a security loss of only $\MTHonestBindingExpression{\SecurityParameter}{\ROIndexTreeQueryBound}{\IOPProofLength_{\IndexRoundSubscript}}$. Indeed, the other error term $\frac{1}{2} \cdot \frac{\ROIndexHashQueryBound^2}{2^{\SecurityParameter}}$ disappears because there is no longer a need to hash the index $\Index$ (the Fiat--Shamir transformation is not used in the iBCS transformation); in particular, the random oracle $\ROIndexHashFunction$ is no longer needed (and there is no $\HashedIndex$ to include in $\ARGpik$ and $\ARGvik$).
 \end{remark}
 
 \begin{remark}[the case of Micali and Kilian]
