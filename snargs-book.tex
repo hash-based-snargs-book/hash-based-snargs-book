@@ -1210,7 +1210,7 @@ A binary string is a string over the alphabet $\ProtoAlphabet=\Bits$. We denote 
 We denote by $a \gets D$ the process of sampling $a$ according to the distribution $D$. Similarly, given a finite set $S$, we denote by $a \gets S$ the process of sampling $a$ according to the uniform distribution over $S$.
 
 \parhead{Asymptotics}
-We use standard asymptotic notation. For example, given two functions $f,g \colon \Naturals \to \Reals$, we write $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$ to respectively denote the fact that there exists a constant $c>0$ such that, for all large enough $n$, it holds that $f(n) \leq c \cdot g(n)$ and $f(n) \geq c \cdot g(n)$. Moreover, we write $f(n) = o(g(n))$ and $f(n) = \omega(g(n))$ to respectively denote the fact that for every constant $c>0$, for all large enough $n$, it holds that $f(n) \leq c \cdot g(n)$ and $f(n) \geq c \cdot g(n)$. We additionally use notation to refer to some unspecified polynomially-bounded function: $\poly(n)$ denotes $n^{O(1)}$ and, more generally, $\poly(n_{1},n_{2},\dots)$ denotes $(n_{1}+n_{2}+\cdots)^{O(1)}$.
+We use standard asymptotic notation. For example, given two functions $f,g \colon \Naturals \to \Reals$, we write $f(n) = O(g(n))$ and $f(n) = \Omega(g(n))$ to respectively denote the fact that there exists a constant $c>0$ such that, for all large enough $n$, it holds that $f(n) \leq c \cdot g(n)$ and $f(n) \geq c \cdot g(n)$. Moreover, we write $f(n) = o(g(n))$ and $f(n) = \omega(g(n))$ to respectively denote the fact that for every constant $c>0$, for all large enough $n$, it holds that $f(n) < c \cdot g(n)$ and $f(n) > c \cdot g(n)$. We additionally use notation to refer to some unspecified polynomially-bounded function: $\poly(n)$ denotes $n^{O(1)}$ and, more generally, $\poly(n_{1},n_{2},\dots)$ denotes $(n_{1}+n_{2}+\cdots)^{O(1)}$.
 
 \parhead{Languages and relations}
 A relation $\Relation$ is a set consisting of instance-witness pairs $(\Instance,\Witness)$. The corresponding language $\GetLanguage{\Relation}$ is the set of instances $\Instance$ for which there exists a witness $\Witness$ such that $(\Instance,\Witness)$ is in the relation $\Relation$. We write $\SomeSize{\Instance}$ to denote the size of an instance; this could be the number of bits to describe $\Instance$ (namely, $\BitSize{\Instance}$) or some other measure suitable for instances of the relation $\Relation$.
@@ -1395,7 +1395,7 @@ For every $n$ events $\Event_{1},\ldots,\Event_{n}$,
 \end{lemma}
 
 \begin{proof}
-With give a proof by induction on the number of events $n$.
+We give a proof by induction on the number of events $n$.
 
 \emph{Base case: $n \in \{1,2,3\}$.}
 The case for $n=1$ holds because all expressions in the lemma are $\Pr[\Event_{1}]$. Separately, in the discussion before the lemma we prove the cases where $n=2$ and $n=3$.
