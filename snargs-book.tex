@@ -9679,12 +9679,14 @@ Fix a $\ROQueryBound$-query malicious argument prover $\FastFSMaliciousProver$. 
 \EquationComment{by \Cref{lemma:slow-vs-fast:stat-distance}}
 \\ & \leq
 \ARGSlowKnowledgeError(\SecurityParameter,\ROQueryBound,\InstanceSize,\ProverFailureProbability{\SlowFSMaliciousProver})
++ \FSErrorExpression
 \EquationComment{by the knowledge soundness error for the $\ROQueryBound$-query prover $\SlowFSMaliciousProver^{\ROFunction}$}
 \\ & \leq
 \ARGSlowKnowledgeError\left(\SecurityParameter,\ROQueryBound,\InstanceSize,\ProverFailureProbability{\FastFSMaliciousProver} + \FSErrorExpression\right)
++ \FSErrorExpression
 \EquationComment{by \Cref{lemma:slow-vs-fast:stat-distance}, $\ProverFailureProbability{\SlowFSMaliciousProver} \leq \ProverFailureProbability{\FastFSMaliciousProver} + \FSErrorExpression$}
 \\ & \leq
-\IPSRKnowledgeError\left(\PrivacyParameter,\ROQueryBound,\InstanceSize,\ProverFailureProbability{\FastFSMaliciousProver} + \FSErrorExpression\right)
+\IPSRKnowledgeError\left(\PrivacyParameter,\ROQueryBound,\InstanceSize,\ProverFailureProbability{\FastFSMaliciousProver} + \FSErrorExpression\right) + \FSErrorExpression
 \EquationComment{by \Cref{theorem:slow-fs-knowledge-soundness}}
 \enspace.
 \end{align*}
