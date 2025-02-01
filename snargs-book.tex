@@ -2310,7 +2310,7 @@ More generally, we can derive $\ROVectorLength$ independent random oracles $(\RO
 \begin{enumerate}[nosep]
   \item Set $\RONumOutputChunks_{i} \DefineEqual \ceil{\ROChosenOutputSize_{i}/\ROOutputSize}$.
   \item For every $j \in [\RONumOutputChunks_{i}]$, set $\ROAnswer_{j} \DefineEqual \ROFunction((i,j,\ROQuery))$.
-  \item Truncate $\ROAnswer_{\RONumOutputChunks_{i}}$ to its first $\ROChosenOutputSize_{i} - \floor{\ROChosenOutputSize_{i}/\ROOutputSize}$ bits.
+  \item Truncate $\ROAnswer_{\RONumOutputChunks_{i}}$ to its first $\ROChosenOutputSize_{i} \bmod \ROOutputSize$ bits.
   \item Output $\ROAnswer \DefineEqual \ROAnswer_{1} \concat \cdots \concat \ROAnswer_{\RONumOutputChunks_{i}}$.
 \end{enumerate}
 \end{itemize}
