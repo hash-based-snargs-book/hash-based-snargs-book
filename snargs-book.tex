@@ -2381,7 +2381,7 @@ Let $\GeneralAlgorithm$ be an algorithm that queries a single oracle $\ROFunctio
     \item If $\ROQuery$ has the form $(i,j,\ROQuery')$ with $i \in [\ROVectorLength]$ and $j \in [\RONumOutputChunks_{i}]$ where $\RONumOutputChunks_{i} = \ceil{\ROChosenOutputSize_{i}/\ROOutputSize}$ then:
     \begin{enumerate}[noitemsep]
       \item query $\ROFunction_{i}$ at $\ROQuery'$ to obtain $\ROAnswer$;
-      \item parse $\ROAnswer$ into blocks $\ROAnswer_{1},\dots,\ROAnswer_{\RONumOutputChunks_{i}}$ each of $\ROOutputSize$ bits, except for $\ROAnswer_{\RONumOutputChunks_{i}}$ of $\ROChosenOutputSize_{i} - \floor{\ROChosenOutputSize_{i}/\ROOutputSize}$ bits;
+      \item parse $\ROAnswer$ into blocks $\ROAnswer_{1},\dots,\ROAnswer_{\RONumOutputChunks_{i}}$ each of $\ROOutputSize$ bits, except for $\ROAnswer_{\RONumOutputChunks_{i}}$ of $\ROChosenOutputSize_{i} \bmod \ROOutputSize$ bits;
       \item pad $\ROAnswer_{\RONumOutputChunks_{i}}$ to $\ROOutputSize$ bits using $\LazySub{\ROFunctionAlt}{i}(\ROQuery')$;
       \item return $\ROAnswer_{j}$.
     \end{enumerate}
