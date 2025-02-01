@@ -2375,7 +2375,7 @@ Let $\GeneralAlgorithm$ be an algorithm that queries a single oracle $\ROFunctio
 \item[] $\SingleToMulti(\GeneralAlgorithm)^{(\ROFunction_{i})_{i \in [\ROVectorLength]}}(a)$:
 \begin{enumerate}[noitemsep]
   \item Lazily sample an oracle $\LazySub{\ROFunctionAlt}{\bot} \gets \RODistribution{\ROOutputSize}$ (to answer malformed queries).
-  \item For every $i \in [\ROVectorLength]$, lazily sample an oracle $\LazySub{\ROFunctionAlt}{i} \gets \RODistribution{\ROChosenOutputSize_{i} - \floor{\ROChosenOutputSize_{i}/\ROOutputSize}}$ (to pad randomness when $\ROChosenOutputSize_{i}$ is not a multiple of $\ROOutputSize$).
+  \item For every $i \in [\ROVectorLength]$, lazily sample an oracle $\LazySub{\ROFunctionAlt}{i} \gets \RODistribution{\ROOutputSize - (\ROChosenOutputSize_{i} \bmod \ROOutputSize)}$ (to pad randomness when $\ROChosenOutputSize_{i}$ is not a multiple of $\ROOutputSize$).
   \item Simulate $\GeneralAlgorithm(a)$ while answering each query $\ROQuery$ as follows.
   \begin{enumerate}[noitemsep]
     \item If $\ROQuery$ has the form $(i,j,\ROQuery')$ with $i \in [\ROVectorLength]$ and $j \in [\RONumOutputChunks_{i}]$ where $\RONumOutputChunks_{i} = \ceil{\ROChosenOutputSize_{i}/\ROOutputSize}$ then:
