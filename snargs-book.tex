@@ -2,7 +2,7 @@
 
 \synctex=1
 
-\documentclass[american,singlepageview]{snargs-book}
+\documentclass[american,singlepageview,lightweight,notes]{snargs-book}
 %%%%% option "bookview" for 2-page layout, "singlepageview" for 1-page layout
 
 
@@ -36,6 +36,7 @@
 %%%%% probability
 \newcommand{\Expectation}{\mathbb{E}}
 \newcommand{\Event}{E}
+\newcommand{\BadEvent}{\Event_{\mathrm{bad}}}
 \newcommand{\GivenExperiment}{\;\middle\vert\;}
 \newcommand{\StateExperiment}[1]{
 \!\begin{array}{l}
@@ -276,8 +277,10 @@
 \newcommand{\IOPQueryComplexity}{\ProtoQueryComplexity}
 \newcommand{\IOPProverTime}{\ProtoProverTime}
 \newcommand{\IOPStrings}{(\IOPString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPStringsPrime}{(\IOPString'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
 \newcommand{\IOPVerifierTime}{\ProtoVerifierTime}
 \newcommand{\IOPVerifierRandomMessages}{(\IOPVerifierRandomMessage_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
+\newcommand{\IOPVerifierRandomMessagesPrime}{(\IOPVerifierRandomMessage'_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
 \newcommand{\IOPTuple}[1]{(#1_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}}
 \newcommand{\IOPVerifierInput}{\Instance,\IOPVerifierRandomMessages}
 \newcommand{\IOPVerifierInputWithProverMessages}{\Instance,\IOPTuple{\IOPProverMessage},\IOPVerifierRandomMessages}
@@ -666,10 +669,12 @@
 \newcommand{\SRSaltSize}{s}
 \newcommand{\SRSaltString}{\sigma}
 \newcommand{\SRSaltStrings}[1]{(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [#1]}}
+\newcommand{\SRSaltStringsPrime}[1]{(\SRSaltString'_{\RoundIndex})_{\RoundIndex \in [#1]}}
 \newcommand{\SRIteration}{j}
 \newcommand{\SRMoveIndex}{a}
 \newcommand{\IPSRGameStateEntry}[1]{(\Instance,(\IPProverMessage_{1},\dots,\IPProverMessage_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
 \newcommand{\IOPSRGameStateEntry}[1]{(\Instance,(\IOPString_{1},\dots,\IOPString_{#1}),(\SRSaltString_{1},\dots,\SRSaltString_{#1}))}
+\newcommand{\IOPSRGameStateEntryPrime}[1]{(\Instance',(\IOPString'_{1},\dots,\IOPString'_{#1}),(\SRSaltString'_{1},\dots,\SRSaltString'_{#1}))}
 \newcommand{\SRRandomness}{\mathsf{rnd}}
 \newcommand{\SRTrace}{\ROTrace^{\SRSuperscript}}
 \newcommand{\SRTraceFull}{\ROTrace^{\SRSuperscript}_{\scriptscriptstyle\mathrm{full}}}
@@ -701,6 +706,7 @@
 \newcommand{\IPSROutputPrime}{(\Instance',\IPTuple{\IPProverMessage'},\IPTuple{\SRSaltString'},\IPTuple{\IPVerifierRandomMessage'})}
 \newcommand{\IBCSSROutput}{(\Instance,(\IPProverMessage_{\RoundIndex})_{\RoundIndex \in [\IPRoundComplexity+1]},\SRSaltStrings{\IPRoundComplexity},\IPTuple{\IPVerifierRandomMessage})}
 \newcommand{\IOPSROutput}{\big(\Instance,\IOPStrings,\SRSaltStrings{\IOPRoundComplexity},\IOPVerifierRandomMessages\big)}
+\newcommand{\IOPSROutputPrime}{\big(\Instance',\IOPStringsPrime,\SRSaltStringsPrime{\IOPRoundComplexity},\IOPVerifierRandomMessagesPrime\big)}
 
 %%%%% special soundness
 \newcommand{\SSSuperscript}{\mathrm{ss}}
@@ -756,8 +762,11 @@
 \newcommand{\RBRSuperscript}{\mathrm{rbr}}
 \newcommand{\RBRState}{\mathsf{RBRState}}
 \newcommand{\RBRIOPInput}[1]{(\Instance,\IOPTranscriptLongTuple{#1})}
+\newcommand{\RBRIOPInputPrime}[1]{(\Instance',\IOPTranscriptLongTuplePrime{#1})}
+\newcommand{\IOPEmptyTranscript}{\emptyset}
 \newcommand{\IOPTranscriptSymbol}{\mathsf{trc}}
 \newcommand{\IOPTranscriptLongTuple}[1]{(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{#1},\IOPVerifierRandomMessage_{#1})}
+\newcommand{\IOPTranscriptLongTuplePrime}[1]{(\IOPString'_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString'_{#1},\IOPVerifierRandomMessage_{#1})}
 \newcommand{\RBRSoundnessError}{\ProtoRBRSoundnessError_{\IOPSubscript}}
 \newcommand{\RBRSoundnessErrorIdx}[1]{\ProtoRBRSoundnessError_{\IOPSubscript,#1}}
 \newcommand{\RBRKnowledgeError}{\ProtoRBRKnowledgeError_{\IOPSubscript}}
@@ -1995,6 +2004,11 @@ An algorithm $\ROAdversary$ can query the random oracle $\ROFunction$ at inputs 
 Sometimes a random oracle is defined in a more restricted way, with a domain that fixes input size rather than allowing any input size. Letting $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ be the uniform distribution over all functions of the form $\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}$, a random oracle with input size $\ROInputSize$ and output size $\ROOutputSize$ is a function $\ROFunction$ sampled from $\ROIODistribution{\ROInputSize}{\ROOutputSize}$. A function sampled from $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ has size $2^{\ROInputSize} \cdot \ROOutputSize$, while a function sampled from $\RODistribution{\ROOutputSize}$ has infinite size. With only few exceptions in this book we consider random oracles sampled from $\RODistribution{\ROOutputSize}$ (i.e., oracles that can take inputs of any size). This simplifies constructions and analyses.
 \end{remark}
 
+\begin{remark}[finite sample space]
+\label{remark:finite-in-constructions}
+We have described a random oracle as a function $\ROFunction \colon \Bits^{*} \to \Bits^{\ROOutputSize}$ sampled from $\RODistribution{\ROOutputSize}$, which would make it an infinite-size object sampled from an infinite-size space. We use this perspective \emph{for notational convenience only}, because throughout this book it suffices to consider finite-size random oracles sampled from a finite-size space, e.g., $\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}$ sampled from $\ROIODistribution{\ROInputSize}{\ROOutputSize}$ for large enough input size $\ROInputSize$. This is because in all constructions that we consider (and thus in all associated security experiments) there is a clear upper bound on the size of any relevant query to the random oracle. The notation of infinite-size random oracles spares us from making such an upper bound explicit.
+\end{remark}
+
 \begin{remark}
 \label{remark:rom-vs-urs}
 The \emph{uniform random string model} (URSM) is the setting where all parties (honest and malicious) have access to a common random string of polynomial size. This model differs from the ROM in the size of this random string: the ROM can be viewed as the setting where everyone has access to the same exponentially-large random string, whereas the URSM requires the random string to be polynomially-large. The URSM is a weaker model than the ROM but does not allow for constructions of succinct arguments with unconditional security. (See \Cref{section:ursm-limitation}.)
@@ -2044,7 +2058,7 @@ The security property of a pseudorandom function is that its input-output behavi
 
 \begin{definition}
 \label{definition:prf}
-A \defemph{pseudorandom function family} with error $\epsilon$ is a family $\{F_{\ROInputSize,\ROOutputSize}\}_{\ROOutputSize \in \Naturals}$, where each $F_{\ROInputSize,\ROOutputSize}$ is a distribution over functions $\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}$, such that, for every input size $\ROInputSize$ and output size $\ROOutputSize$ of the random oracle and $t$-time oracle algorithm $A$, the following two distributions are $\epsilon(\ROInputSize,\ROOutputSize,t)$-close in statistical distance:
+A \defemph{pseudorandom function family} with error $\epsilon$ is a family $\{F_{\ROInputSize,\ROOutputSize}\}_{\ROInputSize,\ROOutputSize \in \Naturals}$, where each $F_{\ROInputSize,\ROOutputSize}$ is a distribution over functions $\ROFunction \colon \Bits^{\ROInputSize} \to \Bits^{\ROOutputSize}$, such that, for every input size $\ROInputSize$ and output size $\ROOutputSize$ of the random oracle and $t$-time oracle algorithm $A$, the following two distributions are $\epsilon(\ROInputSize,\ROOutputSize,t)$-close in statistical distance:
 \begin{equation*}
 \left\{
 A^{\ROFunction}
@@ -2298,7 +2312,7 @@ More generally, we can derive $\ROVectorLength$ independent random oracles $(\RO
 Sometimes we do not make the prefixes explicit, and instead we say that we derive, via domain separation, a certain number of random oracles from the sampled random oracle. The total number of derived oracles determines the size of the query prefix.
 
 \parhead{Extending the output size}
-The output size of a random oracle $\ROFunction$ sampled from $\RODistribution{\ROOutputSize}$ is $\ROOutputSize$. We can derive a random oracle with output size $\ROChosenOutputSize$ that is different from $\ROOutputSize$. If $\ROChosenOutputSize < \ROOutputSize$ then we truncate query answers to the first $\ROChosenOutputSize$ bits: a query $\ROQuery$ is answered with the first $\ROChosenOutputSize$ bits of $\ROFunction(\ROQuery)$. If $\ROChosenOutputSize > \ROOutputSize$ then we rely on $\RONumOutputChunks \DefineEqual \ceil{\ROChosenOutputSize/\ROOutputSize}$ oracles $(\ROFunction_{i})_{i \in [\RONumOutputChunks]}$ derived from $\ROFunction$ via domain separation: a query $\ROQuery$ is answered with $\ROFunction_{1}(\ROQuery) \concat \cdots \concat \ROFunction_{\RONumOutputChunks-1}(\ROQuery) \concat \ROAnswer$, where $\ROAnswer$ are the first $\ROChosenOutputSize \bmod \ROOutputSize$ bits of $\ROFunction_{\RONumOutputChunks}(\ROQuery)$. (The last answer is truncated to the appropriate size, in the event that $\ROOutputSize$ does not evenly divide $\ROChosenOutputSize$.) Each query to the new \DoQuote{virtual} oracle with output size $\ROChosenOutputSize$ is translated to $\RONumOutputChunks$ queries to $\ROFunction$.
+The output size of a random oracle $\ROFunction$ sampled from $\RODistribution{\ROOutputSize}$ is $\ROOutputSize$. We can derive a random oracle with output size $\ROChosenOutputSize$ that is different from $\ROOutputSize$. If $\ROChosenOutputSize < \ROOutputSize$ then we truncate query answers to the first $\ROChosenOutputSize$ bits: a query $\ROQuery$ is answered with the first $\ROChosenOutputSize$ bits of $\ROFunction(\ROQuery)$. If $\ROChosenOutputSize > \ROOutputSize$ then we rely on $\RONumOutputChunks \DefineEqual \ceil{\ROChosenOutputSize/\ROOutputSize}$ oracles $(\ROFunction_{i})_{i \in [\RONumOutputChunks]}$ derived from $\ROFunction$ via domain separation: a query $\ROQuery$ is answered with $\ROFunction_{1}(\ROQuery) \concat \cdots \concat \ROFunction_{\RONumOutputChunks-1}(\ROQuery) \concat \ROAnswer$, where $\ROAnswer$ is $\ROFunction_{\RONumOutputChunks}(\ROQuery)$ if $\ROOutputSize$ divides $\ROChosenOutputSize$, and otherwise $\ROAnswer$ is the first $\ROChosenOutputSize \bmod \ROOutputSize$ bits of $\ROFunction_{\RONumOutputChunks}(\ROQuery)$. (The last answer is truncated to the appropriate size, in the event that $\ROOutputSize$ does not evenly divide $\ROChosenOutputSize$.) Each query to the new \DoQuote{virtual} oracle with output size $\ROChosenOutputSize$ is translated to $\RONumOutputChunks$ queries to $\ROFunction$.
 
 
 
@@ -2310,7 +2324,7 @@ More generally, we can derive $\ROVectorLength$ independent random oracles $(\RO
 \begin{enumerate}[nosep]
   \item Set $\RONumOutputChunks_{i} \DefineEqual \ceil{\ROChosenOutputSize_{i}/\ROOutputSize}$.
   \item For every $j \in [\RONumOutputChunks_{i}]$, set $\ROAnswer_{j} \DefineEqual \ROFunction((i,j,\ROQuery))$.
-  \item Truncate $\ROAnswer_{\RONumOutputChunks_{i}}$ to its first $\ROChosenOutputSize_{i} \bmod \ROOutputSize$ bits.
+  \item If $\ROChosenOutputSize_{i}$ is not divisible by $\ROOutputSize$, then truncate $\ROAnswer_{\RONumOutputChunks_{i}}$ to its first $\ROChosenOutputSize_{i} \bmod \ROOutputSize$ bits.
   \item Output $\ROAnswer \DefineEqual \ROAnswer_{1} \concat \cdots \concat \ROAnswer_{\RONumOutputChunks_{i}}$.
 \end{enumerate}
 \end{itemize}
@@ -2381,7 +2395,7 @@ Let $\GeneralAlgorithm$ be an algorithm that queries a single oracle $\ROFunctio
     \item If $\ROQuery$ has the form $(i,j,\ROQuery')$ with $i \in [\ROVectorLength]$ and $j \in [\RONumOutputChunks_{i}]$ where $\RONumOutputChunks_{i} = \ceil{\ROChosenOutputSize_{i}/\ROOutputSize}$ then:
     \begin{enumerate}[noitemsep]
       \item query $\ROFunction_{i}$ at $\ROQuery'$ to obtain $\ROAnswer$;
-      \item parse $\ROAnswer$ into blocks $\ROAnswer_{1},\dots,\ROAnswer_{\RONumOutputChunks_{i}}$ each of $\ROOutputSize$ bits, except for $\ROAnswer_{\RONumOutputChunks_{i}}$ of $\ROChosenOutputSize_{i} \bmod \ROOutputSize$ bits;
+      \item parse $\ROAnswer$ into blocks $\ROAnswer_{1},\dots,\ROAnswer_{\RONumOutputChunks_{i}}$ each of $\ROOutputSize$ bits (if $\ROChosenOutputSize_{i}$ is not divisible by $\ROOutputSize$ then $\ROAnswer_{\RONumOutputChunks_{i}}$ has length $\ROChosenOutputSize_{i} \bmod \ROOutputSize$);
       \item pad $\ROAnswer_{\RONumOutputChunks_{i}}$ to $\ROOutputSize$ bits using $\LazySub{\ROFunctionAlt}{i}(\ROQuery')$;
       \item return $\ROAnswer_{j}$.
     \end{enumerate}
@@ -2396,7 +2410,7 @@ Each query to $\ROFunction$ is mapped to at most one query to $(\ROFunction_{i})
 
 We could prove a statement analogous to \Cref{lemma:multi-to-single-distribution}, saying that the conversion performed by $\SingleToMulti$ does not change an algorithm's output distribution. We prove a stronger statement.
 
-We consider a process where an algorithm $\GeneralAlgorithm_{1}$ produces an output $b_{1}$ and then another algorithm $\GeneralAlgorithm_{2}$ receives as input $b_{2}$ and produces another output $b_{2}$. However, the two algorithms $\GeneralAlgorithm_{1}$ and $\GeneralAlgorithm_{2}$ are in different settings and so they cannot be used as is: $\GeneralAlgorithm_{1}$ is in the setting of a single oracle and $\GeneralAlgorithm_{2}$ is in the setting of multiple oracles. In order for them to be in the same setting, we can either apply $\SingleToMulti$ to $\GeneralAlgorithm_{1}$, or $\MultiToSingle$ to $\GeneralAlgorithm_{2}$. \Cref{lemma:multi-to-single-and-back-distribution} below states that either option leads to the same joint distribution of $(b_{1},b_{2})$. After that, in \Cref{lemma:multi-to-single-and-back2-distribution}, we prove an analogous lemma with $\GeneralAlgorithm_{1}$ in the setting of multiple oracles and $\GeneralAlgorithm_{2}$ in the setting of a single oracle.
+We consider a process where an algorithm $\GeneralAlgorithm_{1}$ produces an output $b_{1}$ and then another algorithm $\GeneralAlgorithm_{2}$ receives as input $b_{1}$ and produces another output $b_{2}$. However, the two algorithms $\GeneralAlgorithm_{1}$ and $\GeneralAlgorithm_{2}$ are in different settings and so they cannot be used as is: $\GeneralAlgorithm_{1}$ is in the setting of a single oracle and $\GeneralAlgorithm_{2}$ is in the setting of multiple oracles. In order for them to be in the same setting, we can either apply $\SingleToMulti$ to $\GeneralAlgorithm_{1}$, or $\MultiToSingle$ to $\GeneralAlgorithm_{2}$. \Cref{lemma:multi-to-single-and-back-distribution} below states that either option leads to the same joint distribution of $(b_{1},b_{2})$. After that, in \Cref{lemma:multi-to-single-and-back2-distribution}, we prove an analogous lemma with $\GeneralAlgorithm_{1}$ in the setting of multiple oracles and $\GeneralAlgorithm_{2}$ in the setting of a single oracle.
 
 \begin{lemma}
 \label{lemma:multi-to-single-and-back-distribution}
@@ -10911,7 +10925,7 @@ Plugging this in the lower bound for $\delta$ we get that
 \chapter{Merkle commitment scheme}
 \label{chapter:merkle-commitment}
 
-We describe the \emph{Merkle commitment scheme}, a commitment scheme in the ROM that produces succinct commitments to long lists of values and enables to cheaply open particular subsets of vales in the list. This useful \DoQuote{succinct opening} property is used to construct succinct arguments in the ROM.\footnote{More generally, succinct commitments with succinct opening are known as \emph{vector commitments} in the cryptography literature, and constructions are known from various cryptographic assumptions. They are used to construct succinct arguments in various settings also beyond the (pure) ROM.} The commitment scheme is so called because it relies on Merkle trees \cite{Merkle89-tree}, a powerful and versatile data structure based on hash functions. A Merkle commitment scheme uses the basic commitment scheme $\CMSymbol$ as a building block, so throughout this chapter we assume familiarity with the material in \Cref{chapter:basic-commitment}.
+We describe the \emph{Merkle commitment scheme}, a commitment scheme in the ROM that produces succinct commitments to long lists of values and enables to cheaply open particular subsets of values in the list. This useful \DoQuote{succinct opening} property is used to construct succinct arguments in the ROM.\footnote{More generally, succinct commitments with succinct opening are known as \emph{vector commitments} in the cryptography literature, and constructions are known from various cryptographic assumptions. They are used to construct succinct arguments in various settings also beyond the (pure) ROM.} The commitment scheme is so called because it relies on Merkle trees \cite{Merkle89-tree}, a powerful and versatile data structure based on hash functions. A Merkle commitment scheme uses the basic commitment scheme $\CMSymbol$ as a building block, so throughout this chapter we assume familiarity with the material in \Cref{chapter:basic-commitment}.
 
 \parhead{Organization}
 In \Cref{section:merkle-commitment-definition} we describe the construction of a Merkle commitment scheme, and discuss its efficiency properties. Then in \Cref{section:merkle-commitment-completeness} we discuss its \emph{completeness property}, that is, how an honest use of the commitment scheme always leads to successful validity checks. After that we discuss security properties. In \Cref{section:merkle-commitment-collision-lemma} we establish a technical property that we use in several analyses. Finally, we discuss the main security properties of a Merkle commitment scheme:
@@ -11126,7 +11140,7 @@ Some information from $\MTTrapdoor$ can be omitted (thereby reducing its size) a
 
 \begin{remark}[local updates]
 \label{remark:locally-updatable}
-Merkle commitments are \emph{locally updatable}, which is a useful feature in many applications (though we do not explore it further within the context of succinct arguments). Suppose you are given a Merkle commitment $\MTCommitment$ of a message $\MTMessageVector$, and you want to update it to be a Merkle commitment $\MTCommitment'$ of a message $\MTMessageVector'$ where $\MTMessageVector'$ is equal to $\MTMessageVector$ except for the $\MTMessageIndex$-th entry. There is no need to recompute the tree from scratch: one only needs to recompute the commitments for the vertices on the paths $\MTPath(\MTMessageIndex)$ and $\MTCoPath(\MTMessageIndex)$, while the other commitments remain unchanged. The work needed for this update is proportional to the depth of the tree (which is logarithmic in the message length) rather than the message length.
+Merkle commitments are \emph{locally updatable}, which is a useful feature in many applications (though we do not explore it further within the context of succinct arguments). Suppose you are given a Merkle commitment $\MTCommitment$ of a message $\MTMessageVector$, and you want to update it to be a Merkle commitment $\MTCommitment'$ of a message $\MTMessageVector'$ where $\MTMessageVector'$ is equal to $\MTMessageVector$ except for the $\MTMessageIndex$-th entry. There is no need to recompute the tree from scratch: one only needs to recompute the commitments for the vertices on the path $\MTPath(\MTMessageIndex)$, while the other commitments remain unchanged. The work needed for this update is proportional to the depth of the tree (which is logarithmic in the message length) rather than the message length.
 \end{remark}
 
 \begin{remark}[$\MTMessageLength=1$]
@@ -11175,7 +11189,7 @@ Let $\MTSymbol \DefineEqual \MTConstructor{\ROOutputSize}{\MTAlphabet}{\MTMessag
 \end{equation*}
 \end{lemma}
 
-A formal proof of this lemma would involve analyzing each step of each Merkle commitment algorithm in order to establish that all validity checks pass. This would be not provide useful insights. Instead we sketch the proof at high level to provide the main intuition.
+A formal proof of this lemma would involve analyzing each step of each Merkle commitment algorithm in order to establish that all validity checks pass. This would not provide useful insights. Instead we sketch the proof at high level to provide the main intuition.
 
 Fix an arbitrary choice of oracle $\ROFunction \in \RODistribution{\ROOutputSize}$, message $\MTMessageVector \in \MTAlphabet^{\MTMessageLength}$, and subset $\MTMessageIndexSet \subseteq [\MTMessageLength]$.
 
@@ -11366,7 +11380,7 @@ We now consider the collision lemma for the general case, where opening proofs m
 \end{inparaenum}
 Suppose that both openings are valid, that is, $\MTCheck^{\ROFunction}(\MTCommitment,\MTMessageIndexSet_{0},\MTMessageSubVector_{0},\MTProof_{0})=1$ and $\MTCheck^{\ROFunction}(\MTCommitment,\MTMessageIndexSet_{1},\MTMessageSubVector_{1},\MTProof_{1})=1$.
 
-Intuitively, and similarly to the case of a single leaf, if there is a position $\MTMessageIndex \in \MTMessageIndexSet_{0} \cap \MTMessageIndexSet_{1}$ such that $\MTMessageSubVector_{0}[\MTMessageIndex] \neq \MTMessageSubVector_{0}[\MTMessageIndex]$ then we can find a collision in (the union of the relevant) query-answer traces. Informally, the prior argument works applied to the authentication paths for the index $\MTMessageIndex$ in the opening proofs $\MTProof_{0}$ and $\MTProof_{1}$ (and the subset of query-answer pairs used to validate these paths).
+Intuitively, and similarly to the case of a single leaf, if there is a position $\MTMessageIndex \in \MTMessageIndexSet_{0} \cap \MTMessageIndexSet_{1}$ such that $\MTMessageSubVector_{0}[\MTMessageIndex] \neq \MTMessageSubVector_{1}[\MTMessageIndex]$ then we can find a collision in (the union of the relevant) query-answer traces. Informally, the prior argument works applied to the authentication paths for the index $\MTMessageIndex$ in the opening proofs $\MTProof_{0}$ and $\MTProof_{1}$ (and the subset of query-answer pairs used to validate these paths).
 
 Less obvious is the fact that we cannot expect (in general) to find a collision if $\MTProof_{0} \neq \MTProof_{1}$. This is because the two opening proofs are for potentially different index sets $\MTMessageIndexSet_{0}$ and $\MTMessageIndexSet_{1}$, and so the opening proofs can be different. Nevertheless, we can prove that if the opening proofs are for the same index set ($\MTMessageIndexSet_{0}=\MTMessageIndexSet_{1}$) and they are different ($\MTProof_{0} \neq \MTProof_{1}$) then we can find a collision.
 
@@ -12421,7 +12435,7 @@ Above,
 \begin{cases}
 \MTRootPrivacyError
 & \text{ if $\ROQueryBound<\infty$} \\
-\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\MTSaltSize,\infty) +\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\infty)
+\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet}, \MTSaltSize,\infty) +\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)
 & \text{ if $\ROQueryBound=\infty$}
 \end{cases}
 \end{equation*}
@@ -12430,10 +12444,10 @@ where $\CMHidingError$ is the hiding error of $\CMSymbol = \CMConstructor{\ROOut
 
 
 
-We sketch a straightforward way to upper bound $\MTZKRootError(\ROOutputSize,\MTMessageLength,\MTSaltSize,\ROQueryBound)$. Each inner vertex in the Merkle tree can be viewed as a basic commitment scheme, as it is obtained by hashing a left child that acts as the message and the right child that acts as the salt. Therefore, going from the leaf layer towards the root, we can use the basic commitment's simulator to replace each commitment with a simulated value. This incurs an error of $\CMHidingError(\ROOutputSize,\MTSaltSize,\ROQueryBound)$ for each leaf, and an error of $\CMHidingError(\ROOutputSize,\ROOutputSize,\ROQueryBound)$ for each inner vertex. This adds up to at most an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\MTSaltSize,\ROQueryBound) + \MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROQueryBound)$. We essentially follow this approach for the case of $\ROQueryBound=\infty$ (and hence the similar bound). However for the case of $\ROQueryBound<\infty$ we provide an improved analysis that achieves a better bound (that in particular avoids the multiplicative security loss of $\MTMessageLength$); this is useful for setting parameters in practice.
+We sketch a straightforward way to upper bound $\MTZKRootError(\ROOutputSize,\MTMessageLength,\MTSaltSize,\ROQueryBound)$. Each inner vertex in the Merkle tree can be viewed as a basic commitment scheme, as it is obtained by hashing a left child that acts as the message and the right child that acts as the salt. Therefore, going from the leaf layer towards the root, we can use the basic commitment's simulator to replace each commitment with a simulated value. This incurs an error of $\CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\MTSaltSize,\ROQueryBound)$ for each leaf, and an error of $\CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\ROQueryBound)$ for each inner vertex. This adds up to at most an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\MTSaltSize,\ROQueryBound) + \MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\ROQueryBound)$. We essentially follow this approach for the case of $\ROQueryBound=\infty$ (and hence the similar bound). However for the case of $\ROQueryBound<\infty$ we provide an improved analysis that achieves a better bound (that in particular avoids the multiplicative security loss of $\MTMessageLength$); this is useful for setting parameters in practice.
 
 \begin{proof}[Proof for $\ROQueryBound < \infty$]
-The adversary $\MTAdversary$ performs queries in two phases: the first phase leads to $\MTAdversary$ choosing the message $\MTMessageVector$; and the second phase is after $\MTAdversary$ receives the commitment $\MTCommitment$. Let $\ROTrace_{1}$ be the query-answer trace of the first phase and $\ROTrace_{2}$ the query-answer trace of the second phase. Define $\ROQueryBound_{1} \DefineEqual \Cardinality{\ROTrace_{1}}$ and $\ROQueryBound_{2} \DefineEqual \Cardinality{\ROTrace_{2}}$. Note that $\ROQueryBound_{1} + \ROQueryBound_{2} \leq \ROQueryBound$. The final output of $\MTCommitment$ is a deterministic function of the query-answer pairs in the traces $\ROTrace_{1}$ and $\ROTrace_{2}$ and the commitment $\MTCommitment$. In one experiment, $\MTCommitment$ is computed as $\MTCommit^{\ROFunction}(\MTMessageVector)$ (throughout this analysis, we drop the opening trapdoor $\MTTrapdoor$ that is also output by $\MTCommit$) and in the other experiment it is computed as $\MTSimulateRoot^{\ROFunction}$. By \Cref{claim:function-and-statistical-distance}, the statistical distance between the final output of $\MTAdversary$ in the two experiments is at most the statistical distance between the following two random variables:
+The adversary $\MTAdversary$ performs queries in two phases: the first phase leads to $\MTAdversary$ choosing the message $\MTMessageVector$; and the second phase is after $\MTAdversary$ receives the commitment $\MTCommitment$. Let $\ROTrace_{1}$ be the query-answer trace of the first phase and $\ROTrace_{2}$ the query-answer trace of the second phase. Define $\ROQueryBound_{1} \DefineEqual \Cardinality{\ROTrace_{1}}$ and $\ROQueryBound_{2} \DefineEqual \Cardinality{\ROTrace_{2}}$. Note that $\ROQueryBound_{1} + \ROQueryBound_{2} \leq \ROQueryBound$. The final output of $\MTAdversary$ is a deterministic function of the query-answer pairs in the traces $\ROTrace_{1}$ and $\ROTrace_{2}$ and the commitment $\MTCommitment$. In one experiment, $\MTCommitment$ is computed as $\MTCommit^{\ROFunction}(\MTMessageVector)$ (throughout this analysis, we drop the opening trapdoor $\MTTrapdoor$ that is also output by $\MTCommit$) and in the other experiment it is computed as $\MTSimulateRoot^{\ROFunction}$. By \Cref{claim:function-and-statistical-distance}, the statistical distance between the final output of $\MTAdversary$ in the two experiments is at most the statistical distance between the following two random variables:
 \begin{align*}
 \Big(\ROTrace_{1},\MTCommit^{\ROFunction}(\MTMessageVector),\ROTrace_{2}\Big)
 \TextAndInMath
@@ -12533,15 +12547,15 @@ This gives us the upper bound stated in the lemma. Finally, note that if $\MTSal
 \begin{proof}[Proof for $\ROQueryBound=\infty$]
 The simulator $\MTSimulateRoot$ outputs a random string in $\Bits^{\ROOutputSize}$.
 
-Consider the leaf layer. Each leaf is a basic commitment as defined in \Cref{chapter:basic-commitment}. Using \Cref{lemma:cm-hiding}, we can replace a leaf by a uniform random string over $\Bits^{\ROOutputSize}$ and lose an additive term of $\CMHidingError(\ROOutputSize,\CMSaltSize,\infty)$ in the statistical distance. Thus, replacing all leaves with random string gives us the error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\CMSaltSize,\infty)$.
+Consider the leaf layer. Each leaf is a basic commitment as defined in \Cref{chapter:basic-commitment}. Using \Cref{lemma:cm-hiding}, we can replace a leaf by a uniform random string over $\Bits^{\ROOutputSize}$ and lose an additive term of $\CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\CMSaltSize,\infty)$ in the statistical distance. Thus, replacing all leaves with random string gives us the error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\CMSaltSize,\infty)$.
 
-We continue layer by layer up to the root. Each vertex of the tree can be viewed as a basic commitment where the left child is the message, and the right child is considered as the salt (of size $\ROOutputSize$). Thus, replacing it with a random strings gives us an error of $\CMHidingError(\ROOutputSize,\ROOutputSize,\infty)$. We replace each vertex, one by one, with a random string, until we reach the root. The number of vertices is at most $\MTMessageLength$ and thus we have an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\infty)$.
+We continue layer by layer up to the root. Each vertex of the tree can be viewed as a basic commitment where the left child is the message, and the right child is considered as the salt (of size $\ROOutputSize$). Thus, replacing it with a random strings gives us an error of $\CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)$. We replace each vertex, one by one, with a random string, until we reach the root. The number of vertices is at most $\MTMessageLength$ and thus we have an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)$.
 
-Overall, the total error accumulated is upper bounded by $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\MTSaltSize,\infty) + \MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\infty)$.
+Overall, the total error accumulated is upper bounded by $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\MTSaltSize,\infty) + \MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)$.
 \end{proof}
 
 \begin{remark}
-In many cases, it is useful to have the simulator output a uniformly random string, which is the case of our simulator. However, the second term in the error expression for $\ROQueryBound=\infty$ can be avoided at the price of changing the simulator to output the root of a Merkle commitment starting from random leaves instead of a uniformly random string. In this case, we only need to replace the leaves with simulated ones and incur only an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\MTSaltSize,\infty)$.
+In many cases, it is useful to have the simulator output a uniformly random string, which is the case of our simulator. However, the second term in the error expression for $\ROQueryBound=\infty$ can be avoided at the price of changing the simulator to output the root of a Merkle commitment starting from random leaves instead of a uniformly random string. In this case, we only need to replace the leaves with simulated ones and incur only an error of $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\MTSaltSize,\infty)$.
 \end{remark}
 
 
@@ -12658,7 +12672,7 @@ The case of simulating a Merkle commitment and opening proof for multiple leaves
 
 While intuitive, the above strategy does \emph{not} work. The problem is that the commitments across multiple authentication paths in $\MTProof$ may not be consistent with one another. First, the same vertex may appear in multiple copaths, and thus its commitment is sampled multiple times inconsistently; this problem is straightforwardly addressed by not sampling the commitment for a vertex if it was already sampled.\footnote{For example, for a message of size $\MTMessageLength=4$, both $\MTCoPath(1)$ and $\MTCoPath(2)$ contain the vertex $(1,2)$.} Second, and this is more subtle, a commitment sampled as part of the copath for a leaf index may be the result of an oracle query to check the copath of another leaf index.\footnote{For example, for a message of size $\MTMessageLength=4$, $\MTCoPath(1)$ contains the vertex $(1,2)$, and if the opening proof contains authentication paths for entries $1$ and $3$, then the commitment of the vertex $(1,2)$ must be the output of the random oracle applied to the commitment of vertices $(2,3)$ (derived from entry $3$ of the message and its salt) and of $(2,4)$ (provided in $\MTCoPath(3)$).} These considerations imply that the simulator should produce the opening proof $\MTProof$ in a more global way: sample all the commitments in $\MTProof$ that do not depend on other commitments, and then derive from these any remaining commitments in $\MTProof$ using the random oracle.
 
-In more detail, an opening proof $\MTProof$ for an index set $\MTMessageIndexSet$ contains commitments for vertices in $\MTCoPath(\MTMessageIndexSet)$ (vertices that belongs to the copath corresponding to some location in $\MTMessageIndexSet$). For every $\MTMessageIndex \in \MTMessageIndexSet$, checking the authentication path corresponding to $\MTMessageIndex$ involves computing the commitments for vertices in $\MTPath(\MTMessageIndex)$ from the commitments for vertices in $\MTCoPath(\MTMessageIndex)$ (and the message entry and salt). Hence, the commitments in $\MTProof$ that are derived from other commitments are those in $\MTPath(\MTMessageIndexSet)$. We conclude that the commitments in $\MTProof$ that are to be sampled are those corresponding to vertices in $\MTCoPath(\MTMessageIndexSet) \setminus \MTPath(\MTMessageIndexSet)$. These considerations lead to the following simulator.
+In more detail, an opening proof $\MTProof$ for an index set $\MTMessageIndexSet$ contains commitments for vertices in $\MTCoPath(\MTMessageIndexSet)$ (vertices that belong to the copath corresponding to some location in $\MTMessageIndexSet$). For every $\MTMessageIndex \in \MTMessageIndexSet$, checking the authentication path corresponding to $\MTMessageIndex$ involves computing the commitments for vertices in $\MTPath(\MTMessageIndex)$ from the commitments for vertices in $\MTCoPath(\MTMessageIndex)$ (and the message entry and salt). Hence, the commitments in $\MTProof$ that are derived from other commitments are those in $\MTPath(\MTMessageIndexSet)$. We conclude that the commitments in $\MTProof$ that are to be sampled are those corresponding to vertices in $\MTCoPath(\MTMessageIndexSet) \setminus \MTPath(\MTMessageIndexSet)$. These considerations lead to the following simulator.
 
 \begin{construction}
 \label{construction:mt-simulator}
@@ -14123,26 +14137,26 @@ Let $\MTMultiExtractor$ be the Merkle commitment multi-extractor for $\MTSymbol$
   \item Let $\ROTrace' \subseteq \ROTreeTrace$ be the query-answer pairs for $\ROTreeFunction$ between the last iteration and $\Malicious{\ARGProver}$'s halting.
   \item \label{micali-step:mt-extractor-final} Run the Merkle extractor to obtain a PCP string: $(\PCPString,\MTTrapdoor) \DefineEqual \MTMultiExtractor(\MTCommitment,\ROTrace')$.
   \item Set the salt string $\SRSaltString \DefineEqual (\MTCommitment,\RandSaltString)$.
-  \item Set $\DecisionBit_{\MTSubscript} \DefineEqual \MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)$. (This bit is only used in the analysis.)
+  \item \label{micali-step:mt-check-final} Set $\DecisionBit_{\MTSubscript} \DefineEqual \MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)$. (This bit is only used in the analysis.)
   \item Output $(\Instance,\PCPString,\SRSaltString)$.
 \end{enumerate}
 The prover $\PCPMaliciousSRProver$ potentially makes a move (in \Cref{step:SRGame-pcp-perform-move}) for every query of $\Malicious{\ARGProver}$ to the oracle $\RORandFunction$ (no other moves are performed). Since there are at most $\RORandQueryBound$ queries to $\RORandFunction$, we get that $\PCPMaliciousSRProver$ performs at most $\RORandQueryBound$ moves. In terms of running time, $\PCPMaliciousSRProver$ simulates $\Malicious{\ARGProver}$ (which takes the running time of $\Malicious{\ARGProver}$) and additionally performs at most $\RORandQueryBound+1$ Merkle commitment extractions (at most once per query of $\Malicious{\ARGProver}$ to $\RORandFunction$ plus an additional one for the output of $\Malicious{\ARGProver}$). The total time for all extractions is given by the expression $\MTMultiExtractorTimeFunction{\SecurityParameter}{\PCPAlphabet}{\PCPProofLength}{\PrivacyParameter}{\ROTreeQueryBound}{\RORandQueryBound+1}$ where $\MTMultiExtractorTimeSymbol$ is the (total) time complexity of $\MTMultiExtractor$ in \Cref{lemma:mt-multi-extractability}. Hence the running time of $\PCPMaliciousSRProver$ is as in the claim.
 \end{construction}
 
 \begin{proof}[Proof of \Cref{claim:micali-reduction}]
-We define an event $\Event$ over the probability space of sampling a random oracle $\ROFunction=(\ROTreeFunction,\RORandFunction) \gets \RODistribution{(\SecurityParameter,\PCPRandomnessComplexity)}$, running $\ROOutputAndTrace{\ROFunction}{\Malicious{\ARGProver}}{\ROTrace}{(\Instance,\ARGString=\MicaliARGString)}$ (as in the top distribution of the claim statement), and then running $\PCPStateRestorationGame{\SecurityParameter+\RandSaltSize}{\RORandFunction}{(\PCPMaliciousSRProver(\BlackBox{\Malicious{\ARGProver}}))^{\ROTreeFunction}}$ (as in the bottom distribution of the claim statement). The event $\Event$ is as follows:
+We define an event $\BadEvent$ over the probability space of sampling a random oracle $\ROFunction=(\ROTreeFunction,\RORandFunction) \gets \RODistribution{(\SecurityParameter,\PCPRandomnessComplexity)}$, running $\ROOutputAndTrace{\ROFunction}{\Malicious{\ARGProver}}{\ROTrace}{(\Instance,\ARGString=\MicaliARGString)}$ (as in the top distribution of the claim statement), and then running $\PCPStateRestorationGame{\SecurityParameter+\RandSaltSize}{\RORandFunction}{(\PCPMaliciousSRProver(\BlackBox{\Malicious{\ARGProver}}))^{\ROTreeFunction}}$ (as in the bottom distribution of the claim statement). The event $\BadEvent$ is as follows:
 \begin{enumerate}[noitemsep]
-  \item $\ARGVerifier^{\ROFunction}(\Instance,\ARGString)=1$ and $\PCPString[\PCPQuerySet] \neq \PCPEntries$ (the argument verifier accepts but the Merkle commitment multi-extractor fails in extracting a corresponding PCP string in \Cref{micali-step:mt-extractor-final}); OR
+  \item $\DecisionBit_{\MTSubscript}=1$ and $\PCPString[\PCPQuerySet] \neq \PCPEntries$ ($\MTCheck$ accepts in \Cref{micali-step:mt-check-final} but the Merkle commitment multi-extractor fails in extracting a corresponding PCP string in \Cref{micali-step:mt-extractor-final}); OR
   \item there exists $\SRIteration, \SRIteration' \in [\RORandQueryBound]$ such that $\MTCommitment_{\SRIteration} = \MTCommitment_{\SRIteration'}$ but $\PCPString_{\SRIteration} \neq \PCPString_{\SRIteration'}$ (the Merkle commitment multi-extractor outputs two different strings on the same Merkle commitment but with different query-answer traces).
 \end{enumerate}
-It suffices to upper bound the probability that $\Event$ holds and showing that the following two distributions (which additionally include the randomness $\PCPVerifierRandomMessage$) are identical:
+By \Cref{claim:statistical-distance-condition-event}, it suffices to upper bound the probability that $\BadEvent$ holds and showing that the following two distributions (which additionally include the randomness $\PCPVerifierRandomMessage$) are identical:
 \begin{align*}
 &
 \left\{
 \begin{array}{l}
   (\ROTreeTrace,\PCPVerifierRandomMessage,\Instance,\PCPString,\DecisionBit) \\
     \ConditionedOnText \\
-    \Negate{\Event}
+    \Negate{\BadEvent}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -14160,7 +14174,7 @@ It suffices to upper bound the probability that $\Event$ holds and showing that 
 \begin{array}{l}
  (\ROTreeTrace,\PCPVerifierRandomMessage,\Instance,\PCPString,\DecisionBit) \\
 \ConditionedOnText \\
-\Negate{\Event}
+\Negate{\BadEvent}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -14177,14 +14191,14 @@ First we argue that the distribution of \emph{answers} to oracle queries are ide
 \begin{itemize}
 
 \item \emph{Queries to the oracle $\ROTreeFunction$.}
-In the left-side experiment $\Malicious{\ARGProver}$ directly queries $\ROTreeFunction$, while in the right-side experiment $\Malicious{\ARGProver}$ queries $\ROTreeFunction$ through $\PCPMaliciousSRProver$ (which emulates $\Malicious{\ARGProver}$ and has query access to $\ROTreeFunction$). Both experiments are conditioned on the same event $\Negate{\Event}$. We conclude that the distribution of the query-answer trace $\ROTreeTrace$ is identical in both experiments.
+In the left-side experiment $\Malicious{\ARGProver}$ directly queries $\ROTreeFunction$, while in the right-side experiment $\Malicious{\ARGProver}$ queries $\ROTreeFunction$ through $\PCPMaliciousSRProver$ (which emulates $\Malicious{\ARGProver}$ and has query access to $\ROTreeFunction$). Both experiments are conditioned on the same event $\Negate{\BadEvent}$. We conclude that the distribution of the query-answer trace $\ROTreeTrace$ is identical in both experiments.
 
 \item \emph{Queries to the oracle $\RORandFunction$.}
-In the left-side experiment, $\Malicious{\ARGProver}$ directly queries $\RORandFunction$, receiving corresponding answers, conditioned on the event $\Negate{\Event}$.
+In the left-side experiment, $\Malicious{\ARGProver}$ directly queries $\RORandFunction$, receiving corresponding answers, conditioned on the event $\Negate{\BadEvent}$.
 
-In the right-side experiment, $\RORandFunction$ is given as the auxiliary randomness $\SRRandomness$ in the PCP state-restoration game, and queries of $\Malicious{\ARGProver}$ to $\RORandFunction$ are translated to moves of $\PCPMaliciousSRProver$ or forwarded to the (lazily sampled) oracle $\Lazy{\ROFunctionAlt}$. Specifically, if a query $\ROQuery_{\SRIteration}$ to $\RORandFunction$ has the form $(\Instance_{\SRIteration},\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$ then it receives the answer $\SRRandomness(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})=\RORandFunction(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})$ for $\SRSaltString_{\SRIteration} = (\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$; otherwise, it receives the answer $\Lazy{\ROFunctionAlt}(\ROQuery_{\SRIteration})$. All answers are conditioned on the event $\Negate{\Event}$.
+In the right-side experiment, $\RORandFunction$ is given as the auxiliary randomness $\SRRandomness$ in the PCP state-restoration game, and queries of $\Malicious{\ARGProver}$ to $\RORandFunction$ are translated to moves of $\PCPMaliciousSRProver$ or forwarded to the (lazily sampled) oracle $\Lazy{\ROFunctionAlt}$. Specifically, if a query $\ROQuery_{\SRIteration}$ to $\RORandFunction$ has the form $(\Instance_{\SRIteration},\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$ then it receives the answer $\SRRandomness(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})=\RORandFunction(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})$ for $\SRSaltString_{\SRIteration} = (\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$; otherwise, it receives the answer $\Lazy{\ROFunctionAlt}(\ROQuery_{\SRIteration})$. All answers are conditioned on the event $\Negate{\BadEvent}$.
 
-Every unique query $\ROQuery_{\SRIteration}$ is mapped to a unique PCP state-restoration move $(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})$ or to a unique input to $\Lazy{\ROFunctionAlt}$. Moreover, any duplicate query is mapped to the same move in the PCP state-restoration game or the same input to $\Lazy{\ROFunctionAlt}$. The latter case is clear but the former case follows from the fact that $\Event$ does not hold, as we now explain. Assume that rounds $\SRIteration$ and $\SRIteration'$ are duplicate queries that can be parsed as identical tuples $(\Instance_{\SRIteration},\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$ and $(\Instance_{\SRIteration'},\MTCommitment_{\SRIteration'},\RandSaltString_{\SRIteration'})$. The mapped queries are identical except (potentially) the strings $\PCPString_{\SRIteration}$ and $\PCPString_{\SRIteration'}$. However both are extracted from the same Merkle commitment $\MTCommitment_{\SRIteration}=\MTCommitment_{\SRIteration'}$, so it must be that $\PCPString_{\SRIteration}=\PCPString_{\SRIteration'}$: if $\PCPString_{\SRIteration} \neq \PCPString_{\SRIteration'}$ then this would contradict the assumption that $\Event$ does not hold. Note that while queries to $\ROTreeFunction$ are the same in both experiments, queries to $\RORandFunction$ (in the left-side experiment) differ from moves in the PCP state-restoration game (in the right-side experiment).
+Every unique query $\ROQuery_{\SRIteration}$ is mapped to a unique PCP state-restoration move $(\Instance_{\SRIteration},\PCPString_{\SRIteration}, \SRSaltString_{\SRIteration})$ or to a unique input to $\Lazy{\ROFunctionAlt}$. Moreover, any duplicate query is mapped to the same move in the PCP state-restoration game or the same input to $\Lazy{\ROFunctionAlt}$. The latter case is clear but the former case follows from the fact that $\BadEvent$ does not hold, as we now explain. Assume that rounds $\SRIteration$ and $\SRIteration'$ are duplicate queries that can be parsed as identical tuples $(\Instance_{\SRIteration},\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$ and $(\Instance_{\SRIteration'},\MTCommitment_{\SRIteration'},\RandSaltString_{\SRIteration'})$. The mapped queries are identical except (potentially) the strings $\PCPString_{\SRIteration}$ and $\PCPString_{\SRIteration'}$. However both are extracted from the same Merkle commitment $\MTCommitment_{\SRIteration}=\MTCommitment_{\SRIteration'}$, so it must be that $\PCPString_{\SRIteration}=\PCPString_{\SRIteration'}$: if $\PCPString_{\SRIteration} \neq \PCPString_{\SRIteration'}$ then this would contradict the assumption that $\BadEvent$ does not hold. Note that while queries to $\ROTreeFunction$ are the same in both experiments, queries to $\RORandFunction$ (in the left-side experiment) differ from moves in the PCP state-restoration game (in the right-side experiment).
 
 \end{itemize}
 Next, given that $\Malicious{\ARGProver}$ sees the same distribution of answers, we argue that all elements in $(\ROTreeTrace, \PCPVerifierRandomMessage, \Instance, \PCPString, b)$ have the same distribution in both experiments.
@@ -14199,18 +14213,49 @@ For the same reasons as the answer of the queries, $\PCPVerifierRandomMessage$ i
 \item \emph{Distribution of the bit $\DecisionBit$.}
 The bit $\DecisionBit$ is a function of $(\Instance,\PCPVerifierRandomMessage,\ARGString)$ in the left-side experiment and is a function of $(\Instance,\PCPVerifierRandomMessage,\PCPString,\DecisionBit_{\MTSubscript})$ in the right-side experiment. We show that $\DecisionBit=1$ on the left-side experiment implies that $\DecisionBit=1$ on the right-side experiment, and the same holds for $\DecisionBit=0$.
 
-If $\ARGVerifier^{\ROFunction}(\Instance,\ARGString)=1$ ($\DecisionBit=1$ in the left-side experiment) then we know that: $\PCPVerifier^{\PCPLocalView{\PCPQuerySet}{\PCPEntries}}(\Instance,\PCPVerifierRandomMessage)=1$ and $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$. Since the event $\Event$ does not hold, this implies that $\PCPString[\PCPQuerySet] = \PCPEntries$, which in turn implies that $\PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) = 1$. Since $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$ we have that $\DecisionBit_{\MTSubscript}=1$ in the right-side experiment. Overall, we get that $\DecisionBit=1$ in the right-side experiment.
+If $\ARGVerifier^{\ROFunction}(\Instance,\ARGString)=1$ ($\DecisionBit=1$ in the left-side experiment) then we know that: $\PCPVerifier^{\PCPLocalView{\PCPQuerySet}{\PCPEntries}}(\Instance,\PCPVerifierRandomMessage)=1$ and $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$. Since the event $\BadEvent$ does not hold, this implies that $\PCPString[\PCPQuerySet] = \PCPEntries$, which in turn implies that $\PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) = 1$. Since $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$ we have that $\DecisionBit_{\MTSubscript}=1$ in the right-side experiment. Hence $\DecisionBit=1$ in the right-side experiment.
 
 If $\ARGVerifier^{\ROFunction}(\Instance,\ARGString)=0$ ($\DecisionBit=0$ in the left-side experiment), then either:
 \begin{inparaenum}[(a)]
   \item $\PCPVerifier^{\PCPLocalView{\PCPQuerySet}{\PCPEntries}}(\Instance,\PCPVerifierRandomMessage)=0$; or
   \item $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=0$.
 \end{inparaenum}
-If $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=0$ then $\DecisionBit_{\MTSubscript} = 0$. Otherwise $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$ and $\PCPVerifier^{\PCPLocalView{\PCPQuerySet}{\PCPEntries}}(\Instance,\PCPVerifierRandomMessage)=0$, which implies that $\PCPString[\PCPQuerySet] = \PCPEntries$ (as else we would have $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=0$), which means that $\PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) = 0$. In both cases $\DecisionBit=0$ in the right-side experiment.
+If $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=0$ then $\DecisionBit_{\MTSubscript} = 0$, so $\DecisionBit = \PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) \land \DecisionBit_{\MTSubscript} = 0$ in the right-side experiment. Otherwise $\MTCheck^{\ROTreeFunction}(\MTCommitment,\PCPQuerySet,\MTMessageSubVector,\MTProof)=1$ and $\PCPVerifier^{\PCPLocalView{\PCPQuerySet}{\PCPEntries}}(\Instance,\PCPVerifierRandomMessage)=0$, which implies that $\DecisionBit_{\MTSubscript}=1$ and $\PCPString[\PCPQuerySet] = \PCPEntries$ (as $\BadEvent$ does not hold), which means that $\PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) = 0$; so  $\DecisionBit = \PCPVerifier^{\PCPString}(\Instance,\PCPVerifierRandomMessage) \land \DecisionBit_{\MTSubscript} = 0$ in the right-side experiment.
 
 \end{itemize}
 
-Finally, we are left to upper bound the probability of the event $\Event$. This is straightforward via \Cref{lemma:mt-multi-extractability}, which considers \emph{extraction from multiple commitments}. Indeed, we invoke the Merkle commitment multi-extractor $\MTMultiExtractor$ multiple times, each time on a (possibly) different root $\MTCommitment_{\SRIteration}$ with trace $\ROTrace_{\SRIteration}$ (recall that $\MTMultiExtractor$ is a stateful algorithm). According to the lemma, the probability that there exists an execution for which $\MTMultiExtractor$ does not succeed (but for which the adversary outputs a valid proof) is upper bounded by $\MTMultiExtractionError(\SecurityParameter,\ROTreeQueryBound,\PCPProofLength,\RORandQueryBound+1,1)$. Here the function $\MTMultiExtractionError$ gets five parameters: $\SecurityParameter$ is the security parameter, $\ROTreeQueryBound$ is the query bound, $\PCPProofLength$ is the length of the PCP string $\PCPString$, $\RORandQueryBound+1$ is the number of output Merkle commitments, and $1$ is the number of opened Merkle commitments (the argument prover opens one of the output commitments).
+Finally, we are left to upper bound the probability of the event $\BadEvent$. We do this via \Cref{lemma:mt-multi-extractability}, which considers \emph{extraction from multiple Merkle commitments}. An adversary $\MTAdversary$ for that lemma is a stateful algorithm that successively outputs some number $\MTNumCommitments_{\MTSubscript}$ of Merkle commitments and finally opens a few locations for one of the output Merkle commitments. We construct such an adversary $\MTAdversary$ based on the argument prover $\Malicious{\ARGProver}$ as follows.
+\begin{itemize}[noitemsep]
+\item[] $\MTAdversary^{\ROTreeFunction}$:
+\begin{enumerate}[nolistsep]
+  \item Lazily sample oracles $\Lazy{\RORandFunction} \gets \RODistribution{\PCPRandomnessComplexity}$ and $\Lazy{\ROFunctionAlt} \gets \RODistribution{\PCPRandomnessComplexity}$.
+  \item Initialize the counter $\MTNumCommitments_{\MTSubscript} \DefineEqual 0$.
+  \item Simulate $\Malicious{\ARGProver}$ while answering its queries as described below.
+  \item When $\Malicious{\ARGProver}$ performs a query to the oracle $\ROTreeFunction$, answer according to $\ROTreeFunction$.
+  \item When $\Malicious{\ARGProver}$ performs the $\SRIteration$-th query $\ROQuery_{\SRIteration}$ to the oracle $\RORandFunction$, do the following:
+  \begin{enumerate}[nolistsep]
+    \item If $\ROQuery_{\SRIteration}$ can be parsed as a tuple $(\Instance_{\SRIteration},\MTCommitment_{\SRIteration},\RandSaltString_{\SRIteration})$ where $\Instance_{\SRIteration}$ is an instance, $\MTCommitment_{\SRIteration}$ a Merkle commitment, and $\RandSaltString_{\SRIteration}$ a salt string:
+  \begin{enumerate}[noitemsep]
+    \item Increment $\MTNumCommitments_{\MTSubscript}$ and output $\MTCommitment_{\SRIteration}$ (without halting).
+    \item Return $\PCPVerifierRandomMessage_{\SRIteration} \DefineEqual \Lazy{\RORandFunction}(\ROQuery_{\SRIteration})$ to $\Malicious{\ARGProver}$ as the query answer.
+  \end{enumerate}
+    \item Otherwise, return $\PCPVerifierRandomMessage_{\SRIteration} \DefineEqual \Lazy{\ROFunctionAlt}(\ROQuery_{\SRIteration})$ to $\Malicious{\ARGProver}$ as the query answer.
+  \end{enumerate}
+  \item Let $(\Instance,\ARGString)$ be the output of $\Malicious{\ARGProver}$ when it halts, and parse $\ARGString$ as $\MicaliARGString$.
+  \item Increment $\MTNumCommitments_{\MTSubscript}$ and output $\MTCommitment$ (without halting)
+  \item Output $(\MTNumCommitments_{\MTSubscript},\PCPQuerySet,\PCPEntries,\MTProof)$ (and halt).
+\end{enumerate}
+\end{itemize}
+Defining $\MTAdversary$ as above corresponds to splitting the execution of $\PCPStateRestorationGame{\SecurityParameter+\RandSaltSize}{\RORandFunction}{(\PCPMaliciousSRProver(\BlackBox{\Malicious{\ARGProver}}))^{\ROTreeFunction}}$ across $\MTAdversary$ and the rest of the $\MTSymbol$ extraction experiment in \Cref{lemma:mt-multi-extractability}. Indeed, we invoke $\MTMultiExtractor$ for $\MTNumCommitments_{\MTSubscript} \leq \RORandQueryBound+1$ times (recall that it is a stateful algorithm), each time on a (possibly) different Merkle commitment and query-answer trace.
+
+The two conditions in the event $\BadEvent$ imply the (extraction failure) conditions in \Cref{lemma:mt-multi-extractability}. Hence $\Pr[\BadEvent] \leq \MTMultiExtractionError(\SecurityParameter,\ROTreeQueryBound,\PCPProofLength,\RORandQueryBound+1,1)$ where the function $\MTMultiExtractionError$ gets five parameters:
+\begin{itemize}[nolistsep]
+  \item $\SecurityParameter$ is the output size of $\ROTreeFunction$,
+  \item $\ROTreeQueryBound$ is the query bound for $\ROTreeFunction$,
+  \item $\PCPProofLength$ is the length of the PCP string $\PCPString$ (the message length),
+  \item $\RORandQueryBound+1$ is the (maximum) number of output Merkle commitments, and
+  \item $1$ is the number of openings (the argument prover opens a few locations for one of the output Merkle commitments).
+\end{itemize}
 \end{proof}
 
 \begin{proof}[Proof of \Cref{lemma:micali-adaptive-reduction}]
@@ -15939,7 +15984,7 @@ Moreover, the running time of $\IOPMaliciousSRProver$ is bounded by
 where $\ARGTimeP$ is the running time of $\Malicious{\ARGProver}$ and $\MTMultiMultiExtractorTimeSymbol$ is the time complexity of the Merkle commitment multi-extractor in \Cref{lemma:mt-multi-configuration-multi-extractability}.
 \end{lemma}
 
-We do not prove the lemma (we work out the other approach in \Cref{sec:bcs-modular-soundness-analysis} instead). Nevertheless in \Cref{construction:bcs-direct-reduction} below we describe how to construct $\IOPMaliciousSRProver$ from $\Malicious{\ARGProver}$, as it aids in understanding the security reduction; also state in \Cref{claim:bcs-reduction} the key clai to proving the above lemma. We recommend comparing the construction of $\IOPMaliciousSRProver$ to the construction of $\PCPMaliciousSRProver$ for the Micali transformation in \Cref{construction:micali-reduction}.
+We do not prove the lemma (we work out the other approach in \Cref{sec:bcs-modular-soundness-analysis} instead). Nevertheless in \Cref{construction:bcs-direct-reduction} below we describe how to construct $\IOPMaliciousSRProver$ from $\Malicious{\ARGProver}$, as it aids in understanding the security reduction; moreover in \Cref{claim:bcs-reduction} we state the key claim to proving the above lemma. We recommend comparing the construction of $\IOPMaliciousSRProver$ to the construction of $\PCPMaliciousSRProver$ for the Micali transformation in \Cref{construction:micali-reduction} (and comparing \Cref{claim:bcs-reduction} to \Cref{claim:micali-reduction}, which is the corresponding statement for the Micali transformation).
 
 \begin{construction}
 \label{construction:bcs-direct-reduction}
@@ -16181,12 +16226,12 @@ We begin by considering the left-side distribution. Recall that $\IOPTuple{\IOPP
 \right\}
 \enspace.
 \end{align*}
-Define the event $\Event$ as follows:
+Define the event $\BadEvent$ as follows:
 \begin{align*}
 \left[
 \begin{array}{l}
-  \DecisionBit_{\MTSubscript} = 0 \\
-  \lor \;\idxland{\RoundIndex \in [\IOPRoundComplexity]} \IOPString_{\RoundIndex}[\IOPQuerySet_{\RoundIndex}] = \IOPEntries_{\RoundIndex}
+  \DecisionBit_{\MTSubscript} = 1 \\
+  \land \;\idxlor{\RoundIndex \in [\IOPRoundComplexity]} \IOPString_{\RoundIndex}[\IOPQuerySet_{\RoundIndex}] \neq \IOPEntries_{\RoundIndex}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -16202,15 +16247,15 @@ Define the event $\Event$ as follows:
 \right]
 \enspace.
 \end{align*}
-By \Cref{claim:statistical-distance-condition-event}, it suffices to upper bound the probability of $\Negate{\Event}$ and to show that the two distributions in \Cref{eq:iop-modular-soundness-distributions} are identical when conditioned on $\Event$.
+By \Cref{claim:statistical-distance-condition-event}, it suffices to upper bound the probability of $\BadEvent$ and to show that the two distributions in \Cref{eq:iop-modular-soundness-distributions} are identical when conditioned on $\Negate{\BadEvent}$.
 
-Conditioned on the event $\Event$: either $\DecisionBit_{\MTSubscript}=0$, in which case $\DecisionBit \land \DecisionBit_{\MTSubscript} = 0$ in both sides; or $\DecisionBit_{\MTSubscript}=1$ and $\idxland{\RoundIndex \in [\IOPRoundComplexity]} \IOPString_{\RoundIndex}[\IOPQuerySet_{\RoundIndex}] = \IOPEntries_{\RoundIndex}$ (every extracted IOP string agrees with the relevant query answers), in which case $\IOPVerifier^{\IOPLocalView{\IOPQuerySet}{\IOPEntries}}(\IOPVerifierInput) = \IOPVerifier^{\IOPStrings}(\IOPVerifierInput)$ (the IOP verifier returns the same output), so $\DecisionBit$ is the same on both sides. Therefore, the following two distributions are equivalent:
+Conditioned on the event $\Negate{\BadEvent}$: either $\DecisionBit_{\MTSubscript}=0$, in which case $\DecisionBit \land \DecisionBit_{\MTSubscript} = 0$ in both sides; or $\DecisionBit_{\MTSubscript}=1$ and $\idxland{\RoundIndex \in [\IOPRoundComplexity]} \IOPString_{\RoundIndex}[\IOPQuerySet_{\RoundIndex}] = \IOPEntries_{\RoundIndex}$ (every extracted IOP string agrees with the relevant query answers), in which case $\IOPVerifier^{\IOPLocalView{\IOPQuerySet}{\IOPEntries}}(\IOPVerifierInput) = \IOPVerifier^{\IOPStrings}(\IOPVerifierInput)$ (the IOP verifier returns the same output), so $\DecisionBit$ is the same on both sides. Therefore, the following two distributions are equivalent:
 \begin{align*}
 & \left\{
 \begin{array}{l}
 (\Instance, \DecisionBit \land \DecisionBit_{\MTSubscript},\SRTrace_{\IOPSubscript},\ROTreeTrace, \IPTuple{\IPVerifierRandomMessage}) \\
 \ConditionedOnText \\
- \Event
+ \Negate{\BadEvent}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -16230,7 +16275,7 @@ Conditioned on the event $\Event$: either $\DecisionBit_{\MTSubscript}=0$, in wh
 \begin{array}{l}
   (\Instance, \DecisionBit \land \DecisionBit_{\MTSubscript},\SRTrace_{\IOPSubscript},\ROTreeTrace, \IPTuple{\IPVerifierRandomMessage}) \\
  \ConditionedOnText \\
- \Event
+ \Negate{\BadEvent}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -16253,7 +16298,7 @@ The tuple $\big(\Instance,\IOPStrings,\IOPVerifierRandomMessages\big)$ has the s
 \begin{array}{l}
   (\Instance, \DecisionBit \land \DecisionBit_{\MTSubscript},\SRTrace_{\IOPSubscript},\ROTreeTrace, \IPTuple{\IPVerifierRandomMessage}) \\
  \ConditionedOnText \\
- \Event
+ \Negate{\BadEvent}
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -16268,9 +16313,9 @@ The tuple $\big(\Instance,\IOPStrings,\IOPVerifierRandomMessages\big)$ has the s
 \right\}
 \enspace.
 \end{equation*}
-The above is exactly the right-side distribution of \Cref{eq:iop-modular-soundness-distributions}, conditioned on $\Event$. Thus, by \Cref{claim:statistical-distance-condition-event}, we are left with bounding the probability of the event $\Negate{\Event}$.
+The above is exactly the right-side distribution of \Cref{eq:iop-modular-soundness-distributions}, conditioned on $\Negate{\BadEvent}$. Thus, by \Cref{claim:statistical-distance-condition-event}, we are left with bounding the probability of the event $\BadEvent$.
 
-The probability of $\Negate{\Event}$ is upper bounded by the Merkle commitment multi-extraction error (\Cref{lemma:mt-multi-configuration-multi-extractability}), and is upper bounded by the following expression:
+The probability of $\BadEvent$ is upper bounded by the Merkle commitment multi-extraction error (\Cref{lemma:mt-multi-configuration-multi-extractability}), and is upper bounded by the following expression:
 \begin{equation*}
 \Pr
 \left[
@@ -17854,12 +17899,12 @@ First, the Merkle commitment extractor $\MTExtractor$ (\Cref{construction:mt-ext
 
   \Cref{lemma:mt-root-hiding} holds as stated for the generalized Merkle commitment scheme. First we discuss the case of $\ROQueryBound=\infty$. The analysis of this case directly carries over to show the bound
 \begin{equation*}
-\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\MTSaltSize,\infty)
+\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\log\Cardinality{\MTAlphabet},\MTSaltSize,\infty)
 +
 \sum_{\MTGraphVertex \in \MTVertexSet_{\MTMessageLength} \setminus \{\MTGraphLeaf_{\MTMessageIndex}\}_{\MTMessageIndex \in [\MTMessageLength]}}
-\CMHidingError((\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize,\ROOutputSize,\infty)
+\CMHidingError((\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)
 \end{equation*}
-where $\MTArity_{\MTGraphVertex}$ is the number of children of the vertex $\MTGraphVertex$. The second term can be bounded by $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\infty)$ because $\Cardinality{\MTVertexSet_{\MTMessageLength} \setminus \{\MTGraphLeaf_{\MTMessageIndex}\}_{\MTMessageIndex \in [\MTMessageLength]}} \leq \MTMessageLength$ (the number of non-leaf vertices in $\MTVertexSet_{\MTMessageLength}$ is at most $\MTMessageLength$ and $\CMHidingError((\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize,\ROOutputSize,\infty) \leq \CMHidingError(\ROOutputSize,\ROOutputSize,\infty)$ (reducing the salt size from $(\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize$ to $\ROOutputSize$ does not decrease the hiding error). Next we discuss the case of $\ROQueryBound < \infty$. The analysis of this case directly carries over to show the bound
+where $\MTArity_{\MTGraphVertex}$ is the number of children of the vertex $\MTGraphVertex$. The second term can be bounded by $\MTMessageLength \cdot \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)$ because $\Cardinality{\MTVertexSet_{\MTMessageLength} \setminus \{\MTGraphLeaf_{\MTMessageIndex}\}_{\MTMessageIndex \in [\MTMessageLength]}} \leq \MTMessageLength$ (the number of non-leaf vertices in $\MTVertexSet_{\MTMessageLength}$ is at most $\MTMessageLength$ and $\CMHidingError((\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize,\ROOutputSize,\ROOutputSize,\infty) \leq \CMHidingError(\ROOutputSize,\ROOutputSize,\ROOutputSize,\infty)$ (reducing the salt size from $(\MTArity_{\MTGraphVertex}-1) \cdot \ROOutputSize$ to $\ROOutputSize$ does not decrease the hiding error). Next we discuss the case of $\ROQueryBound < \infty$. The analysis of this case directly carries over to show the bound
 \begin{equation*}
 \frac{\MTMessageLength \cdot \ROQueryBound}{2^{\MTSaltSize}}
 +
@@ -18348,7 +18393,7 @@ Each appearance of $\MTCheck$ is replaced with $\MTCheck_{\star}$, and similarly
 \chapter{Special soundness}
 \label{chapter:special-soundness}
 
-Special soundness is a knowledge soundness property satisfied by many sigma protocols (SPs) and public-coin interactive proofs (IPs) of interest (see \Cref{chapter:constructions-of-probabilistic-proofs}). Informally, special soundness states that there exists an efficient knowledge extractor that finds a valid witness, for a given instance, when provided with a suitable \DoQuote{tree} of accepting interaction transcripts of the proof system. Such trees can then be produced from any prover that is sufficiently convincing, by rerunning the prover multiple times on suitably correlated inputs.
+Special soundness is a knowledge soundness property satisfied by many sigma protocols (SPs) and public-coin interactive proofs (IPs) of interest (see \Cref{chapter:constructions-of-probabilistic-proofs}). Informally, special soundness states that there exists an efficient knowledge extractor that finds a valid witness, for a given instance, when provided with a suitable \DoQuote{tree} of accepting interaction transcripts of the proof system. Such trees can then be produced from any prover that is sufficiently convincing, by rerunning the prover multiple times on suitably correlated inputs.\footnote{The term \emph{special soundness} is historical and, unfortunately, uninformative. The property is a strengthening of knowledge soundness rather than soundness, and involves extractors that rewind the prover to construct certain trees of accepting interaction transcripts. A term such as \emph{tree-based knowledge soundness} would be more appropriate, but we avoid it for the sake of historical consistency.}
 
 A crucial implication, from the perspective of this book, is that \emph{special soundness implies (rewinding) state-restoration knowledge soundness}. In turn, this means that:
 \begin{inparaenum}[(i)]
@@ -21321,6 +21366,8 @@ In \Cref{section:rbr-definition} we define the notions of round-by-round soundne
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21338,7 +21385,7 @@ A \defemph{state function} for an IOP $\IOPSymbol=\IOPSystem$ is a deterministic
 \begin{itemize}[nolistsep]
 
   \item \emph{Empty transcript:}
-  if $\IOPTranscriptSymbol = \emptyset$ is the empty transcript then $\RBRState(\Instance,\IOPTranscriptSymbol)=0$.
+  if $\IOPTranscriptSymbol = \IOPEmptyTranscript$ is the empty transcript then $\RBRState(\Instance,\IOPTranscriptSymbol)=0$.
 
   \item \emph{Prover moves:}
   if $\IOPTranscriptSymbol=\IOPTranscriptLongTuple{\RoundIndex}$ is a transcript for $\RoundIndex$ rounds (for $\RoundIndex<\IOPRoundComplexity$) with $\RBRState(\Instance,\IOPTranscriptSymbol)=0$ then, for every IOP string $\IOPString_{\RoundIndex+1} \in \IOPAlphabet^{\IOPProofLength_{\RoundIndex+1}}$, $\RBRState(\Instance, \IOPTranscriptSymbol \concat \IOPString_{\RoundIndex+1}) = 0$.
@@ -21350,7 +21397,7 @@ A \defemph{state function} for an IOP $\IOPSymbol=\IOPSystem$ is a deterministic
 \end{definition}
 
 \parhead{RBR soundness}
-Round-by-round soundness states that for, every partial transcript where the IOP verifier is about to move (to send randomness), if the instance is not in the language and the transcript is not doomed, then the probability that the next random message of the IOP verifier makes the transcript doomed is upper bounded by an error. Different rounds may have different errors bounding this event, or one can consider a single error bounding all of them.
+Round-by-round soundness states that, for every partial transcript where the IOP verifier is about to move (to send randomness), if the instance is not in the language and the transcript is not doomed, then the probability that the next random message of the IOP verifier makes the transcript doomed is upper bounded by an error. Different rounds may have different errors bounding this event, or one can consider a single error bounding all of them.
 
 \begin{definition}
 \label{def:iop-round-by-round-soundness}
@@ -21358,8 +21405,9 @@ An IOP $\IOPSymbol=\IOPSystem$ for a relation $\Relation$ has \defemph{round-by-
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
-\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0 \\
-\RBRState\RBRIOPInput{\RoundIndex} = 1
+\RBRState\RBRIOPInput{\RoundIndex} = 1 \\
+  \ConditionedOnText \\
+\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -21383,7 +21431,7 @@ More generally, below we prove that the (standard) soundness of an IOP is at mos
 
 \begin{claim}
 \label{claim:rbr-soundness-to-soundness}
-Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP for a relation $\Relation$. If $\IOPSymbol$ has round-by-round soundness errors $(\RBRSoundnessErrorIdx{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ then $\IOPSymbol$ has (standard) soundness error $\IOPSoundnessError$ (see \Cref{definition:iop-soundness}) such that for every instance $\Instance \not\in \GetLanguage{\Relation}$
+Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP for a relation $\Relation$. If $\IOPSymbol$ has round-by-round soundness errors $(\RBRSoundnessErrorIdx{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ (see \Cref{def:iop-round-by-round-soundness}) then $\IOPSymbol$ has (standard) soundness error $\IOPSoundnessError$ (see \Cref{definition:iop-soundness}) such that for every instance $\Instance \not\in \GetLanguage{\Relation}$
 \begin{equation*}
 \IOPSoundnessError(\Instance)
 \leq
@@ -21451,6 +21499,107 @@ Applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$ we get
 \end{align*}
 \end{proof}
 
+In \Cref{claim:soundness-to-rbr-soundness} below we prove that an IOP's round-by-round soundness error is at most the $\frac{1}{\IOPRoundComplexity}$-th root of its (standard) soundness error. This is shown to be tight in \Cref{claim:tightness-of-soundness-to-rbr-soundness}.
+
+\begin{claim}
+\label{claim:soundness-to-rbr-soundness}
+Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP for a relation $\Relation$ with round complexity $\IOPRoundComplexity$. If $\IOPSymbol$ has (standard) soundness error $\IOPSoundnessError$ (see \Cref{definition:iop-soundness}) then $\IOPSymbol$ has round-by-round soundness error $\RBRSoundnessError$ (see \Cref{def:iop-round-by-round-soundness}) such that for every instance $\Instance \not\in \GetLanguage{\Relation}$
+\begin{equation*}
+\RBRSoundnessError(\Instance)
+\leq
+\IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}
+\enspace.
+\end{equation*}
+\end{claim}
+
+\begin{proof}
+Consider the state function $\RBRState$ that, given as input an instance $\Instance$ and an interaction transcript $\IOPTranscriptSymbol$, is defined as follows.
+\begin{itemize}[nolistsep]
+
+  \item \emph{Empty transcript:}
+  if $\IOPTranscriptSymbol = \IOPEmptyTranscript$ ($\IOPTranscriptSymbol$ is the empty transcript) then $\RBRState(\Instance,\IOPTranscriptSymbol)=0$.
+
+  \item \emph{Partial transcript of odd length:}
+  if $\IOPTranscriptSymbol=(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex},\IOPVerifierRandomMessage_{\RoundIndex},\IOPString_{\RoundIndex+1})$ is a transcript with $\RoundIndex \in \{0,1,\dots,\IOPRoundComplexity-1\}$ then $\RBRState(\Instance,\IOPTranscriptSymbol)$ outputs $\RBRState(\Instance,\IOPTranscriptLongTuple{\RoundIndex})$.
+
+  \item \emph{Partial transcript of even length:}
+  if $\IOPTranscriptSymbol=(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex},\IOPVerifierRandomMessage_{\RoundIndex})$ is a transcript with $\RoundIndex \in \{1,\dots,\IOPRoundComplexity-1\}$ then $\RBRState(\Instance,\IOPTranscriptSymbol)$ outputs $1$ if and only if there is a prover strategy that convinces the verifier with probability greater than $\IOPSoundnessError(\Instance)^{\frac{\IOPRoundComplexity-\RoundIndex}{\IOPRoundComplexity}}$ when conditioning the interaction transcript in the first $\RoundIndex$ rounds to equal $\IOPTranscriptSymbol$.
+
+  \item \emph{Full transcript:}
+  if $\IOPTranscriptSymbol=\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is a full transcript then $\RBRState(\Instance,\IOPTranscriptSymbol)$ outputs the decision bit $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)$.
+
+\end{itemize}
+The function $\RBRState$ above is a state function (i.e., satisfies \Cref{def:iop-state}). We are left with establishing the round-by-round soundness error.
+
+Fix an instance $\Instance \notin \GetLanguage{\Relation}$. We argue by reverse induction on $\RoundIndex \in [\IOPRoundComplexity]$ that, for every interaction transcript $(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex})$ such that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0$, the following holds:
+\begin{equation*}
+\Pr\left[
+\RBRState\RBRIOPInput{\RoundIndex} = 1
+\GivenExperiment
+\StateExperiment{
+\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
+}
+\right]
+\leq \IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}
+\enspace.
+\end{equation*}
+This establishes the upper bound $\RBRSoundnessError(\Instance) \leq \IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}$ on the round-by-round soundness error.
+
+For simplicity we first argue the special case for $\RoundIndex=\IOPRoundComplexity$. Fix any interaction transcript $(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\IOPRoundComplexity})$ such that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\IOPRoundComplexity}))=0$. By definition of $\RBRState$, we deduce that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\IOPRoundComplexity-1},\IOPVerifierRandomMessage_{\IOPRoundComplexity-1}))=0$ and, in turn, that there is no last prover message that continues this interaction transcript to convince the verifier with probability greater than $\IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}$. In particular, we deduce that, for the given prover message $\IOPString_{\IOPRoundComplexity}$,
+\begin{equation*}
+\Pr\left[
+\RBRState\RBRIOPInput{\IOPRoundComplexity} = 1
+\GivenExperiment
+\StateExperiment{
+\IOPVerifierRandomMessage_{\IOPRoundComplexity} \gets \Bits^{\IOPRandomnessComplexity_{\IOPRoundComplexity}}
+}
+\right]
+\leq \IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}
+\enspace.
+\end{equation*}
+
+Next we argue the general case for $\RoundIndex \in \{1,\dots,\IOPRoundComplexity\}$. Fix any interaction transcript $(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex})$ such that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0$. Suppose by way of contradiction that
+\begin{equation*}
+\Pr\left[
+\RBRState\RBRIOPInput{\RoundIndex} = 1
+\GivenExperiment
+\StateExperiment{
+\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
+}
+\right]
+> \IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}}
+\enspace.
+\end{equation*}
+We argue that there is a prover strategy to convince the verifier with probability greater than $\IOPSoundnessError(\Instance)^{\frac{\IOPRoundComplexity-\RoundIndex+1}{\IOPRoundComplexity}}$ when conditioning the interaction transcript in the first $\RoundIndex-1$ rounds to equal $(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex-1},\IOPVerifierRandomMessage_{\RoundIndex-1})$, which implies that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex-1},\IOPVerifierRandomMessage_{\RoundIndex-1}))=1$ and, in turn, that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex-1},\IOPVerifierRandomMessage_{\RoundIndex-1},\IOPString_{\RoundIndex}))=1$ (a contradiction). Indeed, consider the strategy that outputs $\IOPString_{\RoundIndex}$ and, in the event the verifier sends $\IOPVerifierRandomMessage_{\RoundIndex} \in  \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}$ such that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex-1},\IOPVerifierRandomMessage_{\RoundIndex-1},\IOPString_{\RoundIndex},\IOPVerifierRandomMessage_{\RoundIndex}))=1$, then follows any strategy for convincing the verifier with probability greater than $\IOPSoundnessError(\Instance)^{\frac{\IOPRoundComplexity-\RoundIndex}{\IOPRoundComplexity}}$. The overall probability of convincing the verifier is greater than $\IOPSoundnessError(\Instance)^{\frac{1}{\IOPRoundComplexity}} \cdot \IOPSoundnessError(\Instance)^{\frac{\IOPRoundComplexity-\RoundIndex}{\IOPRoundComplexity}} = \IOPSoundnessError(\Instance)^{\frac{\IOPRoundComplexity-\RoundIndex+1}{\IOPRoundComplexity}}$.
+\end{proof}
+
+\begin{claim}
+\label{claim:tightness-of-soundness-to-rbr-soundness}
+For every $\IOPRoundComplexity$ there is a public-coin IOP $\IOPSymbol=\IOPSystem$ for the empty relation with round complexity $\IOPRoundComplexity$ that has (standard) soundness error $2^{-\IOPRoundComplexity}$ (see \Cref{definition:iop-soundness}) and has round-by-round soundness error $\RBRSoundnessError \geq 1/2$ (see \Cref{def:iop-round-by-round-soundness})
+\end{claim}
+
+\begin{proof}
+Consider the IP (in particular, an IOP) where the IP verifier, in each of $\IOPRoundComplexity$ rounds, sends a random bit and, after the interaction, accepts if and only if all $\IOPRoundComplexity$ bits are zero; the IP prover messages in each round are empty strings. This protocol is an IP for the empty relation with (standard) soundness error $2^{-\IOPRoundComplexity}$. Next, we argue that the round-by-round soundness error $\RBRSoundnessError$ is at least $1/2$.
+
+Fix any state function $\RBRState$ (that satisfies \Cref{def:iop-state}) and instance $\Instance$ (which is not in the empty language). Since IP prover messages are empty strings, an interaction transcript is a list of $\RoundIndex$ bits for $\RoundIndex \in \{0,1,\dots,\IOPRoundComplexity\}$. By the empty transcript property in \Cref{def:iop-state}, we know that $\RBRState(\Instance,\IOPEmptyTranscript)=0$. Moreover, by construction of the IP and the full transcript property in \Cref{def:iop-state}, we know that $\RBRState(\Instance,0^{\IOPRoundComplexity})=1$. Hence there exists $\RoundIndex \in [\IOPRoundComplexity]$ such that $\RBRState(\Instance,0^{\RoundIndex-1})=0$ and $\RBRState(\Instance,0^{\RoundIndex})=1$. For this $\RoundIndex$, it must hold
+\begin{equation*}
+\Pr\left[
+\begin{array}{l}
+\RBRState(\Instance,0^{\RoundIndex-1} \concat b) = 1 \\
+  \ConditionedOnText \\
+\RBRState(\Instance,0^{\RoundIndex-1}) = 0
+\end{array}
+\GivenExperiment
+\StateExperiment{
+b \gets \Bits
+}
+\right]
+\geq \frac{1}{2}
+\enspace,
+\end{equation*}
+for otherwise the probability would be $0$, in which case $\RBRState(\Instance,0^{\RoundIndex})=0$ (a contradiction). We conclude that $\RBRSoundnessError \geq 1/2$.
+\end{proof}
+
 \parhead{RBR knowledge soundness}
 Round-by-round knowledge soundness strengthens round-by-round soundness to require that if, at some round, the probability that a given partial transcript that is not doomed becomes doomed with probability above a certain threshold then an extractor can efficiently find the witness from this transcript (and, indeed, any continuation of it). More precisely, the extractor only needs the IOP strings sent by the prover in the transcript.
 
@@ -21460,15 +21609,17 @@ An IOP $\IOPSymbol=\IOPSystem$ for a relation $\Relation$ has \defemph{round-by-
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
-\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0 \\
-\RBRState\RBRIOPInput{\RoundIndex}=1 \\
-(\Instance,\Witness) \not\in \Relation
+(\Instance,\Witness) \not\in \Relation \\
+\land\;\RBRState\RBRIOPInput{\RoundIndex}=1 \\
+\ConditionedOnText \\
+\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0
 \end{array}
 \GivenExperiment
 \StateExperiment{
-(\IOPTuple{\IOPString},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]}) \gets \IOPMaliciousRBRProver \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver \\
 \IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}} \\
-\Witness \gets \IOPRBRExtractor(\Instance,\IOPTuple{\IOPString})
+(\IOPString_{j})_{j \in \{\RoundIndex+1,\dots,\IOPRoundComplexity\}} \gets \IOPMaliciousRBRProver(\AuxiliaryState,\IOPVerifierRandomMessage_{\RoundIndex})  \\
+\Witness \gets \IOPRBRExtractor(\Instance,(\IOPString_{j})_{j \in [\IOPRoundComplexity]})
 }
 \right]
 \leq \RBRKnowledgeErrorIdx{\RoundIndex}(\Instance)
@@ -21487,7 +21638,7 @@ Similarly to the case of soundness, the (standard) knowledge soundness of an IOP
 
 \begin{claim}
 \label{claim:rbr-knowledge-to-knowledge}
-Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP for a relation $\Relation$. If $\IOPSymbol$ has round-by-round knowledge soundness errors $(\RBRKnowledgeErrorIdx{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ then $\IOPSymbol$ has (standard) straightline knowledge soundness error $\IOPKnowledgeError$ (see \Cref{definition:iop-knowledge-straightline}) such that for every instance $\Instance$
+Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP for a relation $\Relation$. If $\IOPSymbol$ has round-by-round knowledge soundness errors $(\RBRKnowledgeErrorIdx{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ (see \Cref{def:iop-round-by-round-knowledge}) then $\IOPSymbol$ has (standard) straightline knowledge soundness error $\IOPKnowledgeError$ (see \Cref{definition:iop-knowledge-straightline}) such that for every instance $\Instance$
 \begin{equation*}
 \IOPKnowledgeError(\Instance)
 \leq
@@ -21609,9 +21760,11 @@ Applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$ we get
 
 The theorem below states that the state-restoration soundness error of a public-coin IOP with round complexity $\IOPRoundComplexity$ is a most a multiplicative factor of $\SRBudget+\IOPRoundComplexity$ larger than its round-by-round soundness error.
 
+
+
 \begin{theorem}
 \label{theorem:rbr-soundness-to-sr-soundness}
-Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP. If $\IOPSymbol$ has round-by-round soundness error $\RBRSoundnessError$ then $\IOPSymbol$ has state-restoration soundness error $\IOPSRSoundnessError$ (see \Cref{definition:iop-state-restoration-soundness}) such that
+Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP. If $\IOPSymbol$ has round-by-round soundness error $\RBRSoundnessError$ (see \Cref{def:iop-round-by-round-soundness}) then $\IOPSymbol$ has state-restoration soundness error $\IOPSRSoundnessError$ (see \Cref{definition:iop-state-restoration-soundness}) such that
 \begin{equation*}
 \IOPSRSoundnessError(\SRSaltSize,\SRBudget,\InstanceSize)
 \leq
@@ -21624,9 +21777,49 @@ Let $\IOPSymbol=\IOPSystem$ be a public-coin IOP. If $\IOPSymbol$ has round-by-r
 
 \begin{proof}
 Fix a salt size $\SRSaltSize \in \Naturals$, move budget $\SRBudget \in \Naturals$, $\SRBudget$-move IOP state-restoration prover $\IOPMaliciousSRProver$, and instance size bound $\InstanceSize \in \Naturals$. We wish to upper bound the following probability:
+\begin{equation}
+\label{equation:soundness-sr-experiment}
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\IOPConvincingCondition=1
+ \end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace}
+}
+\right]
+\enspace.
+\end{equation}
+
+The final output of $\IOPMaliciousSRProver$ is a move of the form $\IOPSRGameStateEntry{\IOPRoundComplexity}$, which may or may not appear as a move in $\SRTrace$. Define $\SRTraceFull$ to be the concatenation of the trace $\SRTrace$ and the move-response pairs
+\begin{equation*}
+\Big(\IOPSRGameStateEntry{\RoundIndex},\SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}\Big)_{\RoundIndex \in [\IOPRoundComplexity]}
+\enspace,
+\end{equation*}
+namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. Since $\SRTrace$ contains at most $\SRBudget$ move-response pairs, the trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
+
+We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ if this move appears in $\SRTraceFull$ and, for every $j \in \{1,\dots,\RoundIndex-1\}$ (if $\RoundIndex>1$), the move $\IOPSRGameStateEntryPrime{j}$ is contained in the prefix of $\SRTraceFull$ up to the move $\IOPSRGameStateEntryPrime{\RoundIndex}$. For every $\RoundIndex \in [\IOPRoundComplexity]$, let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$.
+
+For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableX_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ in $I_{\RoundIndex}$ such that
+\begin{equation*}
+\RBRState\RBRIOPInputPrime{\RoundIndex}=1
+\enspace,
+\end{equation*}
+where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$ for every $j \in [\RoundIndex]$. Moreover, $\RandomVariableX_{0} \DefineEqual 0$ and, for every $\RoundIndex \in [\IOPRoundComplexity]$, we define $\RandomVariableX_{\RoundIndex} \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\RoundIndex,\SRMoveIndex}$.
+
+Additionally, for every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is for round $\RoundIndex$.
+
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$, which implies that $\RandomVariableX_{\IOPRoundComplexity}=1$ (since $\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is fully contained in $\SRTraceFull$). Therefore, \Cref{equation:soundness-sr-experiment} (the quantity we wish to upper bound) is at most
 \begin{equation*}
 \Pr\left[
-  \IOPConvincingCondition=1
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RandomVariableX_{\IOPRoundComplexity}=1
+\end{array}
 \GivenExperiment
 \StateExperiment{
   \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
@@ -21635,87 +21828,177 @@ Fix a salt size $\SRSaltSize \in \Naturals$, move budget $\SRBudget \in \Natural
 \right]
 \enspace.
 \end{equation*}
+In the rest of this proof we upper bound the above quantity.
 
-The final output of $\IOPMaliciousSRProver$ is a move of the form $\IOPSRGameStateEntry{\IOPRoundComplexity}$, which may or may not appear as a move in $\SRTrace$. Define $\SRTraceFull$ to be the concatenation of the trace $\SRTrace$ and the move-response pairs
-\begin{equation*}
-\Big(\IOPSRGameStateEntry{\RoundIndex},\SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}\Big)_{\RoundIndex \in [\IOPRoundComplexity]}
-\enspace,
-\end{equation*}
-namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. The trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
-
-We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntry{\RoundIndex}$ if for every $j \in [\RoundIndex]$ the move $\IOPSRGameStateEntry{j}$ is contained in $\SRTraceFull$. Let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$. Note that $\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Cardinality{I_{\RoundIndex}} \leq \SRBudget + \IOPRoundComplexity$, since $(I_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ are pairwise disjoint and are in $\SRTraceFull$.
-
-For every $\RoundIndex \in [\IOPRoundComplexity]$, let $\RandomVariableX_{\RoundIndex}$ be the indicator random variable for the event that $\SRTraceFull$ contains a move $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$ such that
-\begin{equation*}
-\RBRState\RBRIOPInput{\RoundIndex}=1
-\enspace,
-\end{equation*}
-where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$ for every $j \in [\RoundIndex]$.
-
-If the IOP state-restoration prover $\IOPMaliciousSRProver$ wins the state-restoration game then $\RandomVariableX_{\IOPRoundComplexity}=1$, and thus it suffices to upper bound the probability that $\RandomVariableX_{\IOPRoundComplexity}=1$. Indeed, if $\IOPMaliciousSRProver$ wins then the IOP verifier accepts the transcript induced by the final output of $\IOPMaliciousSRProver$, which in turn implies that the state function outputs $1$ when given transcript (which is fully contained in $\SRTraceFull$).
-
-Define $\RandomVariableX_{0} \DefineEqual 0$. For every $\RoundIndex \in [\IOPRoundComplexity]$, we upper bound $\Pr\left[\RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]$. Fix a move $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$, which implies that $\IOPSRGameStateEntry{\RoundIndex-1} \in I_{\RoundIndex-1}$. Since additionally we assumed that $\RandomVariableX_{\RoundIndex-1}=0$ we get that $\RBRState\RBRIOPInput{\RoundIndex-1}=0$ where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$ for every $j \in [\RoundIndex-1]$.
-
-Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\SRMoveIndex \in [\SRBudget]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move among all the moves of  $\IOPMaliciousSRProver$ for round $\RoundIndex$.
+We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$.
 \begin{itemize}
 \item[] $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$:
 \begin{enumerate}[nolistsep]
   \item Set $c \DefineEqual 0$.
-  \item Simulate the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever $\IOPMaliciousSRProver$ outputs a move of the form $\IOPSRGameStateEntry{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
+  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever the execution performs a move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
   \begin{enumerate}[nosep]
-    \item If $\RoundIndex' = \RoundIndex$ and $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$ then set $c \DefineEqual c+1$.
-    \item If $c = \SRMoveIndex$ then:
+    \item Set $c \DefineEqual c+1$.
+    \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntryPrime{\RoundIndex'}$.
+    \item If $c = \SRMoveIndex$ and $\RoundIndex = \RoundIndex'$ then:
     \begin{enumerate}[nolistsep]
-      \item For every $j \in [\RoundIndex-1]$, set $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$.
-      \item Output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ (and halt).
+      \item For every $j \in [\RoundIndex-1]$, set $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$.
+      \item Let $\AuxiliaryState^{\SRSuperscript}$ be the state of the SR game.
+      \item Set $\AuxiliaryState \DefineEqual (\RoundIndex,\SRMoveIndex,\SRRandomness,\AuxiliaryState^{\SRSuperscript})$.
+      \item Set $(\IOPString_{j})_{j \in [\RoundIndex]} \DefineEqual (\IOPString'_{j})_{j \in [\RoundIndex]}$.
+      \item Output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (and halt).
     \end{enumerate}
-    \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntry{\RoundIndex'}$.
+    \item If $c = \SRMoveIndex$ and $\RoundIndex \ne \RoundIndex'$ then output $\bot$ and halt.
   \end{enumerate}
   \item Output $\bot$.
 \end{enumerate}
 \end{itemize}
-Since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round soundness of the IOP,
-\begin{align*}
+
+Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th move, not including its response. Moreover, since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round soundness of the IOP (see \Cref{def:iop-round-by-round-soundness}),
+\begin{align}
 &\Pr\left[
 \begin{array}{l}
-\RBRState\RBRIOPInput{\RoundIndex}=1\\
-\ConditionedOnText \\
-\RandomVariableX_{\RoundIndex-1}=0
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
 \end{array}
 \GivenExperiment
 \StateExperiment{
 \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]}) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
 \IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
 }
 \right]
-\\&\leq \RBRSoundnessError(\InstanceSize)
+\nonumber
+\\ &\leq \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
 \enspace.
-\end{align*}
-Moreover, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $\bot$ then the above probability is $0$. If $\RandomVariableX_{\RoundIndex}=1$ then for some $\SRMoveIndex \in [\SRBudget]$ it must hold that the output of $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ satisfies the event in the probability statement above. Thus, taking a union bound over all moves in $I_{\RoundIndex}$, we get that
-\begin{align*}
-\Pr\left[\RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\leq \Cardinality{I_{\RoundIndex}} \cdot \RBRSoundnessError(\InstanceSize)
+\label{eq:soundness-from-rbr-bound}
+\end{align}
+Next, we argue that
+\begin{equation}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\leq
+\RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
 \enspace.
-\end{align*}
-Then for every $\RoundIndex \in [\IOPRoundComplexity]$ we can write
+\label{eq:from-sr-experiment-from-rbr-experiment-soundness}
+\end{equation}
+This inequality follows from relating the state-restoration experiment to the corresponding round-by-round experiment in the following derivation:
 \begin{align*}
-&\Pr[\RandomVariableX_{\RoundIndex}=1] \\
-&= \Pr\left[ \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0] + \Pr\left[ \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1] \\
-&\leq \Pr\left[ \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] + \Pr[\RandomVariableX_{\RoundIndex-1}=1]
-\enspace.
-\end{align*}
-Applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$ we get
-\begin{align*}
-&\Pr[\RandomVariableX_{\IOPRoundComplexity}=1]
+&\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
+\\ & =
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0
+\end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace}
+}
+\right]
+\EquationComment{making the experiment explicit}
 \\ & \leq
-\Pr\left[ \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[\RandomVariableX_{\IOPRoundComplexity-1}=1]
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace}
+}
+\right]
+\\ &
+\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
+\EquationComment{$\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ implies $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$}
+\\ & =
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+\ConditionedOnText \\
+\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+\SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
+\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
+}
+\right]
+\\ &
+\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
+\EquationComment{see explanation below}
+\\ & \leq
+\RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\EquationComment{by \Cref{eq:soundness-from-rbr-bound}}
+\enspace.
+\end{align*}
+The last equality above is due to the following. The event $\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ indicates that the $\SRMoveIndex$-th move is for round $\RoundIndex$ and satisfies the state function $\RBRState$. Hence the state-restoration experiment with $\IOPMaliciousSRProver$ can be replaced by the round-by-round experiment with $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that emulates the SR game up to the $\SRMoveIndex$-th move, then sampling $\IOPVerifierRandomMessage_{\RoundIndex}$ as a response to the $\SRMoveIndex$-th move.
+
+This lets us deduce that
+\begin{align*}
+&\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & \leq
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\EquationComment{by \Cref{eq:from-sr-experiment-from-rbr-experiment-soundness}}
+\\ & \leq
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
+\cdot \sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\\ & \leq
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
+\enspace.
+\end{align*}
+Then, for every $\RoundIndex \in [\IOPRoundComplexity]$ we can write
+\begin{align*}
+& \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1]
+\\ & =
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0]
+\\ & \phantom{aaa} +
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
+\\ & \leq
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot 1
+\\ & \phantom{aaa} + \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
+\\ & =
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
+\\ & \phantom{aaa} + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex-1}=1]
+\enspace.
+\end{align*}
+Finally, applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$, we conclude that
+\begin{align*}
+&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity}=1]
+\\ & \leq
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity-1}=1]
 \\ & \leq
 \cdots
 \\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[\RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
 \\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Cardinality{I_{\RoundIndex}} \cdot \RBRSoundnessError(\InstanceSize)
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & =
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & \leq
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
+\\ & =
+(\SRBudget + \IOPRoundComplexity) \cdot
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
 \\ & \leq
 (\SRBudget + \IOPRoundComplexity) \cdot \RBRSoundnessError(\InstanceSize)
 \enspace.
@@ -21732,7 +22015,7 @@ The theorem below about knowledge soundness is analogous to \Cref{theorem:rbr-so
 
 \begin{theorem}
 \label{theorem:rbr-knowledge-soundness-to-sr-knowledge-soundness}
-Let $\IOPSymbol=\IOPSystem$ be a public-coin IP with round complexity $\IOPRoundComplexity$. If $\IOPSymbol$ has round-by-round knowledge soundness error $\RBRSoundnessError$ then $\IOPSymbol$ has straightline state-restoration knowledge soundness error $\IOPSRKnowledgeError$ (see \Cref{definition:iop-state-restoration-knowledge-straightline}) such that
+Let $\IOPSymbol=\IOPSystem$ be a public-coin IP with round complexity $\IOPRoundComplexity$. If $\IOPSymbol$ has round-by-round knowledge soundness error $\RBRKnowledgeError$ (see \Cref{def:iop-round-by-round-knowledge}) then $\IOPSymbol$ has straightline state-restoration knowledge soundness error $\IOPSRKnowledgeError$ (see \Cref{definition:iop-state-restoration-knowledge-straightline}) such that
 \begin{equation*}
 \IOPSRKnowledgeError(\SRSaltSize,\SRBudget,\InstanceSize)
 \leq
@@ -21756,7 +22039,7 @@ Let $\IOPRBRExtractor$ be the round-by-round extractor for $\IOPSymbol$. We cons
 \end{construction}
 
 \begin{proof}
-Fix a salt size $\SRSaltSize \in \Naturals$, move budget $\SRBudget \in \Naturals$, $\SRBudget$-move malicious prover $\IOPMaliciousSRProver$, and instance size bound $\InstanceSize \in \Naturals$. We wish to upper bound the following probability:
+Fix a salt size $\SRSaltSize \in \Naturals$, move budget $\SRBudget \in \Naturals$, $\SRBudget$-move IOP state-restoration prover $\IOPMaliciousSRProver$, and instance size bound $\InstanceSize \in \Naturals$. We wish to upper bound the following probability:
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
@@ -21773,8 +22056,9 @@ Fix a salt size $\SRSaltSize \in \Naturals$, move budget $\SRBudget \in \Natural
 \right]
 \enspace.
 \end{equation*}
-By construction of $\IOPSRExtractor$, the above is equivalent to the following
-\begin{equation*}
+By definition of $\IOPSRExtractor$ (\Cref{construction:straightline-sr-extractor-from-rbr-extractor}), the above expression is equivalent to the following
+\begin{equation}
+\label{equation:equivalent-straightline-sr-experiment}
 \Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
@@ -21789,103 +22073,229 @@ By construction of $\IOPSRExtractor$, the above is equivalent to the following
 }
 \right]
 \enspace.
-\end{equation*}
+\end{equation}
 
-Define $\SRTraceFull$ to be the concatenation of the trace $\SRTrace$ and the move-response pairs
+The final output of $\IOPMaliciousSRProver$ is a move of the form $\IOPSRGameStateEntry{\IOPRoundComplexity}$, which may or may not appear as a move in $\SRTrace$. Define $\SRTraceFull$ to be the concatenation of the trace $\SRTrace$ and the move-response pairs
 \begin{equation*}
 \Big(\IOPSRGameStateEntry{\RoundIndex},\SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}\Big)_{\RoundIndex \in [\IOPRoundComplexity]}
 \enspace,
 \end{equation*}
-namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. The trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
+namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. Since $\SRTrace$ contains at most $\SRBudget$ move-response pairs, the trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
 
-We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntry{\RoundIndex}$ if for every $j \in [\RoundIndex]$ the move $\IOPSRGameStateEntry{j}$ is contained in $\SRTraceFull$. Let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$. Note that $\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Cardinality{I_{\RoundIndex}} \leq \SRBudget + \IOPRoundComplexity$, since $(I_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}$ are pairwise disjoint and are in $\SRTraceFull$.
+We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ if this move appears in $\SRTraceFull$ and, for every $j \in \{1,\dots,\RoundIndex-1\}$ (if $\RoundIndex>1$), the move $\IOPSRGameStateEntryPrime{j}$ is contained in the prefix of $\SRTraceFull$ up to the move $\IOPSRGameStateEntryPrime{\RoundIndex}$. For every $\RoundIndex \in [\IOPRoundComplexity]$, let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$.
 
-For every $\RoundIndex \in [\IOPRoundComplexity]$, let $\RandomVariableX_{\RoundIndex}$ be the indicator random variable for the event that $\SRTraceFull$ contains a move $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$ such that
+For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableX_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ in $I_{\RoundIndex}$ such that
 \begin{equation*}
-\RBRState\RBRIOPInput{\RoundIndex}=1
+\RBRState\RBRIOPInputPrime{\RoundIndex}=1
 \enspace,
 \end{equation*}
-where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$ for every $j \in [\RoundIndex]$.
+where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$ for every $j \in [\RoundIndex]$. Moreover, $\RandomVariableX_{0} \DefineEqual 0$ and, for every $\RoundIndex \in [\IOPRoundComplexity]$, we define $\RandomVariableX_{\RoundIndex} \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\RoundIndex,\SRMoveIndex}$.
 
-If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ then $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$, which implies that $\RandomVariableX_{\IOPRoundComplexity}=1$ (since $\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is fully contained in $\SRTraceFull$). Hence it suffices to upper bound the probability $\Pr[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1]$.
+Additionally, for every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is for round $\RoundIndex$.
 
-Define $\RandomVariableX_{0} \DefineEqual 0$. For every $\RoundIndex \in [\IOPRoundComplexity]$, we upper bound
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$, which implies that $\RandomVariableX_{\IOPRoundComplexity}=1$ (since $\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is fully contained in $\SRTraceFull$). Therefore, \Cref{equation:equivalent-straightline-sr-experiment} (the quantity we wish to upper bound) is at most
 \begin{equation*}
-\Pr\left[(\Instance,\Witness) \notin \Relation \land  \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;(\Instance,\Witness) \notin \Relation \\
+  \land\;\RandomVariableX_{\IOPRoundComplexity}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace} \\
+  \Witness \gets \IOPRBRExtractor(\Instance,\IOPStrings)
+}
+\right]
 \enspace.
 \end{equation*}
-Fix a move $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$, so $\IOPSRGameStateEntry{\RoundIndex-1} \in I_{\RoundIndex-1}$. Since additionally we assumed that $\RandomVariableX_{\RoundIndex-1}=0$ we get that $\RBRState\RBRIOPInput{\RoundIndex-1}=0$ where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$ for every $j \in [\RoundIndex-1]$.
+In the rest of this proof we upper bound the above quantity.
 
-Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\SRMoveIndex \in [\SRBudget]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move among all the moves of  $\IOPMaliciousSRProver$ for round $\RoundIndex$.
+We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$. (A round-by-round prover, in the case of knowledge soundness, consists of two phases: before and after receiving the round's randomness.)
 \begin{itemize}
 \item[] $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$:
 \begin{enumerate}[nolistsep]
   \item Set $c \DefineEqual 0$.
-  \item Simulate the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever $\IOPMaliciousSRProver$ outputs a move of the form $\IOPSRGameStateEntry{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
+  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever the execution performs a move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
   \begin{enumerate}[nosep]
-    \item If $\RoundIndex' = \RoundIndex$ and $\IOPSRGameStateEntry{\RoundIndex} \in I_{\RoundIndex}$ then set $c \DefineEqual c+1$.
-    \item If $c = \SRMoveIndex$ then:
+    \item Set $c \DefineEqual c+1$.
+    \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntryPrime{\RoundIndex'}$.
+    \item If $c = \SRMoveIndex$ and $\RoundIndex = \RoundIndex'$ then:
     \begin{enumerate}[nolistsep]
-      \item For every $j \in [\RoundIndex-1]$, set $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntry{j}$.
-      \item Output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ (and halt).
+      \item For every $j \in [\RoundIndex-1]$, set $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$.
+      \item Let $\AuxiliaryState^{\SRSuperscript}$ be the state of the SR game.
+      \item Set $\AuxiliaryState \DefineEqual (\RoundIndex,\SRMoveIndex,\SRRandomness,\AuxiliaryState^{\SRSuperscript})$.
+      \item Set $(\IOPString_{j})_{j \in [\RoundIndex]} \DefineEqual (\IOPString'_{j})_{j \in [\RoundIndex]}$.
+      \item Output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (and halt).
     \end{enumerate}
-    \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntry{\RoundIndex'}$.
+    \item If $c = \SRMoveIndex$ and $\RoundIndex \ne \RoundIndex'$ then output $\bot$ and halt.
   \end{enumerate}
   \item Output $\bot$.
 \end{enumerate}
+\item[] $\IOPMaliciousRBRProver(\AuxiliaryState, \IOPVerifierRandomMessage_{\RoundIndex})$:
+\begin{enumerate}[nolistsep]
+  \item Parse $\AuxiliaryState$ as $(\RoundIndex,\SRMoveIndex,\SRRandomness,\AuxiliaryState^{\SRSuperscript})$.
+  \item Use $\AuxiliaryState^{\SRSuperscript}$ to continue the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$.
+  \item Answer the current move with $\IOPVerifierRandomMessage_{\RoundIndex}$ and the rest using $\SRRandomness$.
+  \item Let the final output of the SR game be $\IOPSROutput$.
+  \item Output $(\IOPString_{j})_{j \in \{\RoundIndex+1,\dots,\IOPRoundComplexity\}}$.
+  \item (Output the trace $\SRTrace$ of $\IOPMaliciousSRProver$ in the SR game as an auxiliary output.)
+\end{enumerate}
 \end{itemize}
-Since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round knowledge soundness of the IOP,
-\begin{align*}
+
+Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th move, not including its response. Moreover, since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round knowledge soundness of the IOP (see \Cref{def:iop-round-by-round-knowledge}),
+\begin{align}
 &\Pr\left[
 \begin{array}{l}
-(\Instance,\Witness) \notin \Relation \\
-\RBRState\RBRIOPInput{\RoundIndex}=1\\
-\ConditionedOnText \\
-\RandomVariableX_{\RoundIndex-1}=0
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;(\Instance,\Witness) \notin \Relation \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
 \end{array}
 \GivenExperiment
 \StateExperiment{
 \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]}) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
 \IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}} \\
+(\IOPString_{j})_{j \in \{\RoundIndex+1,\dots,\IOPRoundComplexity\}} \xgetsbelow{\SRTrace} \IOPMaliciousRBRProver(\AuxiliaryState,\IOPVerifierRandomMessage_{\RoundIndex}) \\
  \Witness \gets \IOPSRExtractor(\Instance,\IOPStrings,(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]},\SRTrace)
 }
 \right]
+\nonumber
 \\ &\leq \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
 \enspace.
-\end{align*}
-Moreover, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $\bot$ then the above probability is $0$. If $\RandomVariableX_{\RoundIndex}=1$ then for some $\SRMoveIndex \in [\SRBudget]$ it must hold that the output of $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ satisfies the event in the probability statement above. Taking a union bound over all moves in $I_{\RoundIndex}$, we get that
+\label{eq:straightline-sr-extractor-from-rbr-extractor-bound}
+\end{align}
+Next, we argue that
+\begin{equation}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\leq
+\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\enspace.
+\label{eq:from-sr-experiment-from-rbr-experiment}
+\end{equation}
+This inequality follows from relating the state-restoration experiment to the corresponding round-by-round experiment in the following derivation:
 \begin{align*}
-\Pr\left[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\leq \Cardinality{I_{\RoundIndex}} \cdot \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+&\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
+\\ & =
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;(\Instance,\Witness) \notin \Relation \\
+  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0
+\end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace} \\
+  \Witness \gets \IOPRBRExtractor(\Instance,\IOPStrings)
+}
+\right]
+\EquationComment{making the experiment explicit}
+\\ & \leq
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;(\Instance,\Witness) \notin \Relation \\
+  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
+  \ConditionedOnText \\
+  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace} \\
+  \Witness \gets \IOPRBRExtractor(\Instance,\IOPStrings)
+}
+\right]
+\\ &
+\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
+\EquationComment{$\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ implies $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$}
+\\ & =
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;(\Instance,\Witness) \notin \Relation \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+\ConditionedOnText \\
+\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+\SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
+\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}} \\
+(\IOPString_{j})_{j \in \{\RoundIndex+1,\dots,\IOPRoundComplexity\}} \xgetsbelow{\SRTrace} \IOPMaliciousRBRProver(\AuxiliaryState,\IOPVerifierRandomMessage_{\RoundIndex}) \\
+ \Witness \gets \IOPSRExtractor(\Instance,\IOPStrings,(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]},\SRTrace)
+}
+\right]
+\\ &
+\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
+\EquationComment{see explanation below}
+\\ & \leq
+\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\EquationComment{by \Cref{eq:straightline-sr-extractor-from-rbr-extractor-bound}}
+\enspace.
+\end{align*}
+The last equality above is due to the following. The event $\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ indicates that the $\SRMoveIndex$-th move is for round $\RoundIndex$ and satisfies the state function $\RBRState$. Hence the state-restoration experiment with $\IOPMaliciousSRProver$ can be replaced by the round-by-round experiment with $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that emulates the SR game up to the $\SRMoveIndex$-th move, then sampling $\IOPVerifierRandomMessage_{\RoundIndex}$ as a response to the $\SRMoveIndex$-th move, and finally continuing the execution of the SR game with $\IOPMaliciousRBRProver(\AuxiliaryState,\IOPVerifierRandomMessage_{\RoundIndex})$.
+
+This lets us deduce that
+\begin{align*}
+&\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & \leq
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\EquationComment{by \Cref{eq:from-sr-experiment-from-rbr-experiment}}
+\\ & \leq
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+\cdot \sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
+\\ & \leq
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
 \enspace.
 \end{align*}
 Then, for every $\RoundIndex \in [\IOPRoundComplexity]$ we can write
 \begin{align*}
-& \Pr[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1]
+& \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1]
 \\ & =
-\Pr\left[ (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0]
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0]
 \\ & \phantom{aaa} +
-\Pr\left[ (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
 \\ & \leq
-\Pr\left[ (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-+ \Pr\left[ (\Instance,\Witness) \notin \Relation \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot 1
+\\ & \phantom{aaa} + \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
 \\ & =
-\Pr\left[ (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-+ \Pr[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex-1}=1]
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
+\\ & \phantom{aaa} + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex-1}=1]
 \enspace.
 \end{align*}
-Applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$ we get
+Finally, applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$, we conclude that
 \begin{align*}
-&\Pr[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1]
+&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1]
 \\ & \leq
-\Pr\left[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity-1}=1]
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity-1}=1]
 \\ & \leq
 \cdots
 \\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[(\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
 \\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Cardinality{I_{\RoundIndex}} \cdot \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & =
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+\\ & \leq
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+\\ & =
+(\SRBudget + \IOPRoundComplexity) \cdot
+\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
 \\ & \leq
 (\SRBudget + \IOPRoundComplexity) \cdot \RBRKnowledgeError(\InstanceSize)
 \enspace.
