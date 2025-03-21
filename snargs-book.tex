@@ -1143,7 +1143,7 @@ We are sincerely grateful that these entities agreed to support our vision of th
 
 Our knowledge and enthusiasm about cryptographic proofs has greatly benefited from interactions with many wonderful colleagues and mentors over many years of academic research, as well as from forays into industry. We express our deepest gratitude to all of these colleagues.
 
-Several people have generously agreed to review early drafts of this book, contributing valuable ideas, feedback, and corrections. We thank them in alphabetic order: Gal Arnon, Shany Ben-David, Zijing Di, Giacomo Fenzi, Ziyi Guan, Shai Keidar, Mathias Marty, Amit Sharabi, Yuxi Zheng.
+Several people have generously agreed to review early drafts of this book, contributing valuable ideas, feedback, and corrections. We thank them in alphabetic order: Gal Arnon, Shany Ben-David, Zijing Di, Giacomo Fenzi, Ziyi Guan, Shai Keidar, Mathias Marty, Amit Sharabi, William Wang, Yuxi Zheng.
 
 Those who reported bugs and provided suggestions are acknowledged in the corresponding pull requests on this book's version history in the repository mentioned above.
 
@@ -18491,7 +18491,7 @@ Let $\IPSymbol=\IPSystem$ be a public-coin IP with round complexity $\IPRoundCom
 \label{figure:tree-of-transcripts-diagram}
 \end{figure}
 
-We also the define the notion of a \emph{subtree} of transcripts, which considers multiple accepting completions of a single partial transcript. The definition below generalizes \Cref{definition:ss-tree-of-transcripts} and, while not needed to define special soundness, we rely on it in various analyses in this chapter.
+We also define the notion of a \emph{subtree} of transcripts, which considers multiple accepting completions of a single partial transcript. The definition below generalizes \Cref{definition:ss-tree-of-transcripts} and, while not needed to define special soundness, we rely on it in various analyses in this chapter.
 
 \begin{definition}
 \label{definition:ss-subtree-of-transcripts}
@@ -21801,24 +21801,41 @@ The final output of $\IOPMaliciousSRProver$ is a move of the form $\IOPSRGameSta
 \end{equation*}
 namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. Since $\SRTrace$ contains at most $\SRBudget$ move-response pairs, the trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
 
-We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ if this move appears in $\SRTraceFull$ and, for every $j \in \{1,\dots,\RoundIndex-1\}$ (if $\RoundIndex>1$), the move $\IOPSRGameStateEntryPrime{j}$ is contained in the prefix of $\SRTraceFull$ up to the move $\IOPSRGameStateEntryPrime{\RoundIndex}$. For every $\RoundIndex \in [\IOPRoundComplexity]$, let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$.
+We define some useful random variables.
+\begin{itemize}[noitemsep]
+\item For every $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, define the indicator random variable $\RandomVariableX_{\SRMoveIndex}$ for the following event. Let $\IOPSRGameStateEntryPrime{\RoundIndex}$ be the $\SRMoveIndex$-th unique move in $\SRTraceFull$; also, for every $j \in [\RoundIndex]$ let $\IOPVerifierRandomMessage_{j}' \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$. We define $\RandomVariableX_{\SRMoveIndex}=1$ if and only if:
+\begin{itemize}[noitemsep]
+  \item $\RBRState(\Instance',(\IOPString_{1}',\IOPVerifierRandomMessage_{1}',\dots,\IOPString_{\RoundIndex}',\IOPVerifierRandomMessage_{\RoundIndex}'))$, and
+  \item $\RBRState(\Instance',(\IOPString_{1}',\IOPVerifierRandomMessage_{1}',\dots,\IOPString_{\RoundIndex}'))=0$.
+\end{itemize}
 
-For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableX_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ in $I_{\RoundIndex}$ such that
-\begin{equation*}
-\RBRState\RBRIOPInputPrime{\RoundIndex}=1
-\enspace,
-\end{equation*}
-where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$ for every $j \in [\RoundIndex]$. Moreover, $\RandomVariableX_{0} \DefineEqual 0$ and, for every $\RoundIndex \in [\IOPRoundComplexity]$, we define $\RandomVariableX_{\RoundIndex} \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\RoundIndex,\SRMoveIndex}$.
+\item Define $\RandomVariableX \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\SRMoveIndex}$.
 
-Additionally, for every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is for round $\RoundIndex$.
+\item For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th unique move in $\SRTraceFull$ is for round $\RoundIndex$.
+\end{itemize}
 
-If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$, which implies that $\RandomVariableX_{\IOPRoundComplexity}=1$ (since $\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is fully contained in $\SRTraceFull$). Therefore, \Cref{equation:soundness-sr-experiment} (the quantity we wish to upper bound) is at most
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then $\RandomVariableX=1$.
+\begin{claim}
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ then there exists $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$ such that $\RandomVariableX_{\SRMoveIndex}=1$.
+\end{claim}
+
+\begin{proof}
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$. First we argue that there exists $\RoundIndex \in [\IOPRoundComplexity]$ such that
+\begin{itemize}[noitemsep]
+  \item $\RBRState\RBRIOPInput{\RoundIndex}=1$; and
+  \item $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0$.
+\end{itemize}
+By the definition of a state function, $\RBRState(\Instance,\emptyset))=0$. Hence $\RBRState(\Instance,(\IOPString_{1}))=0$ (indeed, for any $\IOPString_{1}$). Next, if $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1}))=1$ then we are done; otherwise, $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1}))=0$, so by the definition of a state function $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2}))=0$ (indeed, for any $\IOPString_{2}$). Similarly, if $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2},\IOPVerifierRandomMessage_{2}))=1$ then we are done; otherwise, $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2},\IOPVerifierRandomMessage_{2},\IOPString_{3}))=0$ (indeed, for any $\IOPString_{3}$). This may continue until we get to the conclusion that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\IOPRoundComplexity}))=0$, in which case we are done because we already know that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$.
+
+Finally, $\SRTraceFull$ contains a move of the form $\IOPSRGameStateEntry{\RoundIndex}$: either such a move appears in $\SRTrace$ (i.e., $\IOPMaliciousSRProver$ makes such a move), or it appears in the last $\IOPRoundComplexity$ entries of $\SRTraceFull$ (since we extend $\SRTrace$ with $\IOPRoundComplexity$ move-response pairs corresponding to all prefixes derived from $\IOPMaliciousSRProver$'s output). Therefore we can let $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$ correspond to the index of the first time a move of the form $\IOPSRGameStateEntry{\RoundIndex}$ appears in $\SRTrace$.
+\end{proof}
+Using the above claim, \Cref{equation:soundness-sr-experiment} (the quantity we wish to upper bound) is at most
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
   \land\;\Instance \notin \GetLanguage{\Relation} \\
-  \land\;\RandomVariableX_{\IOPRoundComplexity}=1
+  \land\;\RandomVariableX=1
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -21830,12 +21847,12 @@ If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $
 \end{equation*}
 In the rest of this proof we upper bound the above quantity.
 
-We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$.
+We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th unique move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$.
 \begin{itemize}
 \item[] $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$:
 \begin{enumerate}[nolistsep]
   \item Set $c \DefineEqual 0$.
-  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever the execution performs a move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
+  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Answer duplicate queries consistently, and answer any new move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$ as follows:
   \begin{enumerate}[nosep]
     \item Set $c \DefineEqual c+1$.
     \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntryPrime{\RoundIndex'}$.
@@ -21853,15 +21870,45 @@ We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\S
 \end{enumerate}
 \end{itemize}
 
-Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th move, not including its response. Moreover, since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round soundness of the IOP (see \Cref{def:iop-round-by-round-soundness}),
+Fix any $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, and consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th unique move, not including its response. Assume that $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ that does not equal $\bot$. Since $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$ (it is the $\SRMoveIndex$-th unique move), then the output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$, so we can bound the probability that $\RBRState\RBRIOPInput{\RoundIndex}=1$ by the round-by-round soundness of the IOP (see \Cref{def:iop-round-by-round-soundness}).
+
+Thus, we obtain the upper bound
 \begin{align}
 &\Pr\left[
+ \SomeSize{\Instance} \leq \InstanceSize
+  \land  \Instance \notin \GetLanguage{\Relation}
+  \land  \RandomVariableX_{\SRMoveIndex} = 1
+  \;\mid\;
+  \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\right]
+\nonumber
+\\ & =
+\Pr\left[
+\begin{array}{l}
+  \SomeSize{\Instance} \leq \InstanceSize \\
+  \land\;\Instance \notin \GetLanguage{\Relation} \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+\land\; \RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0 \\
+  \ConditionedOnText \\
+  \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+\end{array}
+\GivenExperiment
+\StateExperiment{
+\SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
+((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
+\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
+}
+\right]
+\nonumber
+\\ & \leq
+\Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
   \land\;\Instance \notin \GetLanguage{\Relation} \\
   \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
   \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+  \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1 \\
+ \land\; \RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0 \\
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -21875,131 +21922,41 @@ Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{
 \enspace.
 \label{eq:soundness-from-rbr-bound}
 \end{align}
-Next, we argue that
-\begin{equation}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\leq
-\RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\enspace.
-\label{eq:from-sr-experiment-from-rbr-experiment-soundness}
-\end{equation}
-This inequality follows from relating the state-restoration experiment to the corresponding round-by-round experiment in the following derivation:
-\begin{align*}
-&\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-\\ & =
-\Pr\left[
-\begin{array}{l}
-  \SomeSize{\Instance} \leq \InstanceSize \\
-  \land\;\Instance \notin \GetLanguage{\Relation} \\
-  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
-  \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0
-\end{array}
-\GivenExperiment
-\StateExperiment{
-  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace}
-}
-\right]
-\EquationComment{making the experiment explicit}
-\\ & \leq
-\Pr\left[
-\begin{array}{l}
-  \SomeSize{\Instance} \leq \InstanceSize \\
-  \land\;\Instance \notin \GetLanguage{\Relation} \\
-  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
-  \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
-\end{array}
-\GivenExperiment
-\StateExperiment{
-  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace}
-}
-\right]
-\\ &
-\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
-\EquationComment{$\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ implies $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$}
-\\ & =
-\Pr\left[
-\begin{array}{l}
-  \SomeSize{\Instance} \leq \InstanceSize \\
-  \land\;\Instance \notin \GetLanguage{\Relation} \\
-  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
-\ConditionedOnText \\
-\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
-\end{array}
-\GivenExperiment
-\StateExperiment{
-\SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState) \gets \IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness) \\
-\IOPVerifierRandomMessage_{\RoundIndex} \gets \Bits^{\IOPRandomnessComplexity_{\RoundIndex}}
-}
-\right]
-\\ &
-\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
-\EquationComment{see explanation below}
-\\ & \leq
-\RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\EquationComment{by \Cref{eq:soundness-from-rbr-bound}}
-\enspace.
-\end{align*}
-The last equality above is due to the following. The event $\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ indicates that the $\SRMoveIndex$-th move is for round $\RoundIndex$ and satisfies the state function $\RBRState$. Hence the state-restoration experiment with $\IOPMaliciousSRProver$ can be replaced by the round-by-round experiment with $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that emulates the SR game up to the $\SRMoveIndex$-th move, then sampling $\IOPVerifierRandomMessage_{\RoundIndex}$ as a response to the $\SRMoveIndex$-th move.
 
 This lets us deduce that
 \begin{align*}
-&\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+& \Pr\left[
+ \SomeSize{\Instance} \leq \InstanceSize
+  \land  \Instance \notin \GetLanguage{\Relation}
+  \land  \RandomVariableX_{\SRMoveIndex} = 1
+\right]
+\\ & =
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\SRMoveIndex} = 1 \ConditionedOn \RandomVariableY_{\RoundIndex,\SRMoveIndex}=0\right]
+\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
 \\ & \leq
 \sum_{\RoundIndex \in [\IOPRoundComplexity]}
 \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\EquationComment{by \Cref{eq:from-sr-experiment-from-rbr-experiment-soundness}}
+\EquationComment{by \Cref{eq:soundness-from-rbr-bound}}
 \\ & \leq
 \max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
 \cdot \sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
 \\ & \leq
 \max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
+\\ & \leq
+\RBRSoundnessError(\InstanceSize)
 \enspace.
 \end{align*}
-Then, for every $\RoundIndex \in [\IOPRoundComplexity]$ we can write
+Then, taking a union bound over all $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we get
 \begin{align*}
-& \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1]
-\\ & =
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0]
-\\ & \phantom{aaa} +
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
-\\ & \leq
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot 1
-\\ & \phantom{aaa} + \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
-\\ & =
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-\\ & \phantom{aaa} + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex-1}=1]
-\enspace.
-\end{align*}
-Finally, applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$, we conclude that
-\begin{align*}
-&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity}=1]
-\\ & \leq
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\IOPRoundComplexity-1}=1]
-\\ & \leq
-\cdots
-\\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\\ & =
-\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX=1]
 \\ & \leq
 \sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
-\\ & =
-(\SRBudget + \IOPRoundComplexity) \cdot
-\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRSoundnessErrorIdx{\RoundIndex}(\InstanceSize)
+\Pr[\SomeSize{\Instance} \leq \InstanceSize \land \Instance \notin \GetLanguage{\Relation} \land \RandomVariableX_{\SRMoveIndex}=1]
 \\ & \leq
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\RBRSoundnessError(\InstanceSize)
+\\ & =
 (\SRBudget + \IOPRoundComplexity) \cdot \RBRSoundnessError(\InstanceSize)
 \enspace.
 \end{align*}
@@ -22082,24 +22039,43 @@ The final output of $\IOPMaliciousSRProver$ is a move of the form $\IOPSRGameSta
 \end{equation*}
 namely the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPSRGameStateEntry{\IOPRoundComplexity}$ along with their answers according to $\SRRandomness = \IOPTuple{\SRRandomness}$. Since $\SRTrace$ contains at most $\SRBudget$ move-response pairs, the trace $\SRTraceFull$ contains at most $\SRBudget + \IOPRoundComplexity$ move-response pairs.
 
-We say that $\SRTraceFull$ \emph{fully contains} a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ if this move appears in $\SRTraceFull$ and, for every $j \in \{1,\dots,\RoundIndex-1\}$ (if $\RoundIndex>1$), the move $\IOPSRGameStateEntryPrime{j}$ is contained in the prefix of $\SRTraceFull$ up to the move $\IOPSRGameStateEntryPrime{\RoundIndex}$. For every $\RoundIndex \in [\IOPRoundComplexity]$, let $I_{\RoundIndex}$ be the set of round-$\RoundIndex$ moves that are fully contained in $\SRTraceFull$.
+We define some useful random variables.
+\begin{itemize}[noitemsep]
+\item For every $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, define the indicator random variable $\RandomVariableX_{\SRMoveIndex}$ for the following event. Let $\IOPSRGameStateEntryPrime{\RoundIndex}$ be the $\SRMoveIndex$-th unique move in $\SRTraceFull$; also, for every $j \in [\RoundIndex]$ let $\IOPVerifierRandomMessage_{j}' \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$. We define $\RandomVariableX_{\SRMoveIndex}=1$ if and only if:
+\begin{itemize}[noitemsep]
+  \item $\RBRState(\Instance',(\IOPString_{1}',\IOPVerifierRandomMessage_{1}',\dots,\IOPString_{\RoundIndex}',\IOPVerifierRandomMessage_{\RoundIndex}'))$, and
+  \item $\RBRState(\Instance',(\IOPString_{1}',\IOPVerifierRandomMessage_{1}',\dots,\IOPString_{\RoundIndex}'))=0$.
+\end{itemize}
 
-For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableX_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is a move $\IOPSRGameStateEntryPrime{\RoundIndex}$ in $I_{\RoundIndex}$ such that
-\begin{equation*}
-\RBRState\RBRIOPInputPrime{\RoundIndex}=1
-\enspace,
-\end{equation*}
-where $\IOPVerifierRandomMessage_{j} \DefineEqual \SRRandomness_{j}\IOPSRGameStateEntryPrime{j}$ for every $j \in [\RoundIndex]$. Moreover, $\RandomVariableX_{0} \DefineEqual 0$ and, for every $\RoundIndex \in [\IOPRoundComplexity]$, we define $\RandomVariableX_{\RoundIndex} \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\RoundIndex,\SRMoveIndex}$.
+\item Define $\RandomVariableX \DefineEqual \lor_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]} \RandomVariableX_{\SRMoveIndex}$.
 
-Additionally, for every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th move in $\SRTraceFull$ is for round $\RoundIndex$.
+\item For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we define the indicator random variable $\RandomVariableY_{\RoundIndex,\SRMoveIndex}$ for the event that the $\SRMoveIndex$-th unique move in $\SRTraceFull$ is for round $\RoundIndex$.
+\end{itemize}
 
-If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$, which implies that $\RandomVariableX_{\IOPRoundComplexity}=1$ (since $\IOPTranscriptLongTuple{\IOPRoundComplexity}$ is fully contained in $\SRTraceFull$). Therefore, \Cref{equation:equivalent-straightline-sr-experiment} (the quantity we wish to upper bound) is at most
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $\IOPMaliciousSRProver$'s final output) then $\RandomVariableX=1$.
+
+\begin{claim}
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ then there exists $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$ such that $\RandomVariableX_{\SRMoveIndex}=1$.
+\end{claim}
+
+\begin{proof}
+If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ then we have that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$. First we argue that there exists $\RoundIndex \in [\IOPRoundComplexity]$ such that
+\begin{itemize}[noitemsep]
+  \item $\RBRState\RBRIOPInput{\RoundIndex}=1$; and
+  \item $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0$.
+\end{itemize}
+By the definition of a state function, $\RBRState(\Instance,\emptyset))=0$. Hence $\RBRState(\Instance,(\IOPString_{1}))=0$ (indeed, for any $\IOPString_{1}$). Next, if $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1}))=1$ then we are done; otherwise, $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1}))=0$, so by the definition of a state function $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2}))=0$ (indeed, for any $\IOPString_{2}$). Similarly, if $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2},\IOPVerifierRandomMessage_{2}))=1$ then we are done; otherwise, $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\IOPString_{2},\IOPVerifierRandomMessage_{2},\IOPString_{3}))=0$ (indeed, for any $\IOPString_{3}$). This may continue until we get to the conclusion that $\RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\IOPRoundComplexity}))=0$, in which case we are done because we already know that $\RBRState(\Instance,\IOPTranscriptLongTuple{\IOPRoundComplexity})=1$.
+
+Finally, $\SRTraceFull$ contains a move of the form $\IOPSRGameStateEntry{\RoundIndex}$: either such a move appears in $\SRTrace$ (i.e., $\IOPMaliciousSRProver$ makes such a move), or it appears in the last $\IOPRoundComplexity$ entries of $\SRTraceFull$ (since we extend $\SRTrace$ with $\IOPRoundComplexity$ move-response pairs corresponding to all prefixes derived from $\IOPMaliciousSRProver$'s output). Therefore we can let $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$ correspond to the index of the first time a move of the form $\IOPSRGameStateEntry{\RoundIndex}$ appears in $\SRTrace$.
+\end{proof}
+
+Using the above claim, \Cref{equation:equivalent-straightline-sr-experiment} (the quantity we wish to upper bound) is at most
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
   \land\;(\Instance,\Witness) \notin \Relation \\
-  \land\;\RandomVariableX_{\IOPRoundComplexity}=1
+  \land\;\RandomVariableX=1
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -22112,12 +22088,12 @@ If $\IOPVerifier^{\IOPStrings}(\IOPVerifierInput)=1$ (the IOP verifier accepts $
 \end{equation*}
 In the rest of this proof we upper bound the above quantity.
 
-We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. Assume, without loss of generality, that $\IOPMaliciousSRProver$ does not make duplicate moves. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$. (A round-by-round prover, in the case of knowledge soundness, consists of two phases: before and after receiving the round's randomness.)
+We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, where after $\IOPMaliciousSRProver$'s final output the execution additionally performs the $\IOPRoundComplexity$ moves obtained from every prefix of $\IOPMaliciousSRProver$'s final output. For every $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, consider the round-by-round prover $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that outputs the partial transcript induced by the $\SRMoveIndex$-th unique move in the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$, provided it is to round $\RoundIndex$. (A round-by-round prover, in the case of knowledge soundness, consists of two phases: before and after receiving the round's randomness.)
 \begin{itemize}
 \item[] $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$:
 \begin{enumerate}[nolistsep]
   \item Set $c \DefineEqual 0$.
-  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Whenever the execution performs a move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$:
+  \item Simulate the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$. Answer duplicate queries consistently and answer any new move of the form $\IOPSRGameStateEntryPrime{\RoundIndex'}$ for a round $\RoundIndex' \in [\IOPRoundComplexity]$ as follows:
   \begin{enumerate}[nosep]
     \item Set $c \DefineEqual c+1$.
     \item If $c < \SRMoveIndex$ then answer with $\IOPVerifierRandomMessage_{\RoundIndex'} \DefineEqual \SRRandomness_{\RoundIndex'}\IOPSRGameStateEntryPrime{\RoundIndex'}$.
@@ -22137,22 +22113,28 @@ We consider a \emph{full} execution of $\IOPStateRestorationGame{\SRSaltSize}{\S
 \begin{enumerate}[nolistsep]
   \item Parse $\AuxiliaryState$ as $(\RoundIndex,\SRMoveIndex,\SRRandomness,\AuxiliaryState^{\SRSuperscript})$.
   \item Use $\AuxiliaryState^{\SRSuperscript}$ to continue the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$.
-  \item Answer the current move with $\IOPVerifierRandomMessage_{\RoundIndex}$ and the rest using $\SRRandomness$.
+  \item Answer the current move (and any of its duplicates) with $\IOPVerifierRandomMessage_{\RoundIndex}$ and the rest using $\SRRandomness$.
   \item Let the final output of the SR game be $\IOPSROutput$.
   \item Output $(\IOPString_{j})_{j \in \{\RoundIndex+1,\dots,\IOPRoundComplexity\}}$.
   \item (Output the trace $\SRTrace$ of $\IOPMaliciousSRProver$ in the SR game as an auxiliary output.)
 \end{enumerate}
 \end{itemize}
 
-Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th move, not including its response. Moreover, since $\IOPMaliciousSRProver$ does not make duplicate moves, if $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ (that does not equal $\bot$) then $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$, which means that $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$. Hence, by round-by-round knowledge soundness of the IOP (see \Cref{def:iop-round-by-round-knowledge}),
+Fix any $\RoundIndex \in [\IOPRoundComplexity]$ and $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, and consider the full execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}$ conditioned on $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$. The event $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$ depends only on the moves and responses up to the $\SRMoveIndex$-th unique move, not including its response. Assume that $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ outputs $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]},\AuxiliaryState)$ that does not equal $\bot$. Since $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ has not answered the move $\IOPSRGameStateEntry{\RoundIndex}$ (it is the $\SRMoveIndex$-th unique move), then the output $((\IOPString_{j})_{j \in [\RoundIndex]},(\IOPVerifierRandomMessage_{j})_{j \in [\RoundIndex-1]})$ is independent of $\IOPVerifierRandomMessage_{\RoundIndex} \DefineEqual \SRRandomness_{\RoundIndex}\IOPSRGameStateEntry{\RoundIndex}$, so we can bound the probability that $\RBRState\RBRIOPInput{\RoundIndex}=1$ by the round-by-round knowledge soundness of the IOP (see \Cref{def:iop-round-by-round-knowledge}).
+
+Thus, we obtain the upper bound
 \begin{align}
-&\Pr\left[
+&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\SRMoveIndex} = 1 \;\mid\; \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1] =
+\nonumber
+\\ & =
+\Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
   \land\;(\Instance,\Witness) \notin \Relation \\
-  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1 \\
+  \land\; \RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0 \\
   \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+ \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -22164,65 +22146,15 @@ Consider the execution of $\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{
 }
 \right]
 \nonumber
-\\ &\leq \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
-\enspace.
-\label{eq:straightline-sr-extractor-from-rbr-extractor-bound}
-\end{align}
-Next, we argue that
-\begin{equation}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\leq
-\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\enspace.
-\label{eq:from-sr-experiment-from-rbr-experiment}
-\end{equation}
-This inequality follows from relating the state-restoration experiment to the corresponding round-by-round experiment in the following derivation:
-\begin{align*}
-&\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-\\ & =
+\\ &\leq
 \Pr\left[
 \begin{array}{l}
   \SomeSize{\Instance} \leq \InstanceSize \\
   \land\;(\Instance,\Witness) \notin \Relation \\
-  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
+  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1 \\
   \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0
-\end{array}
-\GivenExperiment
-\StateExperiment{
-  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace} \\
-  \Witness \gets \IOPRBRExtractor(\Instance,\IOPStrings)
-}
-\right]
-\EquationComment{making the experiment explicit}
-\\ & \leq
-\Pr\left[
-\begin{array}{l}
-  \SomeSize{\Instance} \leq \InstanceSize \\
-  \land\;(\Instance,\Witness) \notin \Relation \\
-  \land\;\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1 \\
-  \ConditionedOnText \\
-  \RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
-\end{array}
-\GivenExperiment
-\StateExperiment{
-  \SRRandomness=\IOPTuple{\SRRandomness} \gets \RODistribution{(\IOPRandomnessComplexity_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]}} \\
-  \LongExecutionOver{\IOPSROutput}{\IOPStateRestorationGame{\SRSaltSize}{\SRRandomness}{\IOPMaliciousSRProver}}{\SRTrace} \\
-  \Witness \gets \IOPRBRExtractor(\Instance,\IOPStrings)
-}
-\right]
-\\ &
-\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
-\EquationComment{$\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ implies $\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1$}
-\\ & =
-\Pr\left[
-\begin{array}{l}
-  \SomeSize{\Instance} \leq \InstanceSize \\
-  \land\;(\Instance,\Witness) \notin \Relation \\
-  \land\;\RBRState\RBRIOPInput{\RoundIndex}=1\\
-\ConditionedOnText \\
-\RandomVariableX_{\RoundIndex-1}=0 \land \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1
+ \RandomVariableY_{\RoundIndex,\SRMoveIndex}=1 \\
+  \land\; \RBRState(\Instance,(\IOPString_{1},\IOPVerifierRandomMessage_{1},\dots,\IOPString_{\RoundIndex}))=0
 \end{array}
 \GivenExperiment
 \StateExperiment{
@@ -22233,70 +22165,42 @@ This inequality follows from relating the state-restoration experiment to the co
  \Witness \gets \IOPSRExtractor(\Instance,\IOPStrings,(\SRSaltString_{\RoundIndex})_{\RoundIndex \in [\IOPRoundComplexity]},\SRTrace)
 }
 \right]
-\\ &
-\phantom{aaa}\cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex}=1]
-\EquationComment{see explanation below}
-\\ & \leq
-\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\EquationComment{by \Cref{eq:straightline-sr-extractor-from-rbr-extractor-bound}}
+\nonumber
+\\ &\leq
+\RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
 \enspace.
-\end{align*}
-The last equality above is due to the following. The event $\RandomVariableX_{\RoundIndex,\SRMoveIndex}=1$ indicates that the $\SRMoveIndex$-th move is for round $\RoundIndex$ and satisfies the state function $\RBRState$. Hence the state-restoration experiment with $\IOPMaliciousSRProver$ can be replaced by the round-by-round experiment with $\IOPMaliciousRBRProver(\RoundIndex,\SRMoveIndex,\SRRandomness)$ that emulates the SR game up to the $\SRMoveIndex$-th move, then sampling $\IOPVerifierRandomMessage_{\RoundIndex}$ as a response to the $\SRMoveIndex$-th move, and finally continuing the execution of the SR game with $\IOPMaliciousRBRProver(\AuxiliaryState,\IOPVerifierRandomMessage_{\RoundIndex})$.
+\label{eq:straightline-sr-extractor-from-rbr-extractor-bound}
+\end{align}
 
 This lets us deduce that
 \begin{align*}
-&\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+& \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\SRMoveIndex} = 1 \right]
+\\ & =
+\sum_{\RoundIndex \in [\IOPRoundComplexity]}
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\SRMoveIndex} = 1 \ConditionedOn \RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1 \right] \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
 \\ & \leq
 \sum_{\RoundIndex \in [\IOPRoundComplexity]}
 \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize) \cdot \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
-\EquationComment{by \Cref{eq:from-sr-experiment-from-rbr-experiment}}
+\EquationComment{by \Cref{eq:straightline-sr-extractor-from-rbr-extractor-bound}}
 \\ & \leq
 \max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
 \cdot \sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr[\RandomVariableY_{\RoundIndex,\SRMoveIndex} = 1]
 \\ & \leq
 \max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+\\ & \leq
+\RBRKnowledgeError(\InstanceSize)
 \enspace.
 \end{align*}
-Then, for every $\RoundIndex \in [\IOPRoundComplexity]$ we can write
+Then, taking a union bound over all $\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]$, we get
 \begin{align*}
-& \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1]
-\\ & =
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=0]
-\\ & \phantom{aaa} +
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
-\\ & \leq
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right] \cdot 1
-\\ & \phantom{aaa} + \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \ConditionedOn \RandomVariableX_{\RoundIndex-1}=1 \right] \cdot \Pr[\RandomVariableX_{\RoundIndex-1}=1]
-\\ & =
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex}=1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0 \right]
-\\ & \phantom{aaa} + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex-1}=1]
-\enspace.
-\end{align*}
-Finally, applying the above for every $\RoundIndex \in [\IOPRoundComplexity]$, we conclude that
-\begin{align*}
-&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1]
-\\ & \leq
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity}=1 \ConditionedOn \RandomVariableX_{\IOPRoundComplexity-1}=0 \right] + \Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\IOPRoundComplexity-1}=1]
-\\ & \leq
-\cdots
-\\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]} \Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\\ & \leq
-\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
-\\ & =
-\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\sum_{\RoundIndex \in [\IOPRoundComplexity]}
-\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\RoundIndex,\SRMoveIndex} = 1 \ConditionedOn \RandomVariableX_{\RoundIndex-1}=0\right]
+&\Pr[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX=1]
 \\ & \leq
 \sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
-\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
-\\ & =
-(\SRBudget + \IOPRoundComplexity) \cdot
-\max_{\RoundIndex \in [\IOPRoundComplexity]} \RBRKnowledgeErrorIdx{\RoundIndex}(\InstanceSize)
+\Pr\left[\SomeSize{\Instance} \leq \InstanceSize \land (\Instance,\Witness) \notin \Relation \land \RandomVariableX_{\SRMoveIndex} = 1 \right]
 \\ & \leq
+\sum_{\SRMoveIndex \in [\SRBudget + \IOPRoundComplexity]}
+\RBRKnowledgeError(\InstanceSize)
+\\ & =
 (\SRBudget + \IOPRoundComplexity) \cdot \RBRKnowledgeError(\InstanceSize)
 \enspace.
 \end{align*}
