@@ -1663,18 +1663,27 @@ Define $S \DefineEqual \{ x : \StatisticalDistance{\RandomVariableY(x)}{\RandomV
 
 \begin{claim}
 \label{claim:statistical-distance-condition-event}
-Let $\RandomVariableX$ and $\RandomVariableY$ be two random variables over the same probability space. Let $\Event_{1}$, $\Event_{2}$ be two events with $\Pr[\Event_{1}] = \Pr[\Event_{2}]$. Then,
+Let $\RandomVariableX$ and $\RandomVariableY$ be two random variables over the same probability space. Let $\Event_{1}$, $\Event_{2}$ be two events. Then,
 \begin{align}
 \StatisticalDistance{\RandomVariableX}{\RandomVariableY}
 \leq
 \StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})}
-+ \Pr[\Negate{\Event_{1}}]
++ \max(\Pr[\Negate{\Event_{1}}],\; \Pr[\Negate{\Event_{2}}])
 \enspace.
 \end{align}
 \end{claim}
 
 \begin{proof}
-Let $\RandomVariableSupport$ be the support of the random variables. For every subset $\RandomVariableSupport' \subseteq \RandomVariableSupport$,
+Let $\RandomVariableSupport$ be the support of the random variables. Without loss of generality, assume that $\Pr[\Negate{\Event_1}] \leq \Pr[\Negate{\Event_2}]$. We show that
+\begin{align*}
+\StatisticalDistance{\RandomVariableX}{\RandomVariableY}
+\leq
+\StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})}
++ \Pr[\Negate{\Event_{2}}]
+\enspace.
+\end{align*}
+By the complement rule, $\Pr[\Event_{1}] \geq \Pr[\Event_{2}]$.
+For every subset $\RandomVariableSupport' \subseteq \RandomVariableSupport$,
 \begin{align*}
 &
 \AbsValue{
@@ -1696,38 +1705,76 @@ Let $\RandomVariableSupport$ be the support of the random variables. For every s
 \rvert \EquationComment{by total probability}
 \\& =
 \lvert
-\Pr[\Event_{1}] \cdot \left(
-\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}\right]
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+\cdot \Pr[\Event_{2}]
++
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}\right]
+\cdot \Pr[\Negate{\Event_{1}}]
+\\ & \phantom{aa} -
+\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2} \right]
+\cdot \Pr[\Event_{2}]
 -
-\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}\right]
+\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}\right]
+\cdot \Pr[\Negate{\Event_{2}}]
+\\ & \phantom{aa} +
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+\cdot (\Pr[\Event_{1}]-\Pr[\Event_{2}])
+\rvert
+\\& =
+\lvert
+\left(
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+-
+\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2} \right]
 \right)
-\\ &  \phantom{aa} +
-\Pr[\Negate{\Event_{1}}] \cdot \left(
+\cdot \Pr[\Event_{2}]
+\\ & \phantom{aa} +
 \Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}\right]
--
+\cdot \Pr[\Negate{\Event_{1}}]
+ -
 \Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}\right]
-\right) \rvert \EquationComment{since $\Pr[\Event_{1}] = \Pr[\Event_{2}]$}
+\cdot \Pr[\Negate{\Event_{2}}]
+\\ & \phantom{aa}
++
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+\cdot (\Pr[\Event_{1}]-\Pr[\Event_{2}])
+\rvert
 \\& \leq
-\Pr[\Event_{1}] \cdot
+\lvert
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+-
+\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2} \right]
+\rvert
+\cdot \Pr[\Event_{2}]
+\\ & \phantom{aa} +
+\lvert
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}\right]
+\cdot \Pr[\Negate{\Event_{1}}]
+ -
+\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}\right]
+\cdot \Pr[\Negate{\Event_{2}}]
+\rvert
+\\ & \phantom{aa} +
+\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1} \right]
+\cdot (\Pr[\Event_{1}]-\Pr[\Event_{2}])
+\EquationComment{by triangle inequality}
+\\& \leq
 \lvert
 \Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}\right]
 -
 \Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}\right]
 \rvert
-\\ &  \phantom{aa} +
-\Pr[\Negate{\Event_{1}}] \cdot
-\lvert
-\Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{1}}\right]
--
-\Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Negate{\Event_{2}}\right]
-\rvert
+\\ & \phantom{aa} +
+\Pr[\Negate{\Event_{1}}]
++
+\Pr[\Event_{1}]-\Pr[\Event_{2}]
 \\& \leq
 \lvert
 \Pr\left[\RandomVariableX \in \RandomVariableSupport' \ConditionedOn \Event_{1}\right]
 -
 \Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}\right]
 \rvert
-+ \Pr[\Negate{\Event_{1}}]
++ \Pr[\Negate{\Event_{2}}]
 \enspace.
 \end{align*}
 Then, by the equivalent definition of statistical distance (\Cref{definition:statistical-distance-def2}),
@@ -1743,11 +1790,12 @@ Then, by the equivalent definition of statistical distance (\Cref{definition:sta
 -
 \Pr\left[\RandomVariableY \in \RandomVariableSupport' \ConditionedOn \Event_{2}\right]
 }
-+ \Pr[\Negate{\Event_{1}}]
++ \Pr[\Negate{\Event_{2}}]
 \\ & =
-\StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})} + \Pr[\Negate{\Event_{1}}]
+\StatisticalDistance{(\RandomVariableX \ConditionedOn \Event_{1})}{(\RandomVariableY \ConditionedOn \Event_{2})} + \Pr[\Negate{\Event_{2}}]
 \enspace.
 \end{align*}
+Since we assumed $\Pr[\Negate{\Event_{2}}] \geq \Pr[\Negate{\Event_{1}}]$, the lemma follows.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
