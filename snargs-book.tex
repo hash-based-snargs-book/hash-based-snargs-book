@@ -8276,8 +8276,8 @@ Let $\IPSymbol=\IPSystem$ be an IP. A deterministic IP state-restoration prover 
 \begin{equation*}
 \Pr\left[
 \begin{array}{l}
-\SomeSize{\Instance} \leq \InstanceSize \\
-\land\;\IPVerifier\big(\IPVerifierInput\big)=0
+\SomeSize{\Instance} > \InstanceSize \\
+\lor\;\IPVerifier\big(\IPVerifierInput\big)=0
 \end{array}
 \GivenExperiment
 \StateExperiment{
