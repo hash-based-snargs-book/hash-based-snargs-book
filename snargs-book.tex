@@ -9566,7 +9566,7 @@ Finally, by \Cref{fast-fs:claim-fast-slow-g} the last distribution is equivalent
   \ROFunction \gets \RODistribution{\IPTuple{\IPRandomnessComplexity}} \\
   (\Instance,\ARGString) \xleftarrow{\ROTrace} \SlowFSMaliciousProver^{\ROFunction} \\
   \DecisionBit \xleftarrow{\ROTraceVerifier} \ARGVerifier_{\SlowFSSymbol}^{\ROFunction}(\Instance,\ARGString) \\
-  \DecisionBit' \xleftarrow{\ROTraceVerifier'} \FastFSMappingOracle^{\ROFunction}(\ARGVerifier_{\FastFSSymbol})(\Instance,\ARGString)
+  \DecisionBit' \xleftarrow[\ROTraceVerifierFast]{\ROTraceVerifier'} \FastFSMappingOracle^{\ROFunction}(\ARGVerifier_{\FastFSSymbol})(\Instance,\ARGString)
 }
 \right\}
 \enspace.
