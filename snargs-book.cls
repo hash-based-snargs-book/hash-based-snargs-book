@@ -202,12 +202,14 @@
     \newcommand*{\opacitytitle}{}
 
     \newcommand{\Paint}[1]{#1}
+    \newcommand{\OtherPaint}[1]{#1}
 \else
     \definecolor{darkgrey}{HTML}{333333}
     \definecolor{lightmidgrey}{HTML}{aaaaaa}
     \definecolor{extralightgrey}{HTML}{eeeeee}
 
     \definecolor{darkblue}{rgb}{0, 0, 0.8}
+    \definecolor{darkgreen}{HTML}{51a687}
     \definecolor{overviewbg}{HTML}{dfefdf}
 
     % "Important" environments
@@ -216,6 +218,7 @@
     \newcommand*{\opacitytitle}{0.55}
 
     \newcommand{\Paint}[1]{\textcolor{darkblue}{#1}}
+    \newcommand{\OtherPaint}[1]{\textcolor{darkgreen}{#1}}
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
