@@ -11108,7 +11108,7 @@ Finally, by \Cref{hashchain-fs:claim-hashchain-basic-g} the last distribution is
   \FSonIPOracleFunction=\FSonIPOracleTuple \gets \FSonIPOracleDistribution \\
   (\Instance,\ARGString) \xleftarrow{\ROTrace} \BasicFSMaliciousProver^{\FSonIPOracleFunction} \\
   \DecisionBit \xleftarrow{\ROTraceVerifier} \ARGVerifier_{\BasicFSSubscript}^{\FSonIPOracleFunction}(\Instance,\ARGString) \\
-  \DecisionBit' \xleftarrow{\ROTraceVerifier'} \HashChainFSMappingOracle^{\FSonIPOracleFunction}(\ARGVerifier_{\HashChainFSSubscript})(\Instance,\ARGString)
+  \DecisionBit' \xleftarrow[\ROTraceVerifierHashChain]{\ROTraceVerifier'} \HashChainFSMappingOracle^{\FSonIPOracleFunction}(\ARGVerifier_{\HashChainFSSubscript})(\Instance,\ARGString)
 }
 \right\}
 \enspace.
