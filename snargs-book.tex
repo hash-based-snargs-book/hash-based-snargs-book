@@ -4982,12 +4982,12 @@ The argument size can be improved, at the cost of introducing a small completene
 
 In more detail, for a parameter $\ell \in \Naturals$, consider the argument verifier $\ARGVerifier$ such that $\ARGVerifier^{\ROFunction}(\Instance,\ARGString)$ checks that $\ARGString \in \Bits^{\ROOutputSize+\ell}$ and $\ROFunction(\ARGString) = 0^{\ROOutputSize}$. The corresponding (honest) argument prover $\ARGProver$ is tasked with finding a suitable argument string $\ARGString$ to convince the verifier.
 
-It is straightforward to show that the (adaptive) soundness error of this non-interactive argument is $\ARGSoundnessError(\ROOutputSize,\InstanceSize,\ROQueryBound) \leq \frac{\ROQueryBound}{2^{\ROOutputSize}}$. Moreover, the argument size is $\ARGLength = \ROOutputSize+\ell$ and the argument verifier makes $\ARGQueryV = 1$ random oracle query.
+It is straightforward to show that the (adaptive) soundness error of this non-interactive argument is $\ARGSoundnessError(\ROOutputSize,\InstanceSize,\ROQueryBound) \leq \frac{\ROQueryBound+1}{2^{\ROOutputSize}}$. Moreover, the argument size is $\ARGLength = \ROOutputSize+\ell$ and the argument verifier makes $\ARGQueryV = 1$ random oracle query.
 
-Given a query bound $\ROQueryBound \in \Naturals$, ensuring that the soundness error $\ARGSoundnessError(\ROOutputSize,\InstanceSize,\ROQueryBound)$ is at most a target $\ARGTargetSoundnessError \in (0,1)$ requires setting the security parameter $\ROOutputSize$ to $\log \frac{\ROQueryBound}{\ARGTargetSoundnessError}$. In this case, the argument size is
+Given a query bound $\ROQueryBound \in \Naturals$, ensuring that the soundness error $\ARGSoundnessError(\ROOutputSize,\InstanceSize,\ROQueryBound)$ is at most a target $\ARGTargetSoundnessError \in (0,1)$ requires setting the security parameter $\ROOutputSize$ to $\ceil{\log \frac{\ROQueryBound+1}{\ARGTargetSoundnessError}}$. In this case, the argument size is
 \begin{equation*}
 \ROOutputSize+\ell
-= \log \frac{\ROQueryBound}{\ARGTargetSoundnessError}+\ell
+= \ceil{\log \frac{\ROQueryBound+1}{\ARGTargetSoundnessError}}+\ell
 \enspace.
 \end{equation*}
 
